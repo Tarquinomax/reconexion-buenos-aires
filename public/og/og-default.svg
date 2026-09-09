@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f5e9e1"/>
+      <stop offset="0.55" stop-color="#fafaf9"/>
+      <stop offset="1" stop-color="#e4ebe2"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#g)"/>
+  <text x="88" y="292" font-family="Georgia, serif" font-size="76" fill="#1c1917">Reconexión Buenos Aires</text>
+  <text x="88" y="358" font-family="Helvetica, Arial, sans-serif" font-size="32" fill="#57534e">Sanación Reconectiva y La Reconexión</text>
+  <text x="88" y="410" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#a8563a">Presencial en Buenos Aires y a distancia</text>
+</svg>

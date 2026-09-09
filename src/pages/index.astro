@@ -1,0 +1,225 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Section from '../components/Section.astro';
+import Button from '../components/Button.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import { BUSINESS, PRACTITIONER, SITE } from '../consts';
+import { serviceNode } from '../lib/schema';
+
+const title = SITE.name;
+const description = SITE.defaultDescription;
+
+const schema = [
+  serviceNode({
+    name: 'Sesión de Sanación Reconectiva',
+    description:
+      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+    url: new URL('/sanacion-reconectiva', SITE.url).href,
+    serviceType: 'Sanación Reconectiva',
+  }),
+  serviceNode({
+    name: 'La Reconexión',
+    description:
+      'Proceso de dos sesiones en días consecutivos que se realiza una única vez en la vida.',
+    url: new URL('/la-reconexion', SITE.url).href,
+    serviceType: 'La Reconexión',
+  }),
+];
+
+const pilares = [
+  {
+    marker: '01',
+    tone: 'terracota' as const,
+    title: 'Un encuadre claro desde el primer minuto',
+    text: 'Sabés de antemano cuánto dura la sesión, qué se hace, qué no se hace y qué podés esperar. Sin ambigüedades ni lenguaje inflado.',
+    href: '/sanacion-reconectiva',
+  },
+  {
+    marker: '02',
+    tone: 'salvia' as const,
+    title: 'Límites explícitos, no promesas',
+    text: 'No se diagnostica, no se cura y no se sustituye ningún tratamiento. Ese límite es parte del trabajo, no una advertencia escondida en el pie de página.',
+    href: '/faq',
+  },
+  {
+    marker: '03',
+    tone: 'stone' as const,
+    title: 'Trayectoria verificable',
+    text: `Formación continuada desde la certificación de Maestría de ${PRACTITIONER.masteryLabel}, con práctica sostenida en Buenos Aires.`,
+    href: '/sobre-mi',
+  },
+];
+
+const pasos = [
+  { n: '01', t: 'Consulta previa', d: 'Conversamos por mensaje o teléfono. Si no es el momento adecuado, te lo digo.' },
+  { n: '02', t: 'Reserva y encuadre', d: 'Acordamos fecha, modalidad y valor. Recibís por escrito qué incluye la sesión.' },
+  { n: '03', t: 'La sesión', d: 'Entre 30 y 45 minutos, vestida, acostada, sin contacto físico y sin manipulación.' },
+  { n: '04', t: 'Después', d: 'Un espacio breve para poner en palabras la experiencia. Sin interpretación ni pronóstico.' },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath="/" schema={schema}>
+  <!-- HERO -->
+  <section class="bg-aura relative overflow-hidden border-b border-stone-200/70">
+    <div class="container-page grid gap-14 py-20 md:py-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-36">
+      <div class="animate-fade-up lg:col-span-7">
+        <p class="text-xs font-semibold tracking-[0.2em] text-terracota-700 uppercase">
+          Buenos Aires · Presencial y a distancia
+        </p>
+
+        <h1 class="mt-5 text-4xl leading-[1.08] sm:text-5xl lg:text-6xl xl:text-7xl">
+          Sanación Reconectiva<br class="hidden sm:block" />
+          <span class="text-terracota-700">explicada con honestidad</span>
+        </h1>
+
+        <p class="mt-7 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
+          Un espacio de acompañamiento sereno para quienes quieren acercarse a este trabajo sin promesas
+          exageradas. Acá vas a encontrar qué es, qué no es y cómo se desarrolla una sesión, antes de decidir.
+        </p>
+
+        <div class="mt-10 flex flex-wrap gap-3">
+          <Button href="/contacto" size="lg">Reservar una sesión</Button>
+          <Button href="/sanacion-reconectiva" variant="secondary" size="lg">
+            Entender de qué se trata
+          </Button>
+        </div>
+
+        <dl class="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-stone-200 pt-8">
+          <div>
+            <dt class="text-xs tracking-[0.12em] text-stone-500 uppercase">Desde</dt>
+            <dd class="mt-1 font-display text-2xl text-stone-900">2012</dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-[0.12em] text-stone-500 uppercase">Sesión</dt>
+            <dd class="mt-1 font-display text-2xl text-stone-900">30-45′</dd>
+          </div>
+          <div>
+            <dt class="text-xs tracking-[0.12em] text-stone-500 uppercase">Modalidad</dt>
+            <dd class="mt-1 font-display text-2xl text-stone-900">2 vías</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="animate-fade-in lg:col-span-5">
+        <div
+          class="relative mx-auto aspect-4/5 w-full max-w-md overflow-hidden rounded-[3rem] border border-stone-200 bg-gradient-to-br from-terracota-100 via-stone-100 to-salvia-100"
+        >
+          <!-- TODO(cliente): reemplazar por <Image /> de astro:assets con la fotografía definitiva. -->
+          <div class="absolute inset-0 flex items-end p-8">
+            <p class="font-display text-lg text-stone-700">
+              Espacio para la fotografía principal del consultorio o de la práctica.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <Section id="pilares">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Cómo trabajo</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Tres compromisos que sostienen cada sesión</h2>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        pilares.map((p) => (
+          <FeatureCard title={p.title} marker={p.marker} tone={p.tone} href={p.href}>
+            {p.text}
+          </FeatureCard>
+        ))
+      }
+    </div>
+  </Section>
+
+  <!-- DOS CAMINOS -->
+  <Section tone="muted">
+    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Sesiones</p>
+        <h2 class="mt-3 text-3xl md:text-4xl">Sanación Reconectiva</h2>
+        <p class="mt-5 leading-relaxed text-stone-600">
+          Sesiones individuales que pueden repetirse en el tiempo. Se trabaja con la persona vestida,
+          acostada y sin contacto físico. Placeholder de contenido: reemplazar por la descripción definitiva.
+        </p>
+        <Button href="/sanacion-reconectiva" variant="ghost" size="link" class="mt-6">
+          Ver cómo es una sesión <span aria-hidden="true">→</span>
+        </Button>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Proceso único</p>
+        <h2 class="mt-3 text-3xl md:text-4xl">La Reconexión</h2>
+        <p class="mt-5 leading-relaxed text-stone-600">
+          Un proceso de dos encuentros en días consecutivos que se realiza una sola vez en la vida.
+          Placeholder de contenido: reemplazar por la descripción definitiva.
+        </p>
+        <Button href="/la-reconexion" variant="ghost" size="link" class="mt-6">
+          Conocer el proceso <span aria-hidden="true">→</span>
+        </Button>
+      </div>
+    </div>
+  </Section>
+
+  <!-- PROCESO -->
+  <Section>
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Paso a paso</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">De la consulta inicial al cierre de la sesión</h2>
+    </div>
+
+    <ol class="mt-12 grid gap-px overflow-hidden rounded-organic border border-stone-200 bg-stone-200 md:grid-cols-4">
+      {
+        pasos.map((paso) => (
+          <li class="bg-stone-50 p-6 md:p-7">
+            <span class="font-display text-3xl text-terracota-300">{paso.n}</span>
+            <h3 class="mt-4 text-lg">{paso.t}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">{paso.d}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <!-- TESTIMONIOS -->
+  <Section tone="muted">
+    <div class="flex flex-wrap items-end justify-between gap-6">
+      <div class="max-w-2xl">
+        <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Experiencias</p>
+        <h2 class="mt-3 text-3xl md:text-4xl">Testimonios en contexto</h2>
+      </div>
+      <Button href="/testimonios" variant="secondary">Ver todos</Button>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <TestimonialCard author="M. L." context="Consulta por estrés sostenido" modality="Presencial" date="2025">
+        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
+      </TestimonialCard>
+      <TestimonialCard author="J. P." context="Acompañamiento en un cambio vital" modality="A distancia" date="2025">
+        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
+      </TestimonialCard>
+      <TestimonialCard author="A. R." context="Primera experiencia con el trabajo" modality="Presencial" date="2026">
+        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
+      </TestimonialCard>
+    </div>
+
+    <p class="mt-8 max-w-2xl text-sm leading-relaxed text-stone-500">
+      Los testimonios describen experiencias personales y no constituyen evidencia de eficacia ni
+      garantía de resultados equivalentes.
+    </p>
+  </Section>
+
+  <!-- DISCLAIMER -->
+  <Section width="prose" reveal>
+    <Disclaimer />
+    <p class="mt-6 text-center text-sm text-stone-500">
+      Consultorio en {BUSINESS.address.addressLocality} · Sesiones a distancia para toda Argentina
+    </p>
+  </Section>
+
+  <CtaBanner />
+</BaseLayout>

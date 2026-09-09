@@ -1,0 +1,98 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import Section from '../../components/Section.astro';
+import Disclaimer from '../../components/Disclaimer.astro';
+import CtaBanner from '../../components/CtaBanner.astro';
+import { PRACTITIONER, SITE } from '../../consts';
+import { articleNode } from '../../lib/schema';
+
+export const getStaticPaths = (async () => {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}) satisfies GetStaticPaths;
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const path = `/blog/${post.id}`;
+const url = new URL(path, SITE.url).href;
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Blog', item: '/blog' },
+  { name: post.data.title, item: path },
+];
+
+const datePublished = post.data.publishedAt.toISOString();
+const dateModified = (post.data.updatedAt ?? post.data.publishedAt).toISOString();
+
+const schema = [
+  articleNode({
+    url,
+    title: post.data.title,
+    description: post.data.description,
+    datePublished,
+    dateModified,
+    image: post.data.cover?.src,
+  }),
+];
+
+const dateFormatter = new Intl.DateTimeFormat('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  schema={schema}
+  ogType="article"
+  datePublished={datePublished}
+  dateModified={dateModified}
+>
+  <PageHeader eyebrow="Artículo" title={post.data.title} breadcrumbs={breadcrumbs}>
+    <div class="mt-6 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-stone-500">
+      <span>Por {PRACTITIONER.name}</span>
+      <span aria-hidden="true">·</span>
+      <time datetime={datePublished}>{dateFormatter.format(post.data.publishedAt)}</time>
+      {
+        post.data.updatedAt && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>Revisado el {dateFormatter.format(post.data.updatedAt)}</span>
+          </>
+        )
+      }
+      {
+        post.data.readingTime && (
+          <>
+            <span aria-hidden="true">·</span>
+            <span>{post.data.readingTime} min de lectura</span>
+          </>
+        )
+      }
+    </div>
+  </PageHeader>
+
+  <Section width="prose">
+    <article class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700 prose-blockquote:border-l-terracota-300 prose-blockquote:not-italic">
+      <Content />
+    </article>
+
+    <Disclaimer class="mt-14" />
+
+    <nav class="mt-10 border-t border-stone-200 pt-6" aria-label="Navegación del artículo">
+      <a class="text-sm text-terracota-700 underline underline-offset-4" href="/blog">← Volver al blog</a>
+    </nav>
+  </Section>
+
+  <CtaBanner />
+</BaseLayout>

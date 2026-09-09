@@ -1,0 +1,95 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { BUSINESS, SITE } from '../../consts';
+---
+
+<LegalLayout
+  title="Política de Privacidad"
+  description="Cómo se recogen, tratan y conservan los datos personales en este sitio, con qué base legal y cómo ejercer los derechos reconocidos por la normativa aplicable."
+  path="/legal/privacidad"
+  lead="Este documento describe qué datos se tratan, para qué, durante cuánto tiempo y cómo podés ejercer tus derechos."
+>
+  <p class="lead">
+    <strong>Aviso:</strong> este texto es una base técnica y debe ser revisado por un profesional del
+    derecho antes de su publicación. TODO(cliente): completar los datos del responsable y validar el
+    encuadre normativo aplicable.
+  </p>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><strong>Responsable:</strong> {BUSINESS.legalName}</li>
+    <li><strong>Domicilio:</strong> {BUSINESS.address.streetAddress}, {BUSINESS.address.addressLocality}, Argentina</li>
+    <li><strong>Correo de contacto:</strong> <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a></li>
+    <li><strong>Sitio web:</strong> {SITE.url}</li>
+  </ul>
+
+  <h2>2. Normativa aplicable</h2>
+  <p>
+    El tratamiento se rige por la Ley 25.326 de Protección de los Datos Personales de la República
+    Argentina y su normativa complementaria. Cuando el titular de los datos resida en el Espacio
+    Económico Europeo, se aplican además las garantías del Reglamento (UE) 2016/679 (RGPD).
+  </p>
+
+  <h2>3. Datos que se tratan</h2>
+  <ul>
+    <li><strong>Datos de contacto:</strong> nombre, correo electrónico y teléfono, facilitados voluntariamente al solicitar información o reservar una sesión.</li>
+    <li><strong>Contenido de la consulta:</strong> la información que decidas compartir en tu mensaje.</li>
+    <li><strong>Datos técnicos:</strong> los estrictamente necesarios para la seguridad y el funcionamiento del sitio.</li>
+  </ul>
+  <p>
+    <strong>No se solicitan datos de salud.</strong> Si en tu consulta compartís información sensible,
+    se trata con confidencialidad reforzada, no se incorpora a ninguna base de datos comercial y podés
+    pedir su supresión inmediata.
+  </p>
+
+  <h2>4. Finalidades y base legal</h2>
+  <ul>
+    <li><strong>Responder consultas y coordinar sesiones.</strong> Base: ejecución de una relación precontractual o contractual a pedido del titular.</li>
+    <li><strong>Cumplimiento de obligaciones legales.</strong> Base: obligación legal del responsable.</li>
+    <li><strong>Mediciones de uso del sitio.</strong> Base: consentimiento previo, revocable en cualquier momento desde «Configurar cookies».</li>
+  </ul>
+  <p>No se realizan decisiones automatizadas ni elaboración de perfiles.</p>
+
+  <h2>5. Plazo de conservación</h2>
+  <p>
+    Los datos de contacto se conservan mientras dure la relación y, luego, durante los plazos de
+    prescripción legal aplicables. Superado ese plazo, se suprimen o anonimizan.
+    TODO(cliente): fijar los plazos concretos con asesoría legal.
+  </p>
+
+  <h2>6. Destinatarios y encargados de tratamiento</h2>
+  <p>
+    Se utilizan proveedores que actúan como encargados de tratamiento y pueden implicar transferencias
+    internacionales amparadas en cláusulas contractuales tipo:
+  </p>
+  <ul>
+    <li><strong>Vercel Inc.</strong> — alojamiento y entrega del sitio.</li>
+    <li><strong>Cloudflare, Inc.</strong> — DNS, proxy inverso y protección frente a ataques.</li>
+    <li>TODO(cliente): añadir proveedor de correo, agenda o pagos cuando se incorporen.</li>
+  </ul>
+  <p>No se ceden datos a terceros con fines comerciales.</p>
+
+  <h2>7. Derechos del titular</h2>
+  <p>
+    Podés ejercer los derechos de acceso, rectificación, actualización, supresión y oposición
+    escribiendo a <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>. El titular de los datos
+    tiene derecho a ejercer el derecho de acceso de forma gratuita a intervalos no inferiores a seis
+    meses, salvo interés legítimo acreditado (art. 14, inc. 3, Ley 25.326).
+  </p>
+  <p>
+    La Agencia de Acceso a la Información Pública, órgano de control de la Ley 25.326, tiene atribuida
+    la competencia de atender las denuncias y reclamos que se interpongan respecto del incumplimiento
+    de las normas sobre protección de datos personales.
+  </p>
+
+  <h2>8. Seguridad</h2>
+  <p>
+    El sitio se sirve exclusivamente sobre HTTPS con HSTS, aplica una Política de Seguridad de
+    Contenido (CSP) restrictiva y no incorpora scripts de terceros sin consentimiento previo.
+  </p>
+
+  <h2>9. Cambios en esta política</h2>
+  <p>
+    Cualquier modificación se publicará en esta misma página con su fecha de actualización.
+  </p>
+</LegalLayout>

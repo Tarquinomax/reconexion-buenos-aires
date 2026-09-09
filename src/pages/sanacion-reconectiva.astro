@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import Button from '../components/Button.astro';
+import { SITE } from '../consts';
+import { serviceNode } from '../lib/schema';
+
+const path = '/sanacion-reconectiva';
+const url = new URL(path, SITE.url).href;
+
+const title = 'Sanación Reconectiva en Buenos Aires';
+const description =
+  'Qué es la Sanación Reconectiva, cómo se desarrolla una sesión, qué se puede esperar y cuáles son sus límites. Información clara y responsable, sin promesas de curación.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Sanación Reconectiva', item: path },
+];
+
+const schema = [
+  serviceNode({
+    name: 'Sesión de Sanación Reconectiva',
+    description,
+    url,
+    serviceType: 'Sanación Reconectiva',
+  }),
+];
+
+const desarrollo = [
+  { n: '01', t: 'Encuadre inicial', d: 'Breve conversación para acordar expectativas. No se realizan preguntas clínicas ni se solicita historia médica.' },
+  { n: '02', t: 'La sesión', d: 'La persona permanece vestida, acostada sobre una camilla, con los ojos cerrados. No hay contacto físico ni manipulación corporal.' },
+  { n: '03', t: 'Duración', d: 'Entre 30 y 45 minutos efectivos. El encuentro completo ronda la hora.' },
+  { n: '04', t: 'Cierre', d: 'Un espacio breve para registrar la experiencia en palabras propias, sin interpretación por parte de la practicante.' },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+  <PageHeader
+    eyebrow="Sesiones individuales"
+    title="Sanación Reconectiva"
+    lead="Un trabajo que se realiza sin contacto físico, con la persona vestida y acostada. Lo que sigue describe el encuadre real de una sesión y, con la misma claridad, aquello que este trabajo no hace."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section width="prose">
+    <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
+      <h2>Qué es</h2>
+      <p>
+        Placeholder de contenido. Reemplazar por la explicación definitiva, redactada en primera persona
+        y sin terminología pseudocientífica. Conviene describir el trabajo en términos de experiencia y
+        encuadre, evitando afirmaciones sobre mecanismos biológicos no demostrados.
+      </p>
+
+      <h2>En qué se diferencia de otras prácticas</h2>
+      <p>
+        Placeholder de contenido. Comparar brevemente con otras prácticas de bienestar sin descalificarlas
+        y sin atribuirse superioridad terapéutica.
+      </p>
+
+      <h2>Para quién puede tener sentido</h2>
+      <ul>
+        <li>Personas que buscan un espacio de pausa y acompañamiento.</li>
+        <li>Personas que ya conocen el trabajo y desean retomarlo.</li>
+        <li>Personas que llegan por curiosidad y quieren una experiencia acotada.</li>
+      </ul>
+
+      <h2>Para quién no</h2>
+      <p>
+        Si buscás un diagnóstico, un tratamiento o la resolución de un cuadro clínico, este no es el lugar.
+        En ese caso, lo responsable es derivarte a un profesional de la salud matriculado.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="muted">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Desarrollo</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Cómo se desarrolla una sesión</h2>
+    </div>
+
+    <ol class="mt-12 grid gap-5 md:grid-cols-2">
+      {
+        desarrollo.map((item) => (
+          <li>
+            <FeatureCard title={item.t} marker={item.n} tone="salvia">
+              {item.d}
+            </FeatureCard>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section width="prose">
+    <h2 class="text-3xl md:text-4xl">Qué se puede percibir</h2>
+    <p class="mt-5 leading-relaxed text-stone-600">
+      Las sensaciones son variables: calor, cosquilleo, movimientos involuntarios, somnolencia o
+      nada perceptible. Ninguna de esas respuestas indica que la sesión «funcionó» o «no funcionó».
+      Placeholder de contenido: ampliar con descripciones propias.
+    </p>
+
+    <Disclaimer class="mt-10">
+      <p class="mt-4 text-sm text-stone-600">
+        ¿Tenés dudas sobre si es adecuado en tu situación?
+        <a class="underline underline-offset-4 hover:text-terracota-800" href="/faq">Revisá las preguntas frecuentes</a>
+        o escribime antes de reservar.
+      </p>
+    </Disclaimer>
+
+    <div class="mt-10 flex flex-wrap gap-3">
+      <Button href="/contacto" size="lg">Ver modalidades y valores</Button>
+      <Button href="/la-reconexion" variant="secondary" size="lg">Conocer La Reconexión</Button>
+    </div>
+  </Section>
+
+  <CtaBanner />
+</BaseLayout>

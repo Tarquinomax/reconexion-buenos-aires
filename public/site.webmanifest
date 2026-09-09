@@ -1,0 +1,13 @@
+{
+  "name": "Reconexión Buenos Aires",
+  "short_name": "Reconexión BA",
+  "description": "Sanación Reconectiva y La Reconexión en Buenos Aires.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fafaf9",
+  "theme_color": "#fafaf9",
+  "lang": "es-AR",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

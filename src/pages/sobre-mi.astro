@@ -1,0 +1,127 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { PRACTITIONER, BUSINESS } from '../consts';
+
+const path = '/sobre-mi';
+const title = 'Sobre mí: trayectoria y formación';
+const description =
+  'Trayectoria profesional, formación y criterio de trabajo. Certificación de Maestría en Sanación Reconectiva obtenida en septiembre de 2012 y práctica sostenida en Buenos Aires.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Sobre mí', item: path },
+];
+
+/** Hitos verificables: son la base de la señal E-E-A-T y del nodo Person del JSON-LD. */
+const hitos = [
+  {
+    year: '2012',
+    title: 'Certificación de Maestría en Sanación Reconectiva',
+    text: `Obtenida en ${PRACTITIONER.masteryLabel}. Placeholder: indicar entidad certificadora, ciudad y número de certificado si es público.`,
+  },
+  {
+    year: '2013 — hoy',
+    title: 'Práctica sostenida en Buenos Aires',
+    text: 'Placeholder: describir volumen aproximado de práctica, modalidades y ámbitos de trabajo.',
+  },
+  {
+    year: 'Formación continua',
+    title: 'Actualización y supervisión',
+    text: 'Placeholder: seminarios, encuentros y formación complementaria relevante.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
+  <PageHeader
+    eyebrow="Quién acompaña"
+    title={PRACTITIONER.name}
+    lead={PRACTITIONER.jobTitle}
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section>
+    <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
+      <div class="lg:col-span-5">
+        <div
+          class="aspect-4/5 w-full overflow-hidden rounded-[2.5rem] border border-stone-200 bg-gradient-to-br from-stone-100 via-terracota-50 to-salvia-100"
+        >
+          <!-- TODO(cliente): reemplazar por <Image /> de astro:assets con la fotografía profesional. -->
+          <div class="flex h-full items-end p-8">
+            <p class="font-display text-lg text-stone-600">Fotografía profesional</p>
+          </div>
+        </div>
+
+        <dl class="mt-8 space-y-4 text-sm">
+          <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
+            <dt class="text-stone-500">Maestría</dt>
+            <dd class="text-right text-stone-800">{PRACTITIONER.masteryLabel}</dd>
+          </div>
+          <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
+            <dt class="text-stone-500">Ubicación</dt>
+            <dd class="text-right text-stone-800">{BUSINESS.address.addressLocality}</dd>
+          </div>
+          <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
+            <dt class="text-stone-500">Modalidades</dt>
+            <dd class="text-right text-stone-800">Presencial y a distancia</dd>
+          </div>
+        </dl>
+      </div>
+
+      <div class="lg:col-span-7">
+        <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
+          <h2>Cómo llegué a este trabajo</h2>
+          <p>
+            Placeholder de contenido. Relato en primera persona, concreto y sin épica. Los buscadores y
+            las personas valoran lo mismo: hechos verificables antes que adjetivos.
+          </p>
+
+          <h2>Mi criterio de trabajo</h2>
+          <p>
+            Placeholder de contenido. Explicitar el compromiso de no interferir con tratamientos médicos,
+            de no emitir diagnósticos y de derivar cuando corresponde.
+          </p>
+
+          <h2>Qué podés esperar de mí</h2>
+          <ul>
+            <li>Información previa clara sobre encuadre, duración y valor.</li>
+            <li>Ausencia total de promesas de curación.</li>
+            <li>Confidencialidad sobre lo que se comparte en la sesión.</li>
+            <li>Una derivación honesta cuando el pedido excede este trabajo.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </Section>
+
+  <Section tone="muted">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Trayectoria</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Formación y práctica</h2>
+    </div>
+
+    <ol class="mt-12 space-y-px overflow-hidden rounded-organic border border-stone-200 bg-stone-200">
+      {
+        hitos.map((hito) => (
+          <li class="grid gap-3 bg-stone-50 p-6 md:grid-cols-12 md:gap-8 md:p-8">
+            <span class="font-display text-lg text-terracota-700 md:col-span-3">{hito.year}</span>
+            <div class="md:col-span-9">
+              <h3 class="text-xl">{hito.title}</h3>
+              <p class="mt-2 leading-relaxed text-stone-600">{hito.text}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  <Section width="prose">
+    <Disclaimer />
+  </Section>
+
+  <CtaBanner title="¿Querés conversar antes de reservar?" />
+</BaseLayout>

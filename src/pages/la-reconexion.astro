@@ -1,0 +1,100 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import FeatureCard from '../components/FeatureCard.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE } from '../consts';
+import { serviceNode } from '../lib/schema';
+
+const path = '/la-reconexion';
+const url = new URL(path, SITE.url).href;
+
+const title = 'La Reconexión: qué es y a quién está dirigida';
+const description =
+  'La Reconexión es un proceso de dos sesiones en días consecutivos que se realiza una sola vez en la vida. Qué implica, cómo se desarrolla y para quién tiene sentido.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'La Reconexión', item: path },
+];
+
+const schema = [
+  serviceNode({ name: 'La Reconexión', description, url, serviceType: 'La Reconexión' }),
+];
+
+const destinatarios = [
+  { t: 'Personas en un punto de inflexión', d: 'Cambios vitales, cierres de etapa o decisiones que se vienen postergando.' },
+  { t: 'Quienes ya conocen el trabajo', d: 'Personas que hicieron sesiones de Sanación Reconectiva y quieren dar un paso distinto.' },
+  { t: 'Quienes buscan una experiencia acotada', d: 'Un proceso con inicio y final definidos, sin continuidad obligatoria.' },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+  <PageHeader
+    eyebrow="Proceso único"
+    title="La Reconexión"
+    lead="Dos sesiones en días consecutivos que se realizan una sola vez en la vida. No es una serie de sesiones ni un tratamiento continuado: tiene un principio y un final claros."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section width="prose">
+    <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
+      <h2>Qué es</h2>
+      <p>
+        Placeholder de contenido. Explicar el origen del trabajo y su encuadre, evitando afirmaciones
+        sobre líneas energéticas planetarias presentadas como hechos científicos. Conviene enunciarlas
+        como el marco conceptual propio de la práctica.
+      </p>
+
+      <h2>Cómo se desarrolla</h2>
+      <ol>
+        <li><strong>Primera sesión.</strong> Placeholder de contenido.</li>
+        <li><strong>Segunda sesión.</strong> Se realiza al día siguiente o, como máximo, con 72 horas de diferencia.</li>
+      </ol>
+      <p>
+        Cada encuentro dura aproximadamente una hora. La persona permanece vestida y acostada, sin
+        contacto físico.
+      </p>
+
+      <h2>Por qué una sola vez</h2>
+      <p>
+        Placeholder de contenido. Explicar por qué el proceso no se repite y por qué no se ofrecen
+        «refuerzos» ni paquetes de continuidad.
+      </p>
+
+      <h2>Qué no incluye</h2>
+      <p>
+        No incluye diagnóstico, no reemplaza atención médica ni psicológica y no está pensada para
+        resolver un cuadro clínico. Si ese es tu objetivo, es preferible no avanzar.
+      </p>
+    </div>
+  </Section>
+
+  <Section tone="muted">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Destinatarios</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Para quién tiene sentido</h2>
+    </div>
+
+    <div class="mt-12 grid gap-5 md:grid-cols-3">
+      {
+        destinatarios.map((item, index) => (
+          <FeatureCard title={item.t} marker={String(index + 1).padStart(2, '0')} tone="terracota">
+            {item.d}
+          </FeatureCard>
+        ))
+      }
+    </div>
+
+    <div class="mt-12">
+      <Disclaimer title="Condiciones y límites" />
+    </div>
+  </Section>
+
+  <CtaBanner
+    title="¿Es el momento de hacer La Reconexión?"
+    text="Si no estás segura o seguro, es preferible esperar. Escribime y lo conversamos sin compromiso."
+  />
+</BaseLayout>

@@ -1,0 +1,49 @@
+---
+export interface Props {
+  title: string;
+  href?: string;
+  /** Numeral o símbolo mostrado en la esquina de la tarjeta. */
+  marker?: string;
+  tone?: 'terracota' | 'salvia' | 'stone';
+}
+
+const { title, href, marker, tone = 'stone' } = Astro.props;
+
+const markerTone = {
+  terracota: 'bg-terracota-100 text-terracota-800',
+  salvia: 'bg-salvia-100 text-salvia-800',
+  stone: 'bg-stone-200 text-stone-700',
+}[tone];
+
+const Wrapper = href ? 'a' : 'div';
+---
+
+<Wrapper
+  href={href}
+  class:list={[
+    'group relative flex h-full flex-col rounded-organic border border-stone-200 bg-stone-50 p-6 transition-all duration-500 ease-[var(--ease-organic)] md:p-8',
+    href ? 'hover:-translate-y-1 hover:border-terracota-200 hover:shadow-[0_20px_50px_-28px_rgb(68_64_60/0.4)]' : '',
+  ]}
+>
+  {
+    marker && (
+      <span class:list={['mb-5 inline-flex size-10 items-center justify-center rounded-full text-sm font-medium', markerTone]}>
+        {marker}
+      </span>
+    )
+  }
+  <h3 class="text-xl leading-snug md:text-2xl">{title}</h3>
+  <div class="mt-3 text-[0.95rem] leading-relaxed text-stone-600">
+    <slot />
+  </div>
+  {
+    href && (
+      <span class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-terracota-700">
+        Leer más
+        <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">
+          →
+        </span>
+      </span>
+    )
+  }
+</Wrapper>

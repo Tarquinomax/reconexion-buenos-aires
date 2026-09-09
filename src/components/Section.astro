@@ -1,0 +1,42 @@
+---
+export interface Props {
+  id?: string;
+  /** Ancho del contenido: página completa o columna de lectura. */
+  width?: 'page' | 'prose';
+  tone?: 'default' | 'muted' | 'aura' | 'deep';
+  class?: string;
+  /** Aplica el revelado progresivo al entrar en viewport. */
+  reveal?: boolean;
+  /** Retardo del revelado en milisegundos. */
+  revealDelay?: number;
+  as?: 'section' | 'div' | 'article' | 'aside';
+}
+
+const {
+  id,
+  width = 'page',
+  tone = 'default',
+  class: className = '',
+  reveal = true,
+  revealDelay,
+  as: Tag = 'section',
+} = Astro.props;
+
+const toneClass: Record<NonNullable<Props['tone']>, string> = {
+  default: '',
+  muted: 'bg-stone-100/70',
+  aura: 'bg-aura',
+  deep: 'bg-stone-900 text-stone-100',
+};
+---
+
+<Tag
+  id={id}
+  class:list={['py-section md:py-section-lg', toneClass[tone], className]}
+  data-reveal={reveal ? '' : undefined}
+  data-reveal-delay={revealDelay}
+>
+  <div class:list={[width === 'prose' ? 'container-prose' : 'container-page']}>
+    <slot />
+  </div>
+</Tag>

@@ -1,0 +1,81 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { BUSINESS } from '../../consts';
+---
+
+<LegalLayout
+  title="Política de Cookies"
+  description="Qué cookies utiliza este sitio, con qué finalidad, durante cuánto tiempo y cómo aceptarlas, rechazarlas o modificar tu elección en cualquier momento."
+  path="/legal/cookies"
+  lead="Este sitio funciona sin cookies de terceros por defecto. Solo se activan mediciones si das tu consentimiento explícito."
+>
+  <p class="lead">
+    <strong>Aviso:</strong> este texto es una base técnica y debe ser revisado por un profesional del
+    derecho antes de su publicación.
+  </p>
+
+  <h2>1. Qué es una cookie</h2>
+  <p>
+    Una cookie es un archivo que un sitio web almacena en tu dispositivo. Se utiliza también el
+    almacenamiento local del navegador (<code>localStorage</code>), sujeto a las mismas reglas.
+  </p>
+
+  <h2>2. Principio aplicado en este sitio</h2>
+  <p>
+    <strong>Privacidad por defecto.</strong> Al entrar por primera vez no se carga ningún script de
+    medición ni de publicidad. Únicamente se almacena tu decisión sobre cookies, para no volver a
+    preguntarte en cada visita.
+  </p>
+
+  <h2>3. Cookies y almacenamiento utilizados</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tipo</th>
+        <th>Finalidad</th>
+        <th>Duración</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>rba.consent</code></td>
+        <td>Necesaria (localStorage)</td>
+        <td>Guarda tu elección sobre categorías de cookies y la fecha del consentimiento.</td>
+        <td>Hasta que la borres o cambies tu elección</td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <em>
+            TODO(cliente): si se incorporan analítica o píxeles de campaña, listar aquí cada cookie con
+            su proveedor, finalidad y duración antes de activarlos.
+          </em>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>4. Categorías</h2>
+  <ul>
+    <li><strong>Necesarias.</strong> Imprescindibles para el funcionamiento y la seguridad. No requieren consentimiento y no pueden desactivarse.</li>
+    <li><strong>Analítica.</strong> Métricas agregadas de uso. Desactivadas hasta que las aceptes.</li>
+    <li><strong>Marketing.</strong> Medición de campañas. Desactivadas hasta que las aceptes.</li>
+  </ul>
+
+  <h2>5. Cómo gestionar tu elección</h2>
+  <p>
+    Podés modificar o revocar tu consentimiento en cualquier momento con el enlace
+    <button type="button" data-cookie-settings class="cursor-pointer underline underline-offset-4">Configurar cookies</button>
+    disponible también en el pie de página. Revocar el consentimiento es tan simple como otorgarlo.
+  </p>
+  <p>
+    Adicionalmente, podés bloquear o eliminar cookies desde la configuración de tu navegador. Ten en
+    cuenta que hacerlo no afecta al funcionamiento de este sitio, ya que no depende de cookies de terceros.
+  </p>
+
+  <h2>6. Consultas</h2>
+  <p>
+    Para cualquier duda sobre esta política, escribí a
+    <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>.
+  </p>
+</LegalLayout>

@@ -1,0 +1,35 @@
+---
+import type { BreadcrumbEntry } from '../lib/schema';
+
+export interface Props {
+  items: BreadcrumbEntry[];
+}
+
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <nav aria-label="Ruta de navegación" class="text-sm text-stone-500">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        {items.map((item, index) => {
+          const isLast = index === items.length - 1;
+          return (
+            <li class="flex items-center gap-2">
+              {isLast ? (
+                <span aria-current="page" class="text-stone-700">
+                  {item.name}
+                </span>
+              ) : (
+                <a href={item.item} class="transition-colors hover:text-terracota-700">
+                  {item.name}
+                </a>
+              )}
+              {!isLast && <span aria-hidden="true" class="text-stone-300">/</span>}
+            </li>
+          );
+        })}
+      </ol>
+    </nav>
+  )
+}

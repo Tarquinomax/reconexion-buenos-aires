@@ -1,0 +1,185 @@
+---
+import { Font } from 'astro:assets';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { SITE } from '../consts';
+import {
+  breadcrumbNode,
+  buildGraph,
+  businessNode,
+  personNode,
+  webPageNode,
+  websiteNode,
+  type BreadcrumbEntry,
+  type JsonLdNode,
+} from '../lib/schema';
+import '../styles/global.css';
+
+export interface Props {
+  title: string;
+  description: string;
+  /** Ruta canonica sin dominio, p. ej. '/sanacion-reconectiva'. Por defecto, la ruta actual. */
+  canonicalPath?: string;
+  /** Imagen Open Graph absoluta o relativa a /public. */
+  image?: string;
+  /** Excluye la pagina del indice (paginas legales, gracias, staging). */
+  noindex?: boolean;
+  /** Migas de pan; generan BreadcrumbList y la navegacion visible. */
+  breadcrumbs?: BreadcrumbEntry[];
+  /** Nodos JSON-LD adicionales (Service, FAQPage, Article...). */
+  schema?: JsonLdNode[];
+  /** ISO 8601 */
+  datePublished?: string;
+  dateModified?: string;
+  /** 'website' | 'article' */
+  ogType?: 'website' | 'article';
+  /** Clase extra para el <main>. */
+  mainClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalPath,
+  image = SITE.defaultImage,
+  noindex = false,
+  breadcrumbs = [],
+  schema = [],
+  datePublished,
+  dateModified,
+  ogType = 'website',
+  mainClass = '',
+} = Astro.props;
+
+const pathname = canonicalPath ?? Astro.url.pathname;
+const normalizedPath = pathname !== '/' ? pathname.replace(/\/+$/, '') : '/';
+const canonical = new URL(normalizedPath, SITE.url).href;
+const ogImage = new URL(image, SITE.url).href;
+
+const fullTitle = title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.name}`;
+
+const graph: JsonLdNode[] = [
+  businessNode(),
+  personNode(),
+  websiteNode(),
+  webPageNode({
+    url: canonical,
+    title: fullTitle,
+    description,
+    hasBreadcrumb: breadcrumbs.length > 0,
+    datePublished,
+    dateModified,
+  }),
+  ...(breadcrumbs.length > 0 ? [breadcrumbNode(breadcrumbs, canonical)] : []),
+  ...schema,
+];
+
+const jsonLd = buildGraph(graph);
+---
+
+<!doctype html>
+<html lang={SITE.lang} class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+
+    {
+      noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      )
+    }
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    {datePublished && <meta property="article:published_time" content={datePublished} />}
+    {dateModified && <meta property="article:modified_time" content={dateModified} />}
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    {SITE.twitter && <meta name="twitter:site" content={SITE.twitter} />}
+
+    <meta name="theme-color" content={SITE.themeColor} />
+    <meta name="format-detection" content="telephone=no" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    {/* TODO(cliente): añadir /apple-touch-icon.png (180x180) y enlazarlo aquí. */}
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+
+    <!-- Tipografias auto-hospedadas: sin conexiones a terceros. -->
+    <Font cssVariable="--font-inter" preload />
+    <Font cssVariable="--font-fraunces" preload />
+
+    <script type="application/ld+json" is:inline set:html={jsonLd} />
+
+    <slot name="head" />
+  </head>
+
+  <body class="min-h-dvh antialiased">
+    <a
+      href="#contenido"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:rounded-full focus:bg-stone-900 focus:px-5 focus:py-3 focus:text-sm focus:font-medium focus:text-stone-50"
+    >
+      Saltar al contenido principal
+    </a>
+
+    <Header />
+
+    <main id="contenido" class={mainClass}>
+      <slot />
+    </main>
+
+    <Footer />
+    <CookieConsent />
+
+    <script>
+      // Revelado progresivo de secciones al entrar en viewport.
+      // Se desactiva por completo si el usuario pide movimiento reducido.
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const targets = document.querySelectorAll<HTMLElement>('[data-reveal]');
+
+      const revealAll = () => {
+        targets.forEach((el) => el.setAttribute('data-revealed', ''));
+      };
+
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        revealAll();
+      } else {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              const el = entry.target as HTMLElement;
+              const delay = Number(el.dataset.revealDelay ?? 0);
+              window.setTimeout(() => el.setAttribute('data-revealed', ''), delay);
+              observer.unobserve(el);
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.08 },
+        );
+
+        targets.forEach((el) => observer.observe(el));
+      }
+    </script>
+  </body>
+</html>

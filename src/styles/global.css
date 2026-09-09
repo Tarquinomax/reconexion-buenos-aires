@@ -1,0 +1,215 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/typography';
+
+/* ------------------------------------------------------------------
+   Design tokens
+   Paleta calida: piedra/arena como base, terracota como acento de accion,
+   salvia como acento de calma. Contrastes verificados >= WCAG AA sobre stone-50.
+   ------------------------------------------------------------------ */
+@theme {
+  /* Tipografias auto-hospedadas por la Fonts API de Astro.
+     El segundo argumento de var() garantiza una pila valida si la descarga
+     de fuentes falla en build (red restringida, CDN caido). */
+  --font-sans: var(--font-inter, ui-sans-serif, system-ui, 'Segoe UI', sans-serif);
+  --font-display: var(--font-fraunces, 'Iowan Old Style', Georgia, serif);
+
+  --color-terracota-50: oklch(0.968 0.014 45);
+  --color-terracota-100: oklch(0.936 0.031 45);
+  --color-terracota-200: oklch(0.878 0.056 44);
+  --color-terracota-300: oklch(0.806 0.085 42);
+  --color-terracota-400: oklch(0.723 0.111 40);
+  --color-terracota-500: oklch(0.647 0.127 38);
+  --color-terracota-600: oklch(0.567 0.122 36);
+  --color-terracota-700: oklch(0.478 0.101 34);
+  --color-terracota-800: oklch(0.398 0.079 33);
+  --color-terracota-900: oklch(0.331 0.06 32);
+
+  --color-salvia-50: oklch(0.969 0.012 145);
+  --color-salvia-100: oklch(0.934 0.024 145);
+  --color-salvia-200: oklch(0.878 0.04 145);
+  --color-salvia-300: oklch(0.802 0.055 145);
+  --color-salvia-400: oklch(0.716 0.063 145);
+  --color-salvia-500: oklch(0.632 0.062 145);
+  --color-salvia-600: oklch(0.541 0.054 145);
+  --color-salvia-700: oklch(0.451 0.045 145);
+  --color-salvia-800: oklch(0.375 0.036 145);
+  --color-salvia-900: oklch(0.315 0.029 145);
+
+  /* Ritmo vertical modular de las secciones. */
+  --spacing-section: 5rem;
+  --spacing-section-lg: 7.5rem;
+
+  --radius-organic: 1.75rem;
+
+  --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
+
+  --animate-fade-up: fade-up 0.7s var(--ease-organic) both;
+  --animate-fade-in: fade-in 0.9s var(--ease-organic) both;
+
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translate3d(0, 1.25rem, 0);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* ------------------------------------------------------------------
+   Base
+   ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    color-scheme: light;
+    scroll-behavior: smooth;
+    /* Compensa el header sticky al saltar a un ancla. */
+    scroll-padding-top: 6rem;
+    accent-color: var(--color-terracota-600);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root {
+      scroll-behavior: auto;
+    }
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-stone-50);
+    color: var(--color-stone-800);
+    font-family: var(--font-sans);
+    font-synthesis-weight: none;
+    /* Evita el salto horizontal en animaciones de entrada. */
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.015em;
+    text-wrap: balance;
+    color: var(--color-stone-900);
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  /* Foco visible y consistente en todo el sitio (WCAG 2.4.7). */
+  :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
+    outline: 2px solid var(--color-terracota-600);
+    outline-offset: 3px;
+    border-radius: 0.25rem;
+  }
+
+  ::selection {
+    background-color: var(--color-terracota-200);
+    color: var(--color-stone-900);
+  }
+
+  /* La marca de agua del optimizador de imagenes nunca debe romper el layout. */
+  img,
+  picture,
+  svg,
+  video {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* ------------------------------------------------------------------
+   Utilidades de composicion
+   ------------------------------------------------------------------ */
+@utility container-page {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 80rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+@utility container-prose {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 44rem;
+  padding-inline: 1.25rem;
+
+  @media (width >= 48rem) {
+    padding-inline: 2rem;
+  }
+}
+
+/* Textura organica sutil de fondo: gradientes radiales, coste cero en red. */
+@utility bg-aura {
+  background-image:
+    radial-gradient(60% 55% at 12% 8%, var(--color-terracota-100) 0%, transparent 62%),
+    radial-gradient(52% 48% at 92% 22%, var(--color-salvia-100) 0%, transparent 58%);
+  background-repeat: no-repeat;
+}
+
+/* ------------------------------------------------------------------
+   Animaciones de entrada (progressive enhancement)
+   Estado inicial en CSS, revelado por IntersectionObserver, con doble red de
+   seguridad: media (scripting: none) y una animacion failsafe a los 2.5 s.
+   ------------------------------------------------------------------ */
+@layer components {
+  /* Estado inicial en CSS puro: sin flash de contenido (evita el salto que
+     produce anadir una clase desde un script diferido). El script de reveal
+     marca [data-revealed] al entrar en viewport. */
+  [data-reveal] {
+    opacity: 0;
+    transform: translate3d(0, 1.5rem, 0);
+    transition:
+      opacity 0.7s var(--ease-organic),
+      transform 0.7s var(--ease-organic);
+    /* Failsafe: si el bundle no llega a ejecutarse, el contenido aparece igual. */
+    animation: fade-in 0.01s linear 2.5s forwards;
+  }
+
+  [data-reveal][data-revealed] {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  /* Navegadores sin JS: contenido visible de inmediato. */
+  @media (scripting: none) {
+    [data-reveal] {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal],
+    [data-reveal][data-revealed] {
+      opacity: 1;
+      transform: none;
+      transition: none;
+      animation: none;
+    }
+  }
+}

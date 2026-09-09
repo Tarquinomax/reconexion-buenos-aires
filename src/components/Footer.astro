@@ -1,0 +1,105 @@
+---
+import { BUSINESS, MEDICAL_DISCLAIMER, NAV_LEGAL, NAV_PRIMARY, SITE } from '../consts';
+
+const year = new Date().getFullYear();
+const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+  'Hola, me gustaría consultar por una sesión.',
+)}`;
+---
+
+<footer class="mt-24 border-t border-stone-200 bg-stone-100/60">
+  <div class="container-page py-14 md:py-16">
+    <div class="grid gap-10 md:grid-cols-12">
+      <div class="md:col-span-5">
+        <p class="font-display text-2xl text-stone-900">Reconexión Buenos Aires</p>
+        <p class="mt-3 max-w-sm text-sm leading-relaxed text-stone-600">
+          Sesiones de Sanación Reconectiva y La Reconexión, presenciales en Buenos Aires y a distancia.
+          Un espacio de acompañamiento respetuoso, sin promesas de curación.
+        </p>
+
+        <address class="mt-6 space-y-1.5 text-sm text-stone-600 not-italic">
+          <p>{BUSINESS.address.streetAddress}</p>
+          <p>{BUSINESS.address.addressLocality}, Argentina</p>
+          <p>
+            <a class="underline decoration-stone-300 underline-offset-4 hover:text-terracota-700" href={`mailto:${BUSINESS.email}`}>
+              {BUSINESS.email}
+            </a>
+          </p>
+          <p>
+            <a class="underline decoration-stone-300 underline-offset-4 hover:text-terracota-700" href={`tel:${BUSINESS.phone}`}>
+              {BUSINESS.phoneDisplay}
+            </a>
+          </p>
+        </address>
+
+        <a
+          href={whatsappHref}
+          rel="noopener noreferrer nofollow"
+          target="_blank"
+          class="mt-6 inline-flex items-center gap-2 rounded-full border border-salvia-300 px-4 py-2 text-sm text-salvia-800 transition-colors hover:bg-salvia-100"
+        >
+          Escribir por WhatsApp
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+
+      <nav class="md:col-span-4" aria-label="Navegación del pie de página">
+        <p class="text-xs font-semibold tracking-[0.14em] text-stone-500 uppercase">Navegación</p>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          <li>
+            <a class="text-stone-600 transition-colors hover:text-terracota-700" href="/">Inicio</a>
+          </li>
+          {
+            NAV_PRIMARY.map((item) => (
+              <li>
+                <a class="text-stone-600 transition-colors hover:text-terracota-700" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <a class="text-stone-600 transition-colors hover:text-terracota-700" href="/contacto">Contacto</a>
+          </li>
+        </ul>
+      </nav>
+
+      <nav class="md:col-span-3" aria-label="Información legal">
+        <p class="text-xs font-semibold tracking-[0.14em] text-stone-500 uppercase">Legal</p>
+        <ul class="mt-4 space-y-2.5 text-sm">
+          {
+            NAV_LEGAL.map((item) => (
+              <li>
+                <a class="text-stone-600 transition-colors hover:text-terracota-700" href={item.href}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+          <li>
+            <button
+              type="button"
+              data-cookie-settings
+              class="text-left text-stone-600 underline decoration-stone-300 underline-offset-4 transition-colors hover:text-terracota-700"
+            >
+              Configurar cookies
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="mt-12 rounded-organic border border-stone-200 bg-stone-50 p-5 md:p-6">
+      <p class="text-xs font-semibold tracking-[0.14em] text-stone-500 uppercase">Aviso importante</p>
+      <p class="mt-2 text-sm leading-relaxed text-stone-600">{MEDICAL_DISCLAIMER}</p>
+    </div>
+
+    <div class="mt-8 flex flex-col gap-3 border-t border-stone-200 pt-6 text-xs text-stone-500 sm:flex-row sm:items-center sm:justify-between">
+      <p>© {year} {SITE.name}. Todos los derechos reservados.</p>
+      <p>
+        Sanación Reconectiva® y La Reconexión® son marcas de sus respectivos titulares. Este sitio no es un
+        sitio oficial de dichas marcas.
+      </p>
+    </div>
+  </div>
+</footer>

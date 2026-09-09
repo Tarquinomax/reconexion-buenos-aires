@@ -1,0 +1,29 @@
+---
+import { MEDICAL_DISCLAIMER } from '../consts';
+
+export interface Props {
+  variant?: 'inline' | 'boxed';
+  title?: string;
+  class?: string;
+}
+
+const { variant = 'boxed', title = 'Qué no es este trabajo', class: className = '' } = Astro.props;
+---
+
+{
+  variant === 'inline' ? (
+    <p class:list={['text-sm leading-relaxed text-stone-500', className]}>{MEDICAL_DISCLAIMER}</p>
+  ) : (
+    <aside
+      class:list={[
+        'rounded-organic border border-salvia-200 bg-salvia-50/70 p-6 md:p-8',
+        className,
+      ]}
+      aria-label="Aviso sobre el alcance del servicio"
+    >
+      <p class="text-xs font-semibold tracking-[0.16em] text-salvia-800 uppercase">{title}</p>
+      <p class="mt-3 text-[0.95rem] leading-relaxed text-stone-700">{MEDICAL_DISCLAIMER}</p>
+      <slot />
+    </aside>
+  )
+}

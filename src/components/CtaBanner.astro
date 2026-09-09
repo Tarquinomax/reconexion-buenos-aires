@@ -1,0 +1,41 @@
+---
+import Button from './Button.astro';
+import { BUSINESS } from '../consts';
+
+export interface Props {
+  title?: string;
+  text?: string;
+}
+
+const {
+  title = 'Conversemos antes de reservar',
+  text = 'Si tenés dudas sobre si este trabajo es para vos, escribime y lo vemos con calma. Prefiero una consulta honesta a una sesión mal encuadrada.',
+} = Astro.props;
+
+const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+  'Hola, me gustaría hacer una consulta previa.',
+)}`;
+---
+
+<section class="py-section md:py-section-lg" data-reveal>
+  <div class="container-page">
+    <div class="rounded-organic bg-stone-900 px-6 py-14 text-center md:px-16 md:py-20">
+      <h2 class="mx-auto max-w-2xl text-3xl text-stone-50 md:text-4xl">{title}</h2>
+      <p class="mx-auto mt-5 max-w-xl text-[1.02rem] leading-relaxed text-stone-300">{text}</p>
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <Button href="/contacto" variant="primary" size="lg" class="bg-stone-50 text-stone-900 hover:bg-terracota-200 hover:text-stone-900">
+          Ver modalidades y reservar
+        </Button>
+        <Button
+          href={whatsappHref}
+          variant="secondary"
+          size="lg"
+          external
+          class="border-stone-600 bg-transparent text-stone-200 hover:border-stone-400 hover:text-stone-50"
+        >
+          Consultar por WhatsApp
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+---
+export interface Props {
+  href?: string;
+  type?: 'button' | 'submit';
+  variant?: 'primary' | 'secondary' | 'ghost';
+  size?: 'md' | 'lg' | 'link';
+  class?: string;
+  /** Enlaces externos: fuerza rel seguro y target nueva pestaña. */
+  external?: boolean;
+  'aria-label'?: string;
+}
+
+const {
+  href,
+  type = 'button',
+  variant = 'primary',
+  size = 'md',
+  class: className = '',
+  external = false,
+  ...rest
+} = Astro.props;
+
+const base =
+  'inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 ease-[var(--ease-organic)] hover:-translate-y-0.5';
+
+const variants = {
+  primary: 'bg-stone-900 text-stone-50 hover:bg-terracota-700',
+  secondary: 'border border-stone-300 bg-stone-50 text-stone-800 hover:border-terracota-400 hover:text-terracota-800',
+  ghost: 'text-stone-700 hover:text-terracota-700',
+} as const;
+
+const sizes = {
+  md: 'px-5 py-2.5 text-sm',
+  lg: 'px-7 py-3.5 text-base',
+  /** Enlace de texto: sin caja, para cierres de sección. */
+  link: 'py-1 text-sm',
+} as const;
+
+const classes = [base, variants[variant], sizes[size], className];
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+{
+  href ? (
+    <a href={href} class:list={classes} {...externalAttrs} {...rest}>
+      <slot />
+    </a>
+  ) : (
+    <button type={type} class:list={classes} {...rest}>
+      <slot />
+    </button>
+  )
+}

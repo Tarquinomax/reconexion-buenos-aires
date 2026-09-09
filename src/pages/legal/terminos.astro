@@ -1,0 +1,82 @@
+---
+import LegalLayout from '../../layouts/LegalLayout.astro';
+import { BUSINESS, MEDICAL_DISCLAIMER, SITE } from '../../consts';
+---
+
+<LegalLayout
+  title="Términos y Condiciones"
+  description="Condiciones de uso del sitio, encuadre de las sesiones, política de reservas y cancelaciones, y aviso sobre el alcance no sanitario de la práctica."
+  path="/legal/terminos"
+  lead="Incluye el aviso sobre el alcance de la práctica, las condiciones de reserva y los límites de responsabilidad."
+>
+  <p class="lead">
+    <strong>Aviso:</strong> este texto es una base técnica y debe ser revisado por un profesional del
+    derecho antes de su publicación.
+  </p>
+
+  <h2>1. Titular del sitio</h2>
+  <p>
+    {BUSINESS.legalName}, con domicilio en {BUSINESS.address.streetAddress},
+    {BUSINESS.address.addressLocality}, Argentina. Contacto:
+    <a href={`mailto:${BUSINESS.email}`}>{BUSINESS.email}</a>. Sitio: {SITE.url}.
+  </p>
+
+  <h2 id="medical-disclaimer">2. Aviso sobre el alcance de la práctica (Medical Disclaimer)</h2>
+  <p><strong>{MEDICAL_DISCLAIMER}</strong></p>
+  <ul>
+    <li>La práctica ofrecida <strong>no constituye acto médico, psicológico ni de ninguna profesión de la salud regulada</strong>.</li>
+    <li>No se emiten diagnósticos, pronósticos ni indicaciones terapéuticas.</li>
+    <li>No se prescribe, sugiere ni avala la suspensión o modificación de ningún tratamiento.</li>
+    <li>Los contenidos del sitio tienen finalidad informativa y no sustituyen una consulta profesional.</li>
+    <li>Ante una urgencia, acudí a un servicio de emergencias.</li>
+  </ul>
+
+  <h2>3. Aceptación</h2>
+  <p>
+    El uso del sitio implica la aceptación de estos términos. Si no estás de acuerdo, te pedimos que no
+    lo utilices ni solicites sesiones.
+  </p>
+
+  <h2>4. Condiciones de las sesiones</h2>
+  <ul>
+    <li>Las sesiones se prestan únicamente a personas mayores de 18 años. Menores de edad, solo con autorización y presencia de quien ejerza la responsabilidad parental.</li>
+    <li>La duración, la modalidad y el valor se informan por escrito antes de confirmar la reserva.</li>
+    <li>No hay contacto físico durante la sesión.</li>
+    <li>La persona puede interrumpir la sesión en cualquier momento y sin justificación.</li>
+  </ul>
+
+  <h2>5. Reservas, pagos y cancelaciones</h2>
+  <p>TODO(cliente): completar con asesoría legal.</p>
+  <ul>
+    <li><strong>Reserva:</strong> se confirma con el pago de la seña indicada al coordinar.</li>
+    <li><strong>Cancelación por parte del consultante:</strong> plazo mínimo de aviso y condiciones de reprogramación.</li>
+    <li><strong>Cancelación por parte de la practicante:</strong> reprogramación sin cargo o devolución íntegra.</li>
+    <li><strong>Derecho de arrepentimiento:</strong> conforme al art. 34 de la Ley 24.240 de Defensa del Consumidor, en contrataciones a distancia.</li>
+  </ul>
+
+  <h2>6. Propiedad intelectual</h2>
+  <p>
+    Los textos, imágenes y elementos gráficos del sitio pertenecen a su titular o se utilizan con
+    autorización. «Sanación Reconectiva» y «La Reconexión» son marcas de sus respectivos titulares;
+    este sitio no es un sitio oficial de dichas marcas ni implica representación alguna.
+  </p>
+
+  <h2>7. Limitación de responsabilidad</h2>
+  <p>
+    El titular no responde por decisiones que el usuario tome basándose en los contenidos informativos
+    del sitio, ni por interrupciones del servicio ajenas a su control. Nada en esta cláusula limita
+    responsabilidades que la ley aplicable declare indisponibles.
+  </p>
+
+  <h2>8. Enlaces a terceros</h2>
+  <p>
+    El sitio puede enlazar a servicios externos (por ejemplo, WhatsApp). El titular no controla dichos
+    servicios ni responde por sus políticas de privacidad.
+  </p>
+
+  <h2>9. Ley aplicable y jurisdicción</h2>
+  <p>
+    Estos términos se rigen por la legislación de la República Argentina. Para consumidores resulta
+    competente el tribunal del domicilio del consumidor, conforme a la Ley 24.240.
+  </p>
+</LegalLayout>

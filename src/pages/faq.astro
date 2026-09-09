@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import FaqItem from '../components/FaqItem.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { MEDICAL_DISCLAIMER, SITE } from '../consts';
+import { faqNode, type FaqEntry } from '../lib/schema';
+
+const path = '/faq';
+const url = new URL(path, SITE.url).href;
+
+const title = 'Preguntas frecuentes y límites del servicio';
+const description =
+  'Respuestas directas sobre sesiones de Sanación Reconectiva y La Reconexión: duración, modalidades, contraindicaciones y, sobre todo, qué queda fuera del alcance de este trabajo.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Preguntas frecuentes', item: path },
+];
+
+/**
+ * Fuente unica de las FAQ: alimenta a la vez el HTML visible y el JSON-LD.
+ * Nunca deben divergir (Google penaliza el marcado que no coincide con la pagina).
+ */
+const faqs: Array<FaqEntry & { group: string }> = [
+  {
+    group: 'La sesión',
+    question: '¿Cuánto dura una sesión?',
+    answer:
+      'La sesión dura entre 30 y 45 minutos efectivos. El encuentro completo, incluyendo el encuadre inicial y el cierre, ronda la hora.',
+  },
+  {
+    group: 'La sesión',
+    question: '¿Hay contacto físico?',
+    answer:
+      'No. La persona permanece vestida y acostada sobre una camilla. No hay contacto físico, manipulación corporal ni maniobras de ningún tipo.',
+  },
+  {
+    group: 'La sesión',
+    question: '¿Qué se siente durante la sesión?',
+    answer:
+      'Las percepciones son variables: calor, cosquilleo, movimientos involuntarios, somnolencia o nada perceptible. No sentir nada en particular no significa que la sesión haya fallado.',
+  },
+  {
+    group: 'Modalidades',
+    question: '¿Las sesiones a distancia son equivalentes a las presenciales?',
+    answer:
+      'El encuadre es el mismo y la duración también. La diferencia está en el ámbito: en la modalidad a distancia necesitás un espacio tranquilo donde puedas recostarte sin interrupciones.',
+  },
+  {
+    group: 'Modalidades',
+    question: '¿Cuántas sesiones se recomiendan?',
+    answer:
+      'No se venden paquetes ni series obligatorias. Lo habitual es una sesión, evaluar la experiencia y decidir después, sin presión comercial.',
+  },
+  {
+    group: 'Límites',
+    question: '¿Esto cura enfermedades?',
+    answer: MEDICAL_DISCLAIMER,
+  },
+  {
+    group: 'Límites',
+    question: '¿Puedo dejar mi medicación o mi tratamiento?',
+    answer:
+      'No. Nunca modifiques ni interrumpas un tratamiento indicado por un profesional de la salud. Ninguna sesión de este sitio justifica ese cambio.',
+  },
+  {
+    group: 'Límites',
+    question: '¿Hay situaciones en las que no aceptás una sesión?',
+    answer:
+      'Sí. No trabajo con personas que buscan sustituir atención médica o psicológica, ni con quienes llegan esperando una promesa de curación. En esos casos la respuesta honesta es una derivación.',
+  },
+  {
+    group: 'Reservas',
+    question: '¿Cómo reservo y cómo se abona?',
+    answer:
+      'La reserva se coordina por WhatsApp o correo electrónico. Placeholder: detallar medios de pago aceptados y política de señas.',
+  },
+  {
+    group: 'Reservas',
+    question: '¿Qué pasa si necesito cancelar?',
+    answer:
+      'Placeholder: especificar el plazo mínimo de aviso y las condiciones de reprogramación o devolución.',
+  },
+];
+
+const grupos = [...new Set(faqs.map((faq) => faq.group))];
+
+const schema = [faqNode(faqs.map(({ question, answer }) => ({ question, answer })), url)];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+  <PageHeader
+    eyebrow="Antes de reservar"
+    title="Preguntas frecuentes"
+    lead="Incluye también lo que este trabajo no hace. Si tu duda no aparece acá, escribime y la respondo sin compromiso."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section width="prose">
+    {
+      grupos.map((grupo, groupIndex) => (
+        <div class:list={[groupIndex > 0 ? 'mt-16' : '']}>
+          <h2 class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">{grupo}</h2>
+          <div class="mt-4">
+            {faqs
+              .filter((faq) => faq.group === grupo)
+              .map((faq, index) => (
+                <FaqItem question={faq.question} open={groupIndex === 0 && index === 0}>
+                  <p>{faq.answer}</p>
+                </FaqItem>
+              ))}
+          </div>
+        </div>
+      ))
+    }
+
+    <Disclaimer class="mt-16" />
+  </Section>
+
+  <CtaBanner title="¿Te quedó una duda sin responder?" />
+</BaseLayout>

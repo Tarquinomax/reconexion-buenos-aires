@@ -1,0 +1,69 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import { LEGAL_LAST_UPDATE, NAV_LEGAL } from '../consts';
+
+export interface Props {
+  title: string;
+  description: string;
+  path: string;
+  lead?: string;
+}
+
+const { title, description, path, lead } = Astro.props;
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Legal', item: '/legal/privacidad' },
+  { name: title, item: path },
+];
+
+const formatted = new Intl.DateTimeFormat('es-AR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(LEGAL_LAST_UPDATE));
+---
+
+<!--
+  Las paginas legales se excluyen del sitemap y se marcan noindex:
+  no aportan valor de busqueda y diluyen el presupuesto de rastreo.
+  Siguen siendo accesibles y enlazadas desde el pie de pagina (follow interno).
+-->
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  noindex
+  dateModified={LEGAL_LAST_UPDATE}
+>
+  <PageHeader eyebrow="Información legal" title={title} lead={lead} breadcrumbs={breadcrumbs}>
+    <p class="mt-6 text-sm text-stone-500">Última actualización: {formatted}</p>
+  </PageHeader>
+
+  <Section width="prose">
+    <div
+      class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700 prose-li:my-1"
+    >
+      <slot />
+    </div>
+
+    <nav class="mt-14 border-t border-stone-200 pt-6" aria-label="Otros documentos legales">
+      <p class="text-xs font-semibold tracking-[0.14em] text-stone-500 uppercase">Otros documentos</p>
+      <ul class="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+        {
+          NAV_LEGAL.filter((item) => item.href !== path).map((item) => (
+            <li>
+              <a class="text-terracota-700 underline underline-offset-4" href={item.href}>
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </Section>
+</BaseLayout>

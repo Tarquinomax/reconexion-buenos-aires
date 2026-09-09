@@ -1,0 +1,254 @@
+---
+/**
+ * Modulo de consentimiento de cookies.
+ *
+ * Principios de diseno:
+ * - Privacidad por defecto: no se carga ningun script de terceros hasta que
+ *   exista consentimiento explicito. El banner no bloquea la lectura.
+ * - Granularidad real: categorias separadas (analitica / marketing) con
+ *   rechazo tan accesible como la aceptacion (requisito de la mayoria de
+ *   autoridades de proteccion de datos).
+ * - Consentimiento versionado: al cambiar CONSENT_VERSION se vuelve a pedir.
+ * - Integracion con Google Consent Mode v2 mediante `gtag('consent', 'update')`
+ *   si en el futuro se incorpora GA4; hoy solo emite el evento en dataLayer.
+ */
+import { NAV_LEGAL } from '../consts';
+
+const cookiesPolicy = NAV_LEGAL.find((item) => item.href === '/legal/cookies')?.href ?? '/legal/cookies';
+const privacyPolicy = NAV_LEGAL.find((item) => item.href === '/legal/privacidad')?.href ?? '/legal/privacidad';
+---
+
+<!-- Banner flotante: compacto por diseno, no bloquea la lectura ni el CTA principal. -->
+<section
+  id="cookie-banner"
+  hidden
+  aria-labelledby="cookie-banner-title"
+  class="fixed inset-x-3 bottom-3 z-[90] mx-auto max-w-sm rounded-2xl border border-stone-200 bg-stone-50/97 p-4 shadow-[0_18px_48px_-20px_rgb(68_64_60/0.45)] backdrop-blur-md sm:inset-x-auto sm:bottom-5 sm:left-5"
+>
+  <h2 id="cookie-banner-title" class="font-display text-base text-stone-900">Sobre las cookies</h2>
+  <p class="mt-1.5 text-[0.8rem] leading-relaxed text-stone-600">
+    Solo usamos cookies técnicas. Las de medición se activan únicamente con tu consentimiento.
+    <a class="underline underline-offset-2 hover:text-terracota-700" href={cookiesPolicy}>Más info</a>.
+  </p>
+
+  <div class="mt-3 flex items-center gap-2">
+    <button
+      type="button"
+      data-consent-action="accept"
+      class="flex-1 rounded-full bg-stone-900 px-3 py-2 text-[0.8rem] font-medium text-stone-50 transition-colors hover:bg-terracota-700"
+    >
+      Aceptar
+    </button>
+    <button
+      type="button"
+      data-consent-action="reject"
+      class="flex-1 rounded-full border border-stone-300 px-3 py-2 text-[0.8rem] font-medium text-stone-700 transition-colors hover:bg-stone-200/70"
+    >
+      Rechazar
+    </button>
+    <button
+      type="button"
+      data-cookie-settings
+      aria-label="Configurar preferencias de cookies"
+      class="inline-flex size-9 shrink-0 items-center justify-center rounded-full text-stone-500 transition-colors hover:bg-stone-200/70 hover:text-stone-800"
+    >
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" class="size-4.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="3"></circle>
+        <path
+          d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.6 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.6a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9c.2.53.7.9 1.27.99H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"
+        ></path>
+      </svg>
+    </button>
+  </div>
+
+  <p class="sr-only">
+    Podés cambiar tu elección cuando quieras desde «Configurar cookies» en el pie de página.
+  </p>
+</section>
+
+<!-- Panel de preferencias: <dialog> nativo (foco atrapado y Escape gratis). -->
+<dialog
+  id="cookie-dialog"
+  aria-labelledby="cookie-dialog-title"
+  class="m-auto w-[min(32rem,calc(100vw-1.5rem))] rounded-organic border border-stone-200 bg-stone-50 p-0 text-stone-800 backdrop:bg-stone-900/40 backdrop:backdrop-blur-sm"
+>
+  <form method="dialog" id="cookie-form" class="p-6">
+    <h2 id="cookie-dialog-title" class="font-display text-xl text-stone-900">Preferencias de cookies</h2>
+    <p class="mt-2 text-sm leading-relaxed text-stone-600">
+      Elegí qué categorías querés permitir. Podés modificarlo en cualquier momento desde el enlace
+      «Configurar cookies» del pie de página. Consultá la
+      <a class="underline underline-offset-4 hover:text-terracota-700" href={privacyPolicy}>Política de Privacidad</a>
+      para más detalle.
+    </p>
+
+    <ul class="mt-6 space-y-3">
+      <li class="rounded-2xl border border-stone-200 bg-white/60 p-4">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <p class="text-sm font-medium text-stone-900">Necesarias</p>
+            <p class="mt-1 text-sm text-stone-600">
+              Imprescindibles para la seguridad y el funcionamiento básico. No se pueden desactivar.
+            </p>
+          </div>
+          <input
+            type="checkbox"
+            checked
+            disabled
+            aria-label="Cookies necesarias (siempre activas)"
+            class="mt-1 size-5 shrink-0 accent-stone-400"
+          />
+        </div>
+      </li>
+
+      <li class="rounded-2xl border border-stone-200 bg-white/60 p-4">
+        <label class="flex items-start justify-between gap-4">
+          <span>
+            <span class="block text-sm font-medium text-stone-900">Analítica</span>
+            <span class="mt-1 block text-sm text-stone-600">
+              Métricas agregadas de uso para mejorar los contenidos. Nunca se usan para publicidad.
+            </span>
+          </span>
+          <input type="checkbox" name="analytics" class="mt-1 size-5 shrink-0 accent-terracota-600" />
+        </label>
+      </li>
+
+      <li class="rounded-2xl border border-stone-200 bg-white/60 p-4">
+        <label class="flex items-start justify-between gap-4">
+          <span>
+            <span class="block text-sm font-medium text-stone-900">Marketing</span>
+            <span class="mt-1 block text-sm text-stone-600">
+              Medición de campañas y remarketing. Desactivadas por defecto.
+            </span>
+          </span>
+          <input type="checkbox" name="marketing" class="mt-1 size-5 shrink-0 accent-terracota-600" />
+        </label>
+      </li>
+    </ul>
+
+    <div class="mt-6 flex flex-wrap justify-end gap-2">
+      <button
+        type="button"
+        data-consent-action="reject"
+        class="rounded-full border border-stone-300 px-4 py-2.5 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-200/70"
+      >
+        Rechazar todo
+      </button>
+      <button
+        type="submit"
+        value="save"
+        class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition-colors hover:bg-terracota-700"
+      >
+        Guardar preferencias
+      </button>
+    </div>
+  </form>
+</dialog>
+
+<script>
+  type ConsentState = {
+    version: number;
+    necessary: true;
+    analytics: boolean;
+    marketing: boolean;
+    /** ISO 8601 — prueba de consentimiento exigible por el responsable del tratamiento. */
+    timestamp: string;
+  };
+
+  const STORAGE_KEY = 'rba.consent';
+  const CONSENT_VERSION = 1;
+
+  const banner = document.getElementById('cookie-banner') as HTMLElement | null;
+  const dialog = document.getElementById('cookie-dialog') as HTMLDialogElement | null;
+  const form = document.getElementById('cookie-form') as HTMLFormElement | null;
+
+  const readConsent = (): ConsentState | null => {
+    try {
+      const raw = window.localStorage.getItem(STORAGE_KEY);
+      if (!raw) return null;
+      const parsed = JSON.parse(raw) as Partial<ConsentState>;
+      if (parsed.version !== CONSENT_VERSION) return null;
+      return {
+        version: CONSENT_VERSION,
+        necessary: true,
+        analytics: Boolean(parsed.analytics),
+        marketing: Boolean(parsed.marketing),
+        timestamp: typeof parsed.timestamp === 'string' ? parsed.timestamp : new Date().toISOString(),
+      };
+    } catch {
+      // Modo privado o almacenamiento bloqueado: se trata como "sin consentimiento".
+      return null;
+    }
+  };
+
+  const applyConsent = (state: ConsentState) => {
+    // Punto unico de integracion con etiquetas de terceros.
+    // Consent Mode v2: se envia siempre, incluso denegando, para no perder modelado.
+    const w = window as typeof window & { dataLayer?: unknown[] };
+    w.dataLayer = w.dataLayer ?? [];
+    w.dataLayer.push({
+      event: 'consent_update',
+      analytics_storage: state.analytics ? 'granted' : 'denied',
+      ad_storage: state.marketing ? 'granted' : 'denied',
+      ad_user_data: state.marketing ? 'granted' : 'denied',
+      ad_personalization: state.marketing ? 'granted' : 'denied',
+    });
+
+    document.dispatchEvent(new CustomEvent<ConsentState>('rba:consent', { detail: state }));
+  };
+
+  const saveConsent = (analytics: boolean, marketing: boolean) => {
+    const state: ConsentState = {
+      version: CONSENT_VERSION,
+      necessary: true,
+      analytics,
+      marketing,
+      timestamp: new Date().toISOString(),
+    };
+
+    try {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch {
+      // Sin persistencia disponible: el consentimiento vale solo para esta sesion.
+    }
+
+    applyConsent(state);
+    if (banner) banner.hidden = true;
+    if (dialog?.open) dialog.close();
+  };
+
+  const openDialog = () => {
+    if (!dialog || !form) return;
+    const current = readConsent();
+    (form.elements.namedItem('analytics') as HTMLInputElement).checked = current?.analytics ?? false;
+    (form.elements.namedItem('marketing') as HTMLInputElement).checked = current?.marketing ?? false;
+    dialog.showModal();
+  };
+
+  document.querySelectorAll<HTMLElement>('[data-consent-action]').forEach((el) => {
+    el.addEventListener('click', () => {
+      if (el.dataset.consentAction === 'accept') saveConsent(true, true);
+      if (el.dataset.consentAction === 'reject') saveConsent(false, false);
+    });
+  });
+
+  document.querySelectorAll<HTMLElement>('[data-cookie-settings]').forEach((el) => {
+    el.addEventListener('click', (event) => {
+      event.preventDefault();
+      openDialog();
+    });
+  });
+
+  form?.addEventListener('submit', (event) => {
+    const submitter = (event as SubmitEvent).submitter as HTMLButtonElement | null;
+    if (submitter?.value !== 'save') return;
+    const data = new FormData(form);
+    saveConsent(data.get('analytics') === 'on', data.get('marketing') === 'on');
+  });
+
+  const stored = readConsent();
+  if (stored) {
+    applyConsent(stored);
+  } else if (banner) {
+    banner.hidden = false;
+  }
+</script>

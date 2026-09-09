@@ -1,0 +1,108 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import TestimonialCard from '../components/TestimonialCard.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+
+const path = '/testimonios';
+const title = 'Testimonios de sesiones';
+const description =
+  'Experiencias reales compartidas con autorización expresa y presentadas en contexto. Los testimonios describen vivencias personales y no garantizan resultados equivalentes.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Testimonios', item: path },
+];
+
+/**
+ * TODO(cliente): reemplazar por testimonios reales.
+ * Requisitos antes de publicar cada uno:
+ *  1. Autorización escrita de la persona (conservar la prueba).
+ *  2. Anonimización acordada (iniciales o nombre de pila).
+ *  3. Sin edición que altere el sentido original.
+ *  4. Sin afirmaciones de curación, remisión o mejoría clínica.
+ * No se marca con Schema.org Review: sin producto ni servicio verificable
+ * detrás, un marcado de reseñas es un riesgo de acción manual en Google.
+ */
+const testimonios = [
+  {
+    author: 'M. L.',
+    context: 'Consulta por estrés sostenido',
+    modality: 'Presencial',
+    date: '2025',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+  {
+    author: 'J. P.',
+    context: 'Acompañamiento en un cambio vital',
+    modality: 'A distancia',
+    date: '2025',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+  {
+    author: 'A. R.',
+    context: 'Primera experiencia con el trabajo',
+    modality: 'Presencial',
+    date: '2026',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+  {
+    author: 'C. D.',
+    context: 'Continuidad tras una primera sesión',
+    modality: 'Presencial',
+    date: '2026',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+  {
+    author: 'S. M.',
+    context: 'Proceso de La Reconexión',
+    modality: 'Presencial',
+    date: '2026',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+  {
+    author: 'F. G.',
+    context: 'Sesión previa a un viaje largo',
+    modality: 'A distancia',
+    date: '2026',
+    text: 'Placeholder de testimonio real publicado con autorización expresa.',
+  },
+];
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
+  <PageHeader
+    eyebrow="Experiencias"
+    title="Testimonios en contexto"
+    lead="Cada testimonio se publica con autorización expresa, indica la modalidad y el momento en que ocurrió, y no se edita en su sentido. Son relatos personales, no evidencia de eficacia."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section>
+    <div class="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+      {
+        testimonios.map((item) => (
+          <TestimonialCard author={item.author} context={item.context} modality={item.modality} date={item.date}>
+            {item.text}
+          </TestimonialCard>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section width="prose" tone="muted">
+    <h2 class="text-3xl md:text-4xl">Cómo se publican estos testimonios</h2>
+    <ul class="mt-6 space-y-3 leading-relaxed text-stone-600">
+      <li>Se publican únicamente con autorización escrita de la persona.</li>
+      <li>Se identifican con iniciales o nombre de pila, según lo acordado.</li>
+      <li>No se editan de forma que cambie su sentido original.</li>
+      <li>No se publican relatos que afirmen curación o remisión de enfermedades.</li>
+    </ul>
+
+    <Disclaimer class="mt-10" title="Alcance de estos relatos" />
+  </Section>
+
+  <CtaBanner />
+</BaseLayout>

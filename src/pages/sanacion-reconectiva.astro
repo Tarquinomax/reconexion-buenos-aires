@@ -6,8 +6,8 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Button from '../components/Button.astro';
-import { SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { SERVICES, SITE } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const path = '/sanacion-reconectiva';
 const url = new URL(path, SITE.url).href;
@@ -23,10 +23,10 @@ const breadcrumbs = [
 
 const schema = [
   serviceNode({
-    name: 'Sesión de Sanación Reconectiva',
-    description,
+    ...SERVICES.sanacionReconectiva,
     url,
-    serviceType: 'Sanación Reconectiva',
+    serviceType: { '@id': ID.sanacionReconectiva },
+    category: { '@id': ID.sanacionReconectiva },
   }),
 ];
 

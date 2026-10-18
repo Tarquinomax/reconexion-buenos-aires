@@ -6,26 +6,24 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
-import { BUSINESS, PRACTITIONER, SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { BUSINESS, PRACTITIONER, SERVICES, SITE } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const title = SITE.name;
 const description = SITE.defaultDescription;
 
 const schema = [
   serviceNode({
-    name: 'Sesión de Sanación Reconectiva',
-    description:
-      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+    ...SERVICES.sanacionReconectiva,
     url: new URL('/sanacion-reconectiva', SITE.url).href,
-    serviceType: 'Sanación Reconectiva',
+    serviceType: { '@id': ID.sanacionReconectiva },
+    category: { '@id': ID.sanacionReconectiva },
   }),
   serviceNode({
-    name: 'La Reconexión',
-    description:
-      'Proceso de dos sesiones en días consecutivos que se realiza una única vez en la vida.',
+    ...SERVICES.laReconexion,
     url: new URL('/la-reconexion', SITE.url).href,
-    serviceType: 'La Reconexión',
+    serviceType: { '@id': ID.laReconexion },
+    category: { '@id': ID.laReconexion },
   }),
 ];
 

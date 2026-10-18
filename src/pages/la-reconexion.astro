@@ -5,8 +5,8 @@ import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { SERVICES, SITE } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const path = '/la-reconexion';
 const url = new URL(path, SITE.url).href;
@@ -21,7 +21,12 @@ const breadcrumbs = [
 ];
 
 const schema = [
-  serviceNode({ name: 'La Reconexión', description, url, serviceType: 'La Reconexión' }),
+  serviceNode({
+    ...SERVICES.laReconexion,
+    url,
+    serviceType: { '@id': ID.laReconexion },
+    category: { '@id': ID.laReconexion },
+  }),
 ];
 
 const destinatarios = [

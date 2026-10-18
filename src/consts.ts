@@ -68,6 +68,23 @@ export const BUSINESS = {
   priceRange: '$$',
 } as const;
 
+/**
+ * Definición única de cada Service (Schema.org). El mismo `@id` se emite en el home
+ * y en su página de servicio: nombre y descripción deben ser idénticos en ambos.
+ * La meta description de cada página es independiente.
+ */
+export const SERVICES = {
+  sanacionReconectiva: {
+    name: 'Sesión de Sanación Reconectiva',
+    description:
+      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+  },
+  laReconexion: {
+    name: 'La Reconexión',
+    description: 'Proceso de dos sesiones en días consecutivos que se realiza una única vez en la vida.',
+  },
+} as const;
+
 export type NavItem = {
   href: string;
   label: string;

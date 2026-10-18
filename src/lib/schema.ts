@@ -18,6 +18,10 @@ export const ID = {
   business: `${SITE.url}/#business`,
   person: `${SITE.url}/#practitioner`,
   website: `${SITE.url}/#website`,
+  sanacionReconectiva: `${SITE.url}/#sanacion-reconectiva`,
+  laReconexion: `${SITE.url}/#la-reconexion`,
+  theReconnection: `${SITE.url}/#the-reconnection`,
+  ericPearl: `${SITE.url}/#eric-pearl`,
 } as const;
 
 function openingHoursSpecification(): JsonLdNode[] {
@@ -74,18 +78,62 @@ export function personNode(): JsonLdNode {
     image: absoluteUrl(PRACTITIONER.image),
     worksFor: { '@id': ID.business },
     knowsAbout: [
-      'Sanación Reconectiva',
-      'La Reconexión',
-      'Campos de energía, luz e información',
-      'Acompañamiento en procesos de bienestar',
+      { '@id': ID.sanacionReconectiva },
+      { '@id': ID.laReconexion },
     ],
     hasCredential: {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'certificate',
       name: 'Maestría en Sanación Reconectiva',
       dateCreated: PRACTITIONER.masteryDate,
+      recognizedBy: { '@id': ID.theReconnection },
     },
     ...(PRACTITIONER.sameAs.length > 0 ? { sameAs: PRACTITIONER.sameAs } : {}),
+  };
+}
+
+/** Concepto: Sanación Reconectiva. Destino de `knowsAbout` y, en fases posteriores, de `about`. */
+export function sanacionReconectivaNode(): JsonLdNode {
+  return {
+    '@type': ['Thing', 'DefinedTerm'],
+    '@id': ID.sanacionReconectiva,
+    name: 'Sanación Reconectiva',
+    description:
+      'Forma de acceso a un espectro de frecuencias de energía, luz e información orientada a restablecer el equilibrio integral en los niveles físico, mental, emocional y espiritual.',
+    inLanguage: 'es',
+  };
+}
+
+/** Concepto: La Reconexión. */
+export function laReconexionNode(): JsonLdNode {
+  return {
+    '@type': ['Thing', 'DefinedTerm'],
+    '@id': ID.laReconexion,
+    name: 'La Reconexión',
+    description:
+      'Proceso de reconexión con el universo que profundiza la Sanación Reconectiva. Se realiza una sola vez en la vida, en dos sesiones presenciales.',
+    inLanguage: 'es',
+  };
+}
+
+/** Organización que otorga la certificación (`recognizedBy`). */
+export function theReconnectionOrgNode(): JsonLdNode {
+  return {
+    '@type': 'Organization',
+    '@id': ID.theReconnection,
+    name: 'The Reconnection',
+    url: 'https://www.reconnectivehealing.com/',
+    sameAs: ['https://www.reconnectivehealing.com/'],
+  };
+}
+
+/** Originador de ambas prácticas. */
+export function ericPearlNode(): JsonLdNode {
+  return {
+    '@type': 'Person',
+    '@id': ID.ericPearl,
+    name: 'Dr. Eric Pearl',
+    jobTitle: 'Originador de la Sanación Reconectiva y La Reconexión',
   };
 }
 

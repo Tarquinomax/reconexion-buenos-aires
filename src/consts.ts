@@ -24,37 +24,41 @@ export const SITE = {
 
 /** Datos de la practicante — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
-  name: 'Nombre Apellido', // PLACEHOLDER
-  jobTitle: 'Practicante certificada de Sanación Reconectiva y La Reconexión',
+  name: 'José A.',
+  jobTitle: 'Facilitador Certificado de Sanación Reconectiva y La Reconexión',
   /** Año/mes de la certificación de Maestría citada por el cliente. */
   masteryDate: '2012-09',
   masteryLabel: 'septiembre de 2012',
-  image: '/img/practicante.jpg', // PLACEHOLDER
+  image: '/img/practicante.jpg', // se corregirá en fase posterior
   sameAs: [
-    // PLACEHOLDER: perfiles verificables refuerzan la entidad ante buscadores.
-    // 'https://www.instagram.com/...',
-    // 'https://www.linkedin.com/in/...',
+    'https://wa.me/5491136680356',
+    'https://www.tiktok.com/@reconexionbuenosaires',
+    'https://www.facebook.com/lareconexionbuenosaires',
+    'https://vimeo.com/reconexionbuenosaires',
+    'https://x.com/Sanacion333',
+    'https://ar.pinterest.com/reconexionbuenosaires',
+    'https://www.youtube.com/@Reconexion333',
   ] as string[],
 } as const;
 
 /** NAP (Name, Address, Phone) — debe ser idéntico en Google Business Profile. */
 export const BUSINESS = {
-  legalName: 'Reconexión Buenos Aires', // PLACEHOLDER
-  email: 'contacto@reconexionbuenosaires.com.ar', // PLACEHOLDER
+  legalName: 'Reconexión Buenos Aires',
+  email: 'reconexionbuenosaires@proton.me',
   /** Formato E.164, requerido por Schema.org y por los enlaces tel:/wa.me */
-  phone: '+5491100000000', // PLACEHOLDER
-  phoneDisplay: '+54 9 11 0000-0000', // PLACEHOLDER
-  whatsapp: '5491100000000', // PLACEHOLDER (sin '+', formato wa.me)
+  phone: '+5491136680356',
+  phoneDisplay: '+54 9 11 3668-0356',
+  whatsapp: '5491136680356', // sin '+', formato wa.me
   address: {
-    streetAddress: 'Consultorio en Palermo', // PLACEHOLDER
+    streetAddress: 'Consultorio en Recoleta', // zona real
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
-    postalCode: 'C1425', // PLACEHOLDER
+    postalCode: 'C1425', // temporal hasta confirmar
     addressCountry: 'AR',
   },
   geo: {
-    latitude: -34.5885, // PLACEHOLDER
-    longitude: -58.4106, // PLACEHOLDER
+    latitude: -34.5885, // temporal
+    longitude: -58.4106, // temporal
   },
   areaServed: ['Ciudad Autónoma de Buenos Aires', 'Gran Buenos Aires', 'Argentina', 'Online'],
   openingHours: [

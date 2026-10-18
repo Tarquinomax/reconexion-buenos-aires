@@ -8,7 +8,11 @@ import {
   breadcrumbNode,
   buildGraph,
   businessNode,
+  ericPearlNode,
+  laReconexionNode,
   personNode,
+  sanacionReconectivaNode,
+  theReconnectionOrgNode,
   webPageNode,
   websiteNode,
   type BreadcrumbEntry,
@@ -62,6 +66,11 @@ const fullTitle = title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.n
 const graph: JsonLdNode[] = [
   businessNode(),
   personNode(),
+  // Destinos de knowsAbout / recognizedBy del Person: deben existir en el mismo @graph.
+  sanacionReconectivaNode(),
+  laReconexionNode(),
+  theReconnectionOrgNode(),
+  ericPearlNode(),
   websiteNode(),
   webPageNode({
     url: canonical,

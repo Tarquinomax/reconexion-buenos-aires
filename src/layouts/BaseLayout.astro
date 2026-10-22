@@ -29,6 +29,11 @@ export interface Props {
   breadcrumbs?: BreadcrumbEntry[];
   /** Nodos JSON-LD adicionales (Service, FAQPage, Article...). */
   schema?: JsonLdNode[];
+  /**
+   * @id de la entidad principal de la pagina (p. ej. `${canonical}#faq`).
+   * Activa la jerarquia WebPage -> mainEntity dentro del @graph.
+   */
+  mainEntityId?: string;
   /** ISO 8601 */
   datePublished?: string;
   dateModified?: string;
@@ -46,6 +51,7 @@ const {
   noindex = false,
   breadcrumbs = [],
   schema = [],
+  mainEntityId,
   datePublished,
   dateModified,
   ogType = 'website',
@@ -68,6 +74,7 @@ const graph: JsonLdNode[] = [
     title: fullTitle,
     description,
     hasBreadcrumb: breadcrumbs.length > 0,
+    mainEntityId,
     datePublished,
     dateModified,
   }),

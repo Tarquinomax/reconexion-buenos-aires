@@ -9,8 +9,12 @@
 export const SITE = {
   name: 'Reconexión Buenos Aires',
   shortName: 'Reconexión BA',
-  /** Debe coincidir con `site` en astro.config.mjs */
-  url: 'https://www.reconexionbuenosaires.com.ar', // PLACEHOLDER
+  /**
+   * Debe coincidir con `site` en astro.config.mjs.
+   * Se lee de import.meta.env.SITE_URL (Vercel) o import.meta.env.SITE (Astro),
+   * de modo que canonical y JSON-LD nunca divergen entre entornos.
+   */
+  url: import.meta.env.SITE_URL ?? import.meta.env.SITE ?? 'https://reconexionbuenosaires.com',
   locale: 'es-AR',
   lang: 'es',
   themeColor: '#fafaf9',
@@ -39,30 +43,53 @@ export const PRACTITIONER = {
 
 /** NAP (Name, Address, Phone) — debe ser idéntico en Google Business Profile. */
 export const BUSINESS = {
-  legalName: 'Reconexión Buenos Aires', // PLACEHOLDER
-  email: 'contacto@reconexionbuenosaires.com.ar', // PLACEHOLDER
+  legalName: 'Reconexión Buenos Aires',
+  email: 'contacto@reconexionbuenosaires.com',
   /** Formato E.164, requerido por Schema.org y por los enlaces tel:/wa.me */
-  phone: '+5491100000000', // PLACEHOLDER
-  phoneDisplay: '+54 9 11 0000-0000', // PLACEHOLDER
-  whatsapp: '5491100000000', // PLACEHOLDER (sin '+', formato wa.me)
+  phone: '+5491136680356',
+  phoneDisplay: '+54 9 11 3668-0356',
+  whatsapp: '5491136680356', // sin '+', formato wa.me
   address: {
-    streetAddress: 'Consultorio en Palermo', // PLACEHOLDER
+    streetAddress: 'Consultorio en Recoleta',
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
-    postalCode: 'C1425', // PLACEHOLDER
+    postalCode: 'C1127', // PLACEHOLDER: confirmar codigo postal exacto de Recoleta
     addressCountry: 'AR',
   },
   geo: {
-    latitude: -34.5885, // PLACEHOLDER
-    longitude: -58.4106, // PLACEHOLDER
+    latitude: -34.595856,
+    longitude: -58.392926,
   },
-  areaServed: ['Ciudad Autónoma de Buenos Aires', 'Gran Buenos Aires', 'Argentina', 'Online'],
+  /** Logo cuadrado para Schema.org (recomendado >= 112x112px). */
+  logo: '/img/logo.svg', // PLACEHOLDER: sustituir por el logo real cuando exista
+  areaServed: ['Recoleta, CABA', 'Argentina', 'LATAM', 'España', 'Online'],
+  /** Perfiles externos verificables (redes sociales / Google Maps CID) para la entidad. */
+  sameAs: [
+    // PLACEHOLDER:
+    // 'https://www.instagram.com/...',
+    // 'https://maps.google.com/?cid=...',
+  ] as string[],
   openingHours: [
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
     { days: ['Saturday'], opens: '10:00', closes: '14:00' },
   ],
   priceRange: '$$',
 } as const;
+
+/**
+ * Diccionario centralizado de días de atención (inglés Schema.org -> español UI).
+ * Evita hardcodeos en las plantillas: contacto.astro y cualquier vista de horarios
+ * deben leer de aqui. Las claves coinciden con los valores de `openingHours.days`.
+ */
+export const DIAS_SEMANA: Record<string, string> = {
+  Monday: 'Lunes',
+  Tuesday: 'Martes',
+  Wednesday: 'Miércoles',
+  Thursday: 'Jueves',
+  Friday: 'Viernes',
+  Saturday: 'Sábado',
+  Sunday: 'Domingo',
+};
 
 export type NavItem = {
   href: string;
@@ -77,6 +104,8 @@ export const NAV_PRIMARY: NavItem[] = [
   { href: '/sobre-mi', label: 'Sobre mí', hint: 'Trayectoria y formación' },
   { href: '/testimonios', label: 'Testimonios', hint: 'Experiencias en contexto' },
   { href: '/faq', label: 'Preguntas frecuentes', hint: 'Dudas y límites del servicio' },
+  { href: '/entrevistas', label: 'Entrevistas', hint: 'Videos del Dr. Eric Pearl en español' },
+  { href: '/mascotas', label: 'Mascotas', hint: 'Sanación Reconectiva para perros y gatos' },
   { href: '/blog', label: 'Blog', hint: 'Artículos y recursos' },
 ];
 

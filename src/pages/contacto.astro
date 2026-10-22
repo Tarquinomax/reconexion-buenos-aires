@@ -5,9 +5,14 @@ import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import FeatureCard from '../components/FeatureCard.astro';
-import { BUSINESS } from '../consts';
+import { BUSINESS, DIAS_SEMANA, SITE } from '../consts';
 
 const path = '/contacto';
+// Canal remoto canónico declarado en schema.ts (serviceNode de Sanación
+// Reconectiva): `${url}#channel-remoto`. Se reutiliza el mismo @id para que
+// la WebPage apunte a la entidad ya existente en el grafo y no cree nodos
+// duplicados ni referencias colgantes.
+const mainEntityId = `${SITE.url}/sanacion-reconectiva#channel-remoto`;
 const title = 'Contacto, modalidades y reservas en Buenos Aires';
 const description =
   'Modalidades presenciales en Buenos Aires y sesiones a distancia. Cómo reservar, horarios de atención, medios de contacto y qué información recibís antes de la sesión.';
@@ -26,7 +31,7 @@ const modalidades = [
     marker: 'A',
     tone: 'terracota' as const,
     title: 'Presencial en Buenos Aires',
-    text: 'Consultorio en la Ciudad Autónoma de Buenos Aires. La dirección exacta se comparte al confirmar la reserva. Placeholder: indicar accesibilidad, transporte cercano y valor de la sesión.',
+    text: 'Consultorio en Recoleta, Ciudad Autónoma de Buenos Aires. La dirección exacta se comparte al confirmar la reserva. Placeholder: indicar accesibilidad, transporte cercano y valor de la sesión.',
   },
   {
     marker: 'B',
@@ -36,26 +41,16 @@ const modalidades = [
   },
 ];
 
-const dias: Record<string, string> = {
-  Monday: 'Lunes',
-  Tuesday: 'Martes',
-  Wednesday: 'Miércoles',
-  Thursday: 'Jueves',
-  Friday: 'Viernes',
-  Saturday: 'Sábado',
-  Sunday: 'Domingo',
-};
-
 const horarios = BUSINESS.openingHours.map((block) => ({
   label:
     block.days.length > 1
-      ? `${dias[block.days[0]!]} a ${dias[block.days[block.days.length - 1]!]}`
-      : dias[block.days[0]!]!,
+      ? `${DIAS_SEMANA[block.days[0]!]} a ${DIAS_SEMANA[block.days[block.days.length - 1]!]}`
+      : DIAS_SEMANA[block.days[0]!]!,
   range: `${block.opens} – ${block.closes}`,
 }));
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} mainEntityId={mainEntityId}>
   <PageHeader
     eyebrow="Reservas"
     title="Contacto y modalidades"

@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import Disclaimer from '../components/Disclaimer.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE } from '../consts';
+import { petServiceNode } from '../lib/schema';
+
+const path = '/mascotas';
+const url = new URL(path, SITE.url).href;
+
+const title = 'Sanación para mascotas';
+const description =
+  'Sesiones a distancia de Sanación Reconectiva para perros y gatos. Sostén complementario, no veterinario: ante cualquier síntoma, consultá a un médico veterinario matriculado.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Sanación para mascotas', item: path },
+];
+
+// Nodo #service del grafo (definido en src/lib/schema.ts). La pagina lo
+// referencia por @id mediante mainEntity: jerarquia piramidal bidireccional
+// WebPage -> Service -> #channel-remoto, resuelta estaticamente en el build.
+const serviceNode = petServiceNode();
+const mainEntityId = `${url}#service`;
+const caseStudyId = `${url}#caso-scubby`;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  schema={[serviceNode]}
+  mainEntityId={mainEntityId}
+>
+  <PageHeader
+    eyebrow="Sesiones a distancia"
+    title="Sanación para mascotas"
+    lead="Perros y gatos también pueden recibir las sesiones de Sanación Reconectiva de forma remota. Esta solapa presenta el servicio y el caso real de Scubby, con los datos verificables pendientes de publicación."
+    breadcrumbs={breadcrumbs}
+  />
+
+  {/* Contenedor fijo Single-Viewport (100vh), dos bloques. Sin JavaScript de
+      cliente: el modal del informe de antígenos se resuelve con <dialog> nativo
+      abierto por [target] + name, comportamiento 100% HTML/CSS. */}
+  <div class="flex min-h-[calc(100vh-9rem)] flex-col">
+
+    {/* BLOQUE 1 — Explicación del servicio + foto de la mascota */}
+    <Section class="flex-1">
+      <div class="grid gap-8 md:grid-cols-2 md:items-start">
+        <div>
+          <h2 class="font-display text-2xl leading-snug">Cómo es una sesión para mascotas</h2>
+          {/* PLACEHOLDER(cliente): texto literal de la explicación (web 2012). */}
+          <p class="mt-3 text-stone-600 leading-relaxed">
+            Texto temporal en espera del contenido definitivo. Se anunciará aquí
+            la modalidad a distancia, la duración y el encuadre con el tutor.
+          </p>
+        </div>
+        <figure class="rounded-organic border border-stone-200 bg-stone-50 p-4">
+          {/* PLACEHOLDER(cliente): foto original de la mascota, sin filtros. */}
+          <div class="aspect-[4/3] w-full rounded-organic bg-stone-200" role="img" aria-label="Foto de la mascota (pendiente)"></div>
+          <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
+            Foto pendiente de carga (original, sin ediciones).
+          </figcaption>
+        </figure>
+      </div>
+    </Section>
+
+    {/* BLOQUE 2 — Caso Real de Scubby + modal nativo del informe de antígenos */}
+    <Section class="flex-1 border-t border-stone-200 bg-cream">
+      <div class="grid gap-8 md:grid-cols-2 md:items-start">
+        <div>
+          <h2 class="font-display text-2xl leading-snug">Caso Real de Scubby</h2>
+          {/* PLACEHOLDER(cliente): testimonio literal del tutor y desenlace verificado. */}
+          <p class="mt-3 text-stone-600 leading-relaxed">
+            Testimonio y datos clínicos del caso pendientes de autorización y
+            validación. Enlaces semánticos: <a href={mainEntityId} class="underline">servicio</a> ·
+            <a href={caseStudyId} class="underline">nodo del caso</a>.
+          </p>
+          {/* Trigger nativo del modal (form + button con formaction/formmethod):
+              cero JS en el hilo principal, compatible con Tailwind v4. */}
+          <form method="dialog" class="mt-4">
+            <button
+              type="submit"
+              class="inline-flex items-center gap-2 rounded-full bg-terracota-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-terracota-800"
+            >
+              Ver informe de antígenos
+            </button>
+          </form>
+        </div>
+        <div class="md:self-center">
+          {/* PLACEHOLDER(cliente): imagen del informe de laboratorio. */}
+          <div class="aspect-[4/3] w-full rounded-organic border border-dashed border-stone-300 bg-stone-100"></div>
+        </div>
+      </div>
+    </Section>
+
+    {/* Modal nativo: <dialog> con ::backdrop, sin librerías ni scripts. */}
+    <dialog id="informe-antigenos" class="w-full max-w-lg rounded-organic border border-stone-200 bg-white p-6 shadow-elevated backdrop:bg-stone-900/40">
+      <h3 class="font-display text-xl leading-snug">Informe de antígenos — Scubby</h3>
+      <p class="mt-3 text-sm text-stone-600 leading-relaxed">
+        Contenido pendiente: imagen y lectura del informe de laboratorio que
+        acompañó el caso. Placeholder reservado para la próxima sesión.
+      </p>
+      <form method="dialog" class="mt-4 text-right">
+        <button type="submit" class="rounded-full border border-stone-300 px-4 py-2 text-sm font-medium text-stone-700 transition-colors hover:bg-stone-100">
+          Cerrar
+        </button>
+      </form>
+    </dialog>
+  </div>
+
+  <Disclaimer />
+  <CtaBanner />
+</BaseLayout>

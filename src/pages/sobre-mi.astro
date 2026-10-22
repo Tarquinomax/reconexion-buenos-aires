@@ -5,6 +5,7 @@ import Section from '../components/Section.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { PRACTITIONER, BUSINESS } from '../consts';
+import { ID } from '../lib/schema';
 
 const path = '/sobre-mi';
 const title = 'Sobre mí: trayectoria y formación';
@@ -36,7 +37,13 @@ const hitos = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  mainEntityId={ID.person}
+>
   <PageHeader
     eyebrow="Quién acompaña"
     title={PRACTITIONER.name}

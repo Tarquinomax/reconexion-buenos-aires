@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
  * Se sobreescribe con la variable de entorno SITE_URL en Vercel
  * (Project Settings -> Environment Variables) para entornos de preview.
  */
-const SITE_URL = process.env.SITE_URL ?? 'https://www.reconexionbuenosaires.com.ar';
+const SITE_URL = process.env.SITE_URL ?? 'https://reconexionbuenosaires.com';
 
 export default defineConfig({
   site: SITE_URL,

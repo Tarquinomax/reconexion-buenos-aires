@@ -29,9 +29,11 @@ export const SITE = {
 /** Datos del facilitador — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
   name: 'José A.', // PLACEHOLDER: confirmar apellido completo antes de publicar
-  jobTitle: 'Facilitador Oficial de The Reconnection LLC (Sanación Reconectiva y La Reconexión)',
+  jobTitle: 'Facilitador Certificado de Sanación Reconectiva y La Reconexión',
   /** Certificación Nivel III por The Reconnection LLC (organización global oficial). */
   certificationLevel: 'Nivel III — The Reconnection LLC',
+  /** Niveles oficiales declarados por el cliente: Sanación I+II, Reconexión III. */
+  levelsDetail: { sanacion: 'Nivel I y II', reconexion: 'Nivel III' },
   /** Etiqueta corta de acreditación para badges/insignias de UI. */
   credentialBadge: 'Facilitador Certificado',
   yearsOfPractice: 12,
@@ -43,10 +45,14 @@ export const PRACTITIONER = {
   sameAs: [
     // Perfil oficial verificado de The Reconnection (canal del Dr. Eric Pearl).
     'https://www.youtube.com/@Reconexion333',
+    // Testimonio personal en video del facilitador (confirmado por el cliente, oct-2026).
+    'https://www.youtube.com/watch?v=TWVJc_DTp9o',
     // PLACEHOLDER: perfiles propios verificables refuerzan la entidad ante buscadores.
     // 'https://www.instagram.com/...',
     // 'https://www.linkedin.com/in/...',
   ] as string[],
+  /** URL del testimonio personal en video (canal propio, embebible). */
+  videoTestimonialUrl: 'https://www.youtube.com/watch?v=TWVJc_DTp9o',
 } as const;
 
 /** NAP (Name, Address, Phone) — debe ser idéntico en Google Business Profile. */
@@ -78,8 +84,8 @@ export const BUSINESS = {
     // 'https://maps.google.com/?cid=...',
   ] as string[],
   openingHours: [
-    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
-    { days: ['Saturday'], opens: '10:00', closes: '14:00' },
+    // Horario confirmado por el cliente (oct-2026): lun–vie 09:00–16:00, días hábiles.
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '09:00', closes: '16:00' },
   ],
   /**
    * Valor oficial internacional unificado para La Reconexión: 333 USD.

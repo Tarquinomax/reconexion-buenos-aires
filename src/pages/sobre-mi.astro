@@ -4,35 +4,46 @@ import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { PRACTITIONER, BUSINESS } from '../consts';
-import { ID } from '../lib/schema';
+import { PRACTITIONER, BUSINESS, SITE } from '../consts';
+import { ID, videoNode } from '../lib/schema';
 
 const path = '/sobre-mi';
-const title = 'Sobre mí: trayectoria y formación';
+const title = 'José A. | Facilitador Certificado de Sanación Reconectiva y La Reconexión';
 const description =
-  'Trayectoria profesional, formación y criterio de trabajo. Certificación de Maestría en Sanación Reconectiva obtenida en septiembre de 2012 y práctica sostenida en Buenos Aires.';
+  'Facilitador Certificado de Sanación Reconectiva (Nivel I y II) y de La Reconexión (Nivel III), formado en septiembre de 2012 en Buenos Aires por el Dr. Eric Pearl y The Reconnection. +10 años y +1.100 sesiones.';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
   { name: 'Sobre mí', item: path },
 ];
 
+/** URL embebible del video (CSP permite youtube-nocookie.com). */
+const videoId = 'TWVJc_DTp9o';
+
+/** Nodo VideoObject para el grafo JSON-LD de esta página (E-E-A-T: creator = Person). */
+const testimonialVideo = videoNode({
+  id: `${SITE.url}/#video-testimonio-personal`,
+  name: 'Mi testimonio en video — José A.',
+  description:
+    'Testimonio personal de José A., Facilitador Certificado de Sanación Reconectiva y La Reconexión, sobre cómo la llegada de estas frecuencias transformó su camino.',
+  thumbnailUrl: `https://i.ytimg.com/vi/${videoId}/maxresdefault.jpg`,
+  uploadDate: '2024-01-01T00:00:00Z', // PLACEHOLDER(cliente): fecha real de publicación del video
+  duration: 'PT5M', // PLACEHOLDER(cliente): duración real del video
+  embedUrl: `https://www.youtube-nocookie.com/embed/${videoId}`,
+  contentUrl: PRACTITIONER.videoTestimonialUrl,
+});
+
 /** Hitos verificables: son la base de la señal E-E-A-T y del nodo Person del JSON-LD. */
 const hitos = [
   {
     year: '2012',
-    title: 'Certificación de Maestría en Sanación Reconectiva',
-    text: `Obtenida en ${PRACTITIONER.masteryLabel} bajo las directrices de The Reconnection LLC, la organización global oficial del método. PLACEHOLDER(cliente): indicar ciudad y número de certificado si es público.`,
+    title: 'Formación Oficial Directa',
+    text: `Certificación oficial otorgada por The Reconnection y el Dr. Eric Pearl en Buenos Aires (${PRACTITIONER.masteryLabel}).`,
   },
   {
     year: `${String(2026 - PRACTITIONER.yearsOfPractice)} — hoy`,
-    title: 'Práctica sostenida en Buenos Aires',
-    text: `Práctica ininterrumpida desde la certificación, con más de ${PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')} sesiones facilitadas en modalidades presencial y a distancia. PLACEHOLDER(cliente): ampliar con ámbitos y tipos de acompañamiento.`,
-  },
-  {
-    year: 'Formación continua',
-    title: 'Actualización y supervisión',
-    text: 'PLACEHOLDER(cliente): seminarios, encuentros y formación complementaria relevante.',
+    title: 'Experiencia Comprobada',
+    text: `Más de ${PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')} sesiones facilitadas a consultantes de Argentina, Europa y diversos países de Latinoamérica.`,
   },
 ];
 
@@ -47,8 +58,10 @@ const metricas = [
 <BaseLayout
   title={title}
   description={description}
+  rawTitle
   canonicalPath={path}
   breadcrumbs={breadcrumbs}
+  schema={[testimonialVideo]}
   mainEntityId={ID.person}
 >
   <PageHeader
@@ -82,8 +95,8 @@ const metricas = [
 
         <dl class="mt-8 space-y-4 text-sm">
           <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
-            <dt class="text-stone-500">Maestría</dt>
-            <dd class="text-right text-stone-800">{PRACTITIONER.masteryLabel}</dd>
+            <dt class="text-stone-500">Certificación</dt>
+            <dd class="text-right text-stone-800">{PRACTITIONER.masteryLabel} · The Reconnection</dd>
           </div>
           <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
             <dt class="text-stone-500">Ubicación</dt>
@@ -98,27 +111,45 @@ const metricas = [
 
       <div class="lg:col-span-7">
         <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
-          <h2>Cómo llegué a este trabajo</h2>
+          <h2>Mi propósito</h2>
           <p>
-            PLACEHOLDER(cliente) de contenido. Relato en primera persona, concreto y sin épica: los
-            buscadores y las personas valoran lo mismo, hechos verificables antes que adjetivos.
+            Mi propósito es facilitar el acceso directo a un espectro amplio de frecuencias de energía,
+            luz e información orientadas a restablecer el equilibrio integral en los niveles físico,
+            mental, emocional y espiritual.
           </p>
 
-          <h2>Mi criterio de trabajo</h2>
+          <h2>Quién soy</h2>
           <p>
-            Formación presencial directa bajo las directrices de The Reconnection LLC. Cada sesión se
-            aborda desde el rigor del encuadre, la estricta confidencialidad y el respeto por el proceso
-            individual, prescindiendo de artificios doctrinales. No emito diagnósticos, no interfiro con
+            Soy José A., Facilitador Certificado de Sanación Reconectiva ({PRACTITIONER.levelsDetail.sanacion})
+            y de La Reconexión ({PRACTITIONER.levelsDetail.reconexion}), formado oficialmente en
+            {PRACTITIONER.masteryLabel} en Buenos Aires por el Dr. Eric Pearl y el equipo docente de
+            The Reconnection.
+          </p>
+          <p>
+            A lo largo de más de una década de práctica continua, he facilitado procesos individuales a
+            más de {PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')} personas de Argentina, Europa
+            y diversos países de Latinoamérica, acompañándolas en su restablecimiento energético y
+            evolución personal.
+          </p>
+
+          <h2>Modalidades de atención definidas</h2>
+          <ul>
+            <li>
+              <strong>Sanación Reconectiva®:</strong> sesiones facilitadas exclusivamente a distancia, con
+              idéntico alcance sin importar el lugar geográfico donde te encuentres.
+            </li>
+            <li>
+              <strong>La Reconexión®:</strong> proceso facilitado exclusivamente en modalidad presencial en
+              la Ciudad Autónoma de Buenos Aires (CABA).
+            </li>
+          </ul>
+
+          <h2>Enfoque ético e individual</h2>
+          <p>
+            Mi dedicación profesional está enfocada exclusivamente en la atención personalizada de cada
+            consultante (no dicto cursos ni seminarios masivos). No emito diagnósticos, no interfiero con
             tratamientos médicos y derivo cuando el pedido excede este trabajo.
           </p>
-
-          <h2>Qué podés esperar de mí</h2>
-          <ul>
-            <li>Información previa clara sobre encuadre, duración y valor.</li>
-            <li>Ausencia total de promesas de curación.</li>
-            <li>Confidencialidad sobre lo que se comparte en la sesión.</li>
-            <li>Una derivación honesta cuando el pedido excede este trabajo.</li>
-          </ul>
         </div>
       </div>
     </div>
@@ -164,9 +195,47 @@ const metricas = [
     </ol>
   </Section>
 
+  <Section tone="muted">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-forest-800 uppercase">Video</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Mi testimonio en video</h2>
+      <p class="mt-4 leading-relaxed text-stone-600">
+        Comparto mi experiencia personal y cómo la llegada de estas frecuencias transformó mi camino.
+      </p>
+    </div>
+
+    <div class="mt-10 overflow-hidden rounded-organic border border-cream-200 bg-stone-900">
+      <div class="aspect-video w-full">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          title="Mi testimonio en video — José A., Facilitador Certificado"
+          class="h-full w-full"
+          loading="lazy"
+          referrerpolicy="strict-origin-when-cross-origin"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        />
+      </div>
+    </div>
+    <p class="mt-3 text-sm text-stone-500">
+      También disponible en YouTube:&nbsp;
+      <a
+        href={PRACTITIONER.videoTestimonialUrl}
+        target="_blank"
+        rel="noopener noreferrer nofollow"
+        class="text-forest-800 underline decoration-cream-300 underline-offset-4 hover:decoration-forest-800"
+      >
+        Ver el video original
+      </a>
+    </p>
+  </Section>
+
   <Section width="prose">
     <Disclaimer />
   </Section>
 
-  <CtaBanner title="¿Querés conversar antes de reservar?" />
+  <CtaBanner
+    title="Consulta y Reserva de Sesiones"
+    text={`Si sentís que es el momento de restablecer tu equilibrio o iniciar tu proceso, podés comunicarte directamente. Horarios de atención: lunes a viernes de 09:00 a 16:00 hs (días hábiles).`}
+  />
 </BaseLayout>

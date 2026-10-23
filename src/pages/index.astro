@@ -16,16 +16,21 @@ const schema = [
   serviceNode({
     name: 'Sesión de Sanación Reconectiva',
     description:
-      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+      'Sesiones de Sanación Reconectiva ejecutadas en modalidad a distancia con alcance global (1 a 3 sesiones sugeridas), y presenciales en Buenos Aires. Aplica también para mascotas y animales a distancia. No incluyen música, instrumentación ni frecuencias de sonido artificiales. Con encuadre claro y sin promesas de curación.',
     url: new URL('/sanacion-reconectiva', SITE.url).href,
-    serviceType: 'Sanación Reconectiva',
+    serviceType: 'Sanación Reconectiva® a Distancia',
   }),
   serviceNode({
-    name: 'La Reconexión',
+    name: 'La Reconexión Presencial en CABA',
     description:
-      'Proceso de dos sesiones en días consecutivos que se realiza una única vez en la vida.',
+      'Proceso presencial en Ciudad Autónoma de Buenos Aires (Zona Recoleta). Consta de 2 sesiones consecutivas y se realiza una única vez en la vida.',
     url: new URL('/la-reconexion', SITE.url).href,
-    serviceType: 'La Reconexión',
+    serviceType: 'La Reconexión® Presencial',
+    // Proceso 100% presencial: no se declara canal remoto para evitar
+    // contaminar el grafo con una tripletas areaServed/canal contradictoria.
+    remote: false,
+    // Valor oficial internacional unificado (SSOT: consts.BUSINESS).
+    offer: { price: BUSINESS.laReconexionPriceUsd, priceCurrency: 'USD' },
   }),
 ];
 

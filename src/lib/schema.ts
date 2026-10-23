@@ -121,7 +121,10 @@ export function personNode(): JsonLdNode {
     '@type': 'Person',
     '@id': ID.person,
     name: PRACTITIONER.name,
-    jobTitle: PRACTITIONER.jobTitle,
+    jobTitle: 'Facilitador Certificado de Sanación Reconectiva y La Reconexión',
+    // Tripletas EAV maestras: la descripcion consolida certificador, fecha y
+    // casuistica verificada (SSOT: PRACTITIONER.masteryLabel / sessionsDelivered).
+    description: `Formado y certificado oficialmente en Buenos Aires en ${PRACTITIONER.masteryLabel} por el Dr. Eric Pearl y The Reconnection, con más de una década de práctica continua y más de ${PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')} sesiones individuales facilitadas.`,
     url: absoluteUrl('/sobre-mi'),
     image: absoluteUrl(PRACTITIONER.image),
     worksFor: { '@id': ID.business },
@@ -131,6 +134,7 @@ export function personNode(): JsonLdNode {
     knowsAbout: [
       'Sanación Reconectiva',
       'La Reconexión',
+      'Bioenergética',
       'Campos de energía, luz e información',
       'Acompañamiento en procesos de salud integrativa',
     ],
@@ -289,6 +293,10 @@ export function serviceNode(options: {
   description: string;
   url: string;
   serviceType: string;
+  /** Declara el canal virtual (#channel-remoto) del servicio. Falso en procesos 100% presenciales. */
+  remote?: boolean;
+  /** Oferta con precio numerico (USD). Se emite solo si se provee, para no inventar datos. */
+  offer?: { price: number; priceCurrency?: string };
 }): JsonLdNode {
   const serviceId = `${options.url}#service`;
   return {
@@ -303,7 +311,7 @@ export function serviceNode(options: {
     // fragmentar el dominio en paginas por provincia o pais.
     areaServed: areaServedMarkets(),
     // Entrega explicita a distancia: canal virtual apto para todas las areas.
-    availableChannel: remoteServiceChannel(options.url),
+    ...(options.remote === false ? {} : { availableChannel: remoteServiceChannel(options.url) }),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: options.serviceType,
@@ -311,6 +319,13 @@ export function serviceNode(options: {
         {
           '@type': 'Offer',
           itemOffered: { '@id': serviceId },
+          ...(options.offer
+            ? {
+                price: String(options.offer.price),
+                priceCurrency: options.offer.priceCurrency ?? 'USD',
+                availability: 'https://schema.org/InStock',
+              }
+            : {}),
         },
       ],
     },

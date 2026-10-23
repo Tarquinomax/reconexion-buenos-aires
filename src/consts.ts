@@ -41,7 +41,9 @@ export const PRACTITIONER = {
   masteryLabel: 'septiembre de 2012',
   image: '/img/practicante.jpg', // PLACEHOLDER
   sameAs: [
-    // PLACEHOLDER: perfiles verificables refuerzan la entidad ante buscadores.
+    // Perfil oficial verificado de The Reconnection (canal del Dr. Eric Pearl).
+    'https://www.youtube.com/@Reconexion333',
+    // PLACEHOLDER: perfiles propios verificables refuerzan la entidad ante buscadores.
     // 'https://www.instagram.com/...',
     // 'https://www.linkedin.com/in/...',
   ] as string[],
@@ -79,7 +81,14 @@ export const BUSINESS = {
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
     { days: ['Saturday'], opens: '10:00', closes: '14:00' },
   ],
+  /**
+   * Valor oficial internacional unificado para La Reconexión: 333 USD.
+   * `priceRange` usa el patron microdata de Google ('$$' = rango moderado);
+   * el valor numerico exacto se declara en `laReconexionPriceUsd` y se
+   * inyecta como Offer/priceRange en los nodos Service del grafo JSON-LD.
+   */
   priceRange: '$$',
+  laReconexionPriceUsd: 333,
 } as const;
 
 /**

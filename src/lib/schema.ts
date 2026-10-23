@@ -137,7 +137,7 @@ export function personNode(): JsonLdNode {
     hasCredential: {
       '@type': 'EducationalOccupationalCredential',
       credentialCategory: 'certificate',
-      name: 'Maestría en Sanación Reconectiva',
+      name: `${PRACTITIONER.certificationLevel} · The Reconnection LLC`,
       dateCreated: PRACTITIONER.masteryDate,
     },
     ...(PRACTITIONER.sameAs.length > 0 ? { sameAs: PRACTITIONER.sameAs } : {}),

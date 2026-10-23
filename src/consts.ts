@@ -17,7 +17,7 @@ export const SITE = {
   url: import.meta.env.SITE_URL ?? import.meta.env.SITE ?? 'https://reconexionbuenosaires.com',
   locale: 'es-AR',
   lang: 'es',
-  themeColor: '#fafaf9',
+  themeColor: '#fcf9f8',
   defaultTitle: 'Reconexión Buenos Aires | Sanación Reconectiva y La Reconexión',
   defaultDescription:
     'Sesiones de Sanación Reconectiva y La Reconexión en Buenos Aires. Práctica presencial y a distancia, explicada con claridad, límites honestos y acompañamiento respetuoso.',
@@ -26,10 +26,14 @@ export const SITE = {
   twitter: '', // PLACEHOLDER: '@usuario' si existe
 } as const;
 
-/** Datos de la practicante — alimentan Schema.org Person y la señal E-E-A-T. */
+/** Datos del facilitador — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
-  name: 'Nombre Apellido', // PLACEHOLDER
-  jobTitle: 'Practicante certificada de Sanación Reconectiva y La Reconexión',
+  name: 'José A.', // PLACEHOLDER: confirmar apellido completo antes de publicar
+  jobTitle: 'Facilitador certificado de Sanación Reconectiva y La Reconexión',
+  /** Certificación Nivel III por The Reconnection LLC (organización global oficial). */
+  certificationLevel: 'Nivel III — The Reconnection LLC',
+  yearsOfPractice: 12,
+  sessionsDelivered: 1100,
   /** Año/mes de la certificación de Maestría citada por el cliente. */
   masteryDate: '2012-09',
   masteryLabel: 'septiembre de 2012',
@@ -50,7 +54,7 @@ export const BUSINESS = {
   phoneDisplay: '+54 9 11 3668-0356',
   whatsapp: '5491136680356', // sin '+', formato wa.me
   address: {
-    streetAddress: 'Consultorio en Recoleta',
+    streetAddress: 'Av. Alvear, Recoleta', // PLACEHOLDER: confirmar numero exacto de calle
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
     postalCode: 'C1127', // PLACEHOLDER: confirmar codigo postal exacto de Recoleta

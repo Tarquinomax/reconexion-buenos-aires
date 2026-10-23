@@ -5,18 +5,18 @@ import Button from '../components/Button.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import TestimonialCard from '../components/TestimonialCard.astro';
 import { BUSINESS, PRACTITIONER, SITE } from '../consts';
 import { serviceNode } from '../lib/schema';
 
-const title = SITE.name;
-const description = SITE.defaultDescription;
+const title = 'Sanación Reconectiva® a Distancia en Buenos Aires y Argentina';
+const description =
+  'Sanación Reconectiva® a distancia en Buenos Aires y Argentina. Una forma integral de acceder al equilibrio natural a través de frecuencias de energía, luz e información. Sesiones exclusivas a distancia.';
 
 const schema = [
   serviceNode({
-    name: 'Sesión de Sanación Reconectiva',
+    name: 'Sesión de Sanación Reconectiva a Distancia',
     description:
-      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+      'Sesión individual de Sanación Reconectiva a distancia en Buenos Aires y Argentina. Interacción con frecuencias de energía, luz e información sin contacto físico.',
     url: new URL('/sanacion-reconectiva', SITE.url).href,
     serviceType: 'Sanación Reconectiva',
   }),
@@ -28,62 +28,31 @@ const schema = [
     serviceType: 'La Reconexión',
   }),
 ];
-
-const pilares = [
-  {
-    marker: '01',
-    tone: 'terracota' as const,
-    title: 'Un encuadre claro desde el primer minuto',
-    text: 'Sabés de antemano cuánto dura la sesión, qué se hace, qué no se hace y qué podés esperar. Sin ambigüedades ni lenguaje inflado.',
-    href: '/sanacion-reconectiva',
-  },
-  {
-    marker: '02',
-    tone: 'salvia' as const,
-    title: 'Límites explícitos, no promesas',
-    text: 'No se diagnostica, no se cura y no se sustituye ningún tratamiento. Ese límite es parte del trabajo, no una advertencia escondida en el pie de página.',
-    href: '/faq',
-  },
-  {
-    marker: '03',
-    tone: 'stone' as const,
-    title: 'Trayectoria verificable',
-    text: `Formación continuada desde la certificación de Maestría de ${PRACTITIONER.masteryLabel}, con práctica sostenida en Buenos Aires.`,
-    href: '/sobre-mi',
-  },
-];
-
-const pasos = [
-  { n: '01', t: 'Consulta previa', d: 'Conversamos por mensaje o teléfono. Si no es el momento adecuado, te lo digo.' },
-  { n: '02', t: 'Reserva y encuadre', d: 'Acordamos fecha, modalidad y valor. Recibís por escrito qué incluye la sesión.' },
-  { n: '03', t: 'La sesión', d: 'Entre 30 y 45 minutos, vestida, acostada, sin contacto físico y sin manipulación.' },
-  { n: '04', t: 'Después', d: 'Un espacio breve para poner en palabras la experiencia. Sin interpretación ni pronóstico.' },
-];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" schema={schema}>
+<BaseLayout title={title} description={description} canonicalPath="/">
   <!-- HERO -->
   <section class="bg-aura relative overflow-hidden border-b border-stone-200/70">
     <div class="container-page grid gap-14 py-20 md:py-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-36">
       <div class="animate-fade-up lg:col-span-7">
         <p class="text-xs font-semibold tracking-[0.2em] text-terracota-700 uppercase">
-          Buenos Aires · Presencial y a distancia
+          Buenos Aires · Argentina · Exclusivamente a distancia
         </p>
 
         <h1 class="mt-5 text-4xl leading-[1.08] sm:text-5xl lg:text-6xl xl:text-7xl">
-          Sanación Reconectiva<br class="hidden sm:block" />
-          <span class="text-terracota-700">explicada con honestidad</span>
+          Sanación Reconectiva®<br class="hidden sm:block" />
+          <span class="text-terracota-700">a Distancia</span>
         </h1>
 
         <p class="mt-7 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
-          Un espacio de acompañamiento sereno para quienes quieren acercarse a este trabajo sin promesas
-          exageradas. Acá vas a encontrar qué es, qué no es y cómo se desarrolla una sesión, antes de decidir.
+          Una forma integral de acceder al equilibrio natural a través de un espectro amplio de frecuencias
+          compuesto por energía, luz e información. Sesiones facilitadas exclusivamente a distancia.
         </p>
 
         <div class="mt-10 flex flex-wrap gap-3">
           <Button href="/contacto" size="lg">Reservar una sesión</Button>
           <Button href="/sanacion-reconectiva" variant="secondary" size="lg">
-            Entender de qué se trata
+            Conocer más
           </Button>
         </div>
 
@@ -98,7 +67,7 @@ const pasos = [
           </div>
           <div>
             <dt class="text-xs tracking-[0.12em] text-stone-500 uppercase">Modalidad</dt>
-            <dd class="mt-1 font-display text-2xl text-stone-900">2 vías</dd>
+            <dd class="mt-1 font-display text-2xl text-stone-900">A distancia</dd>
           </div>
         </dl>
       </div>
@@ -107,7 +76,6 @@ const pasos = [
         <div
           class="relative mx-auto aspect-4/5 w-full max-w-md overflow-hidden rounded-[3rem] border border-stone-200 bg-gradient-to-br from-terracota-100 via-stone-100 to-salvia-100"
         >
-          <!-- TODO(cliente): reemplazar por <Image /> de astro:assets con la fotografía definitiva. -->
           <div class="absolute inset-0 flex items-end p-8">
             <p class="font-display text-lg text-stone-700">
               Espacio para la fotografía principal del consultorio o de la práctica.
@@ -118,106 +86,105 @@ const pasos = [
     </div>
   </section>
 
-  <!-- PILARES -->
-  <Section id="pilares">
-    <div class="max-w-2xl">
-      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Cómo trabajo</p>
-      <h2 class="mt-3 text-3xl md:text-4xl">Tres compromisos que sostienen cada sesión</h2>
+  <!-- QUÉ ES -->
+  <Section width="prose">
+    <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
+      <h2>Qué es la Sanación Reconectiva®</h2>
+      <p>
+        La Sanación Reconectiva® es una forma integral de acceder al equilibrio natural a través de un espectro
+        amplio de frecuencias compuesto por energía, luz e información. No es una técnica terapéutica tradicional
+        ni un método de pasos estructurados; es una interacción directa con el campo energético que permite a la
+        persona restablecer su propia armonía en los niveles físico, mental, emocional y espiritual.
+      </p>
+      <p>
+        En la Sanación Reconectiva® no se tocan puntos específicos ni se aplican protocolos de imposición de manos.
+        El facilitador utiliza la atención, la intención y el movimiento sutil de las manos sobre todo el cuerpo sin
+        establecer contacto físico. En mi práctica particular, las sesiones de Sanación Reconectiva® se facilitan
+        exclusivamente a distancia, ya que estas frecuencias trascienden las limitaciones del tiempo y el espacio,
+        operando con idéntico alcance sin importar la ubicación geográfica de la persona.
+      </p>
+
+      <h2>¿Qué propone la Sanación Reconectiva?</h2>
+      <p>
+        Sanar significa volver al equilibrio. Cada desafío de salud es una combinación de físico, mental, emocional
+        y espiritual. Con la Sanación Reconectiva te permites volver al equilibrio fortaleciendo el sistema
+        inmunológico y circulatorio. Restituye, armoniza y equilibra el bienestar general.
+      </p>
+      <p>
+        La Sanación Reconectiva® es una forma de sanación que activa y acelera el equilibrio y armonía del ser
+        humano. Aumenta el nivel de Bioenergía, mejora el desempeño y equilibrio Físico, Mental, Espiritual y
+        Emocional de las personas.
+      </p>
+      <p>
+        La Sanación Reconectiva® es una nueva forma de interactuar con el campo energético del cuerpo, que va más
+        allá de lo conocido hasta ahora. Las frecuencias de Energía, Luz e Información, una vez que entran en
+        contacto con las Energías de la persona, se dirigen donde esté la dolencia, síntoma o enfermedad. Estas
+        frecuencias de energías son inteligentes y saben dónde sanar y acompañarán a la persona durante todo su
+        proceso de sanación. Seguirá ingresando en la persona hasta meses después de terminadas las sesiones. Nos
+        ayudará a curar en todos los niveles, mejorando significativamente nuestros niveles de energía física y
+        equilibrando nuestros estados emocionales y mentales.
+      </p>
+
+      <h2>Sesiones a distancia: cómo se desarrollan</h2>
+      <p>
+        Al realizarse exclusivamente a distancia, la persona acuerda un horario para la sesión y simplemente se
+        recuesta cómodamente en un espacio tranquilo, sin interrupciones, con los ojos cerrados y en actitud
+        receptiva. No es necesario realizar meditaciones guiadas, técnicas de respiración ni esfuerzos de
+        concentración: el proceso ocurre por resonancia directa con el espectro de frecuencias que el facilitador
+        sintoniza.
+      </p>
+
+      <h2>El origen: la experiencia del Dr. Eric Pearl</h2>
+      <p>
+        Esta forma de sanación comenzó a manifestarse a partir de 1985 a través del trabajo del quiropráctico
+        estadounidense Eric Pearl, graduado en el Cleveland Chiropractic College de Los Ángeles. Mientras dirigía
+        una de las clínicas quiroprácticas más concurridas de su región, el Dr. Pearl empezó a observar que muchas
+        personas que acudían a su consulta experimentaban transformaciones y mejorías notables en condiciones que
+        él no estaba tratando de manera directa.
+      </p>
+      <p>
+        A partir de esos acontecimientos, el fenómeno comenzó a ser investigado por científicos, físicos y médicos
+        de instituciones internacionales para comprender la naturaleza de estas frecuencias y su impacto sobre el
+        campo electromagnético humano.
+      </p>
+      <p>
+        Durante este período inicial, siete personas distintas, sin relación entre sí, pronunciaron de manera
+        espontánea exactamente las mismas frases en diferentes momentos:
+      </p>
+      <ol>
+        <li>«Hemos venido a decirte que continúes haciendo lo que estás haciendo».</li>
+        <li>«Lo que estás haciendo es traer luz e información al planeta».</li>
+        <li>«Lo que estás haciendo es reconectar hebras».</li>
+        <li>«Lo que estás haciendo es reconectar cuerdas».</li>
+        <li>«Debes saber que eres un sanador».</li>
+        <li>«Has venido por tu propia reputación».</li>
+      </ol>
+
+      <h2>¿Por qué se denomina Sanación Reconectiva?</h2>
+      <p>
+        El concepto surge de la comprensión de que el ser humano no se encuentra aislado, sino intrínsecamente
+        vinculado con una red más amplia de energía, luz e información. La palabra «Reconectiva» alude precisamente
+        a la restitución de esa coherencia original: cuando la persona entra en resonancia con estas frecuencias, se
+        restablece la comunicación entre sus distintos niveles de existencia y el campo universal, facilitando un
+        retorno natural al orden y al equilibrio.
+      </p>
+
+      <h2>La Sanación Reconectiva en Buenos Aires y Argentina</h2>
+      <p>
+        Desde la llegada y difusión de los seminarios oficiales dictados por el Dr. Eric Pearl en Buenos Aires en
+        2012, numerosas personas en Argentina han accedido a esta experiencia facilitada por profesionales
+        certificados. La modalidad a distancia permite que consultantes de cualquier punto del país o del exterior
+        puedan recibir la sesión con absoluta comodidad, garantizando la misma interacción con las frecuencias sin
+        barreras geográficas.
+      </p>
     </div>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {
-        pilares.map((p) => (
-          <FeatureCard title={p.title} marker={p.marker} tone={p.tone} href={p.href}>
-            {p.text}
-          </FeatureCard>
-        ))
-      }
-    </div>
-  </Section>
-
-  <!-- DOS CAMINOS -->
-  <Section tone="muted">
-    <div class="grid gap-12 lg:grid-cols-2 lg:gap-16">
-      <div>
-        <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Sesiones</p>
-        <h2 class="mt-3 text-3xl md:text-4xl">Sanación Reconectiva</h2>
-        <p class="mt-5 leading-relaxed text-stone-600">
-          Sesiones individuales que pueden repetirse en el tiempo. Se trabaja con la persona vestida,
-          acostada y sin contacto físico. Placeholder de contenido: reemplazar por la descripción definitiva.
-        </p>
-        <Button href="/sanacion-reconectiva" variant="ghost" size="link" class="mt-6">
-          Ver cómo es una sesión <span aria-hidden="true">→</span>
-        </Button>
-      </div>
-
-      <div>
-        <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Proceso único</p>
-        <h2 class="mt-3 text-3xl md:text-4xl">La Reconexión</h2>
-        <p class="mt-5 leading-relaxed text-stone-600">
-          Un proceso de dos encuentros en días consecutivos que se realiza una sola vez en la vida.
-          Placeholder de contenido: reemplazar por la descripción definitiva.
-        </p>
-        <Button href="/la-reconexion" variant="ghost" size="link" class="mt-6">
-          Conocer el proceso <span aria-hidden="true">→</span>
-        </Button>
-      </div>
-    </div>
-  </Section>
-
-  <!-- PROCESO -->
-  <Section>
-    <div class="max-w-2xl">
-      <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Paso a paso</p>
-      <h2 class="mt-3 text-3xl md:text-4xl">De la consulta inicial al cierre de la sesión</h2>
-    </div>
-
-    <ol class="mt-12 grid gap-px overflow-hidden rounded-organic border border-stone-200 bg-stone-200 md:grid-cols-4">
-      {
-        pasos.map((paso) => (
-          <li class="bg-stone-50 p-6 md:p-7">
-            <span class="font-display text-3xl text-terracota-300">{paso.n}</span>
-            <h3 class="mt-4 text-lg">{paso.t}</h3>
-            <p class="mt-2 text-sm leading-relaxed text-stone-600">{paso.d}</p>
-          </li>
-        ))
-      }
-    </ol>
-  </Section>
-
-  <!-- TESTIMONIOS -->
-  <Section tone="muted">
-    <div class="flex flex-wrap items-end justify-between gap-6">
-      <div class="max-w-2xl">
-        <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Experiencias</p>
-        <h2 class="mt-3 text-3xl md:text-4xl">Testimonios en contexto</h2>
-      </div>
-      <Button href="/testimonios" variant="secondary">Ver todos</Button>
-    </div>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
-      <TestimonialCard author="M. L." context="Consulta por estrés sostenido" modality="Presencial" date="2025">
-        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
-      </TestimonialCard>
-      <TestimonialCard author="J. P." context="Acompañamiento en un cambio vital" modality="A distancia" date="2025">
-        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
-      </TestimonialCard>
-      <TestimonialCard author="A. R." context="Primera experiencia con el trabajo" modality="Presencial" date="2026">
-        Placeholder de testimonio real, publicado con autorización expresa y sin editar su sentido.
-      </TestimonialCard>
-    </div>
-
-    <p class="mt-8 max-w-2xl text-sm leading-relaxed text-stone-500">
-      Los testimonios describen experiencias personales y no constituyen evidencia de eficacia ni
-      garantía de resultados equivalentes.
-    </p>
   </Section>
 
   <!-- DISCLAIMER -->
   <Section width="prose" reveal>
     <Disclaimer />
     <p class="mt-6 text-center text-sm text-stone-500">
-      Consultorio en {BUSINESS.address.addressLocality} · Sesiones a distancia para toda Argentina
+      Sesiones a distancia para toda Argentina y el exterior · Consultorio en {BUSINESS.address.addressLocality}
     </p>
   </Section>
 

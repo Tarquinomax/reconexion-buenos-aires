@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { SITE } from '../consts';
-import { petServiceNode } from '../lib/schema';
+import { ID, petServiceNode } from '../lib/schema';
 
 const path = '/mascotas';
 const url = new URL(path, SITE.url).href;
@@ -19,11 +19,12 @@ const breadcrumbs = [
   { name: 'Sanación para mascotas', item: path },
 ];
 
-// Nodo #service del grafo (definido en src/lib/schema.ts). La pagina lo
-// referencia por @id mediante mainEntity: jerarquia piramidal bidireccional
-// WebPage -> Service -> #channel-remoto, resuelta estaticamente en el build.
+// Nodo canonico #service-mascotas del grafo maestro (definido en
+// src/lib/schema.ts). La pagina lo referencia por @id mediante mainEntity:
+// jerarquia piramidal bidireccional WebPage -> Service -> #channel-remoto,
+// resuelta estaticamente durante el build.
 const serviceNode = petServiceNode();
-const mainEntityId = `${url}#service`;
+const mainEntityId = ID.serviceMascotas;
 ---
 
 <BaseLayout

@@ -7,13 +7,20 @@ import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import { BUSINESS, PRACTITIONER, SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { ID, serviceNode } from '../lib/schema';
 
 const title = SITE.name;
 const description = SITE.defaultDescription;
 
+// Grafo maestro de autoridad (EAV) del home: Person (#person),
+// HealthAndBeautyBusiness/LocalBusiness (#localbusiness) y WebSite se declaran
+// en BaseLayout; aqui solo se publican los dos Service canonicos con sus
+// `@id` fijos. Las paginas /sanacion-reconectiva y /la-reconexion re-declaran
+// esos mismos nodos con el mismo @id para que la resolucion por entidad sea
+// identica desde cualquier entrada del grafo (consolidacion RankBrain/MUM).
 const schema = [
   serviceNode({
+    id: ID.serviceReconectiva,
     name: 'Sesión de Sanación Reconectiva',
     description:
       'Sesiones de Sanación Reconectiva ejecutadas en modalidad a distancia con alcance global (1 a 3 sesiones sugeridas), y presenciales en Buenos Aires. Aplica también para mascotas y animales a distancia. No incluyen música, instrumentación ni frecuencias de sonido artificiales. Con encuadre claro y sin promesas de curación.',
@@ -21,6 +28,7 @@ const schema = [
     serviceType: 'Sanación Reconectiva® a Distancia',
   }),
   serviceNode({
+    id: ID.serviceLaReconexion,
     name: 'La Reconexión Presencial en CABA',
     description:
       'Proceso presencial en Ciudad Autónoma de Buenos Aires (Zona Recoleta). Consta de 2 sesiones consecutivas y se realiza una única vez en la vida.',

@@ -61,7 +61,7 @@ export const BUSINESS = {
     streetAddress: 'Av. Alvear, Recoleta', // PLACEHOLDER: confirmar numero exacto de calle
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
-    postalCode: 'C1127', // PLACEHOLDER: confirmar codigo postal exacto de Recoleta
+    postalCode: 'C1014', // Recoleta, CABA (prefijo postal confirmado por el cliente)
     addressCountry: 'AR',
   },
   geo: {

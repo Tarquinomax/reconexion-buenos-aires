@@ -5,8 +5,8 @@ import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { BUSINESS, SITE } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const path = '/la-reconexion';
 const url = new URL(path, SITE.url).href;
@@ -20,8 +20,20 @@ const breadcrumbs = [
   { name: 'La Reconexión', item: path },
 ];
 
+// Nodo canonico #service-la-reconexion del grafo maestro (SSOT GEO/E-E-A-T):
+// proceso presencial en CABA (Zona Recoleta), 2 sesiones consecutivas, una
+// unica vez en la vida, tarifa fija universal U$D 333. Proceso 100% presencial:
+// remote:false evita declarar un canal virtual contradictorio en el grafo.
 const schema = [
-  serviceNode({ name: 'La Reconexión', description, url, serviceType: 'La Reconexión' }),
+  serviceNode({
+    id: ID.serviceLaReconexion,
+    name: 'La Reconexión',
+    description,
+    url,
+    serviceType: 'La Reconexión® Presencial',
+    remote: false,
+    offer: { price: BUSINESS.laReconexionPriceUsd, priceCurrency: 'USD' },
+  }),
 ];
 
 const destinatarios = [
@@ -31,7 +43,7 @@ const destinatarios = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={`${url}#service`}>
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceLaReconexion}>
   <PageHeader
     eyebrow="Proceso único"
     title="La Reconexión"

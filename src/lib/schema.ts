@@ -14,10 +14,19 @@ export function absoluteUrl(path: string): string {
   return new URL(path, SITE.url).href.replace(/\/$/, '') || SITE.url;
 }
 
+/**
+ * Identificadores canonicos del grafo. Las entidades se declaran UNA sola vez
+ * por pagina bajo estos `@id` fijos (espejo exacto del maestro GEO/E-E-A-T);
+ * el resto de los nodos las referencia por puntero `{ '@id' }` y nunca las
+ * re-declara inline, para evitar contaminacion conceptual ante RankBrain/MUM.
+ */
 export const ID = {
-  business: `${SITE.url}/#business`,
-  person: `${SITE.url}/#practitioner`,
+  business: `${SITE.url}/#localbusiness`,
+  person: `${SITE.url}/#person`,
   website: `${SITE.url}/#website`,
+  serviceReconectiva: `${SITE.url}/#service-reconectiva`,
+  serviceLaReconexion: `${SITE.url}/#service-la-reconexion`,
+  serviceMascotas: `${SITE.url}/#service-mascotas`,
 } as const;
 
 function openingHoursSpecification(): JsonLdNode[] {
@@ -32,9 +41,13 @@ function openingHoursSpecification(): JsonLdNode[] {
 /** Entidad de negocio local. HealthAndBeautyBusiness es el tipo mas honesto: no es MedicalBusiness. */
 export function businessNode(): JsonLdNode {
   return {
+    // HealthAndBeautyBusiness (NO MedicalBusiness): la practica no es un
+    // establecimiento de salud regulado. Se mantiene LocalBusiness como
+    // supertipo para conservacion del tipo ante validadores estrictos.
     '@type': ['HealthAndBeautyBusiness', 'LocalBusiness'],
     '@id': ID.business,
-    name: SITE.name,
+    name: `${PRACTITIONER.name} - La Reconexión Presencial CABA`,
+    additionalName: SITE.name,
     legalName: BUSINESS.legalName,
     url: SITE.url,
     email: BUSINESS.email,
@@ -53,6 +66,15 @@ export function businessNode(): JsonLdNode {
       addressRegion: BUSINESS.address.addressRegion,
       postalCode: BUSINESS.address.postalCode,
       addressCountry: BUSINESS.address.addressCountry,
+    },
+    // Tarifa fija universal de La Reconexión (U$D 333) reflejada en el negocio.
+    // El valor numerico exacto con currency se declara ademas en el Offer del
+    // Service #service-la-reconexion; aqui se usa la notacion microdata U$S.
+    hasPriceSpecification: {
+      '@type': 'PriceSpecification',
+      price: String(BUSINESS.laReconexionPriceUsd),
+      priceCurrency: 'USD',
+      name: 'La Reconexión® Presencial — tarifa fija universal',
     },
     geo: {
       '@type': 'GeoCoordinates',
@@ -103,13 +125,13 @@ function areaServedMarkets(): JsonLdNode[] {
  * distancia queda explicita sin crear rutas fisicas por provincia o pais:
  * cubre todas las areas definidas en `areaServedMarkets()`.
  */
-function remoteServiceChannel(serviceUrl: string): JsonLdNode {
+function remoteServiceChannel(serviceUrl: string, serviceId: string): JsonLdNode {
   return {
     '@type': 'ServiceChannel',
     '@id': `${serviceUrl}#channel-remoto`,
     name: 'Sesión a distancia (modalidad virtual)',
     serviceUrl: absoluteUrl(serviceUrl),
-    providesService: { '@id': `${serviceUrl}#service` },
+    providesService: { '@id': serviceId },
     availableLanguage: ['es'],
     serviceOperator: { '@id': ID.business },
   };
@@ -297,8 +319,13 @@ export function serviceNode(options: {
   remote?: boolean;
   /** Oferta con precio numerico (USD). Se emite solo si se provee, para no inventar datos. */
   offer?: { price: number; priceCurrency?: string };
+  /**
+   * `@id` canonico del servicio dentro del grafo maestro (ID.serviceReconectiva /
+   * ID.serviceLaReconexion). Si se omite, se deriva de la URL (`${url}#service`).
+   */
+  id?: string;
 }): JsonLdNode {
-  const serviceId = `${options.url}#service`;
+  const serviceId = options.id ?? `${options.url}#service`;
   return {
     '@type': 'Service',
     '@id': serviceId,
@@ -311,7 +338,7 @@ export function serviceNode(options: {
     // fragmentar el dominio en paginas por provincia o pais.
     areaServed: areaServedMarkets(),
     // Entrega explicita a distancia: canal virtual apto para todas las areas.
-    ...(options.remote === false ? {} : { availableChannel: remoteServiceChannel(options.url) }),
+    ...(options.remote === false ? {} : { availableChannel: remoteServiceChannel(options.url, serviceId) }),
     hasOfferCatalog: {
       '@type': 'OfferCatalog',
       name: options.serviceType,
@@ -342,18 +369,19 @@ export function serviceNode(options: {
  */
 export function petServiceNode(): JsonLdNode {
   const url = '/mascotas';
-  const serviceId = `${url}#service`;
+  // `@id` absoluto, consistente con el resto de entidades canonicas del grafo.
+  const serviceId = `${SITE.url}/#service-mascotas`;
   return {
     '@type': 'Service',
     '@id': serviceId,
     name: 'Sanación para mascotas',
     description:
-      'Sesiones a distancia de Sanación Reconectiva dirigidas a perros y gatos. Sostén complementario, no veterinario: ante cualquier síntoma, consultá a un médico veterinario matriculado.',
-    serviceType: 'Sanación Reconectiva para mascotas',
-    url,
+      'Sesiones a distancia de Sanación Reconectiva dirigidas a perros y gatos (cobertura global). Sostén complementario, no veterinario: ante cualquier síntoma, consultá a un médico veterinario matriculado.',
+    serviceType: 'Sanación Reconectiva® para Mascotas a Distancia',
+    url: absoluteUrl(url),
     provider: { '@id': ID.business },
     // Entrega explicita a distancia: mismo patron de canal que los demas servicios.
-    availableChannel: remoteServiceChannel(url),
+    availableChannel: remoteServiceChannel(url, serviceId),
     areaServed: areaServedMarkets(),
     audience: { '@type': 'Audience', audienceType: 'Tutores de perros y gatos' },
     // Evidencias clínicas declaradas como sub-nodos MedicalCaseStudy dentro del

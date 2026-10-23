@@ -56,19 +56,29 @@ export default defineConfig({
 
   // Tipografias auto-hospedadas: cero requests a terceros (RGPD/LGPD) y
   // preload + font-display optimizados para CLS.
-  // Paleta oficial "Serenidad Arquitectonica": Playfair Display (titulares),
-  // Geist (cuerpo). Fontsource como proveedor local; si el paquete no esta
-  // disponible en build, la pila de fallback de --font-display/--font-sans
-  // (global.css) mantiene el layout tipografico valido.
+  // Design system "Architectural Serenity": Playfair Display (titulares),
+  // Inter (cuerpo) y Geist como respaldo historico. Fontsource como proveedor
+  // local; si el paquete no esta disponible en build, la pila de fallback de
+  // --font-display/--font-sans (global.css) mantiene el layout valido.
   fonts: [
     {
       name: 'Playfair Display',
       cssVariable: '--font-playfair',
       provider: fontProviders.fontsource(),
       weights: ['400 700'],
-      styles: ['normal'],
+      styles: ['normal', 'italic'],
       subsets: ['latin', 'latin-ext'],
       fallbacks: ['Iowan Old Style', 'Georgia', 'serif'],
+      optimizedFallbacks: true,
+    },
+    {
+      name: 'Inter',
+      cssVariable: '--font-inter',
+      provider: fontProviders.fontsource(),
+      weights: ['300 400 500 600'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['system-ui', 'Segoe UI', 'Helvetica Neue', 'sans-serif'],
       optimizedFallbacks: true,
     },
     {

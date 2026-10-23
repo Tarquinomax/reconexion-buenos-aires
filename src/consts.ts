@@ -29,9 +29,11 @@ export const SITE = {
 /** Datos del facilitador — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
   name: 'José A.', // PLACEHOLDER: confirmar apellido completo antes de publicar
-  jobTitle: 'Facilitador certificado de Sanación Reconectiva y La Reconexión',
+  jobTitle: 'Facilitador Oficial de The Reconnection LLC (Sanación Reconectiva y La Reconexión)',
   /** Certificación Nivel III por The Reconnection LLC (organización global oficial). */
   certificationLevel: 'Nivel III — The Reconnection LLC',
+  /** Etiqueta corta de acreditación para badges/insignias de UI. */
+  credentialBadge: 'Facilitador Certificado',
   yearsOfPractice: 12,
   sessionsDelivered: 1100,
   /** Año/mes de la certificación de Maestría citada por el cliente. */

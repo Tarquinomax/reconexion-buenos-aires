@@ -9,15 +9,35 @@
    Contrastes verificados >= WCAG AA sobre el fondo crema.
    ------------------------------------------------------------------ */
 @theme {
-  /* Tipografias oficiales: Playfair Display (titulares) y Geist (cuerpo),
+  /* Tipografias oficiales: Playfair Display (titulares) e Inter (cuerpo),
      auto-hospedadas via Fontsource (sin conexiones a Google Fonts en runtime).
      El segundo argumento de var() garantiza una pila valida si la fuente local
      falla en build (red restringida, paquete ausente). */
-  --font-sans: var(--font-geist, ui-sans-serif, system-ui, 'Segoe UI', sans-serif);
+  --font-sans: var(
+    --font-inter,
+    var(--font-geist, ui-sans-serif, system-ui, 'Segoe UI', sans-serif)
+  );
   --font-display: var(--font-playfair, 'Iowan Old Style', Georgia, serif);
 
   /* Tokens institucionales */
   --color-cream: #fcf9f8;
+
+  /* Escala "Architectural Serenity" del nuevo sistema de diseno: crema /
+     verde bosque / arena. Declarada como escalas numeradas para que las
+     utilidades generadas por Tailwind v4 (bg-cream-100, text-forest-800,
+     border-sand-200...) funcionen sin tailwind.config. Los tokens legacy
+     (--color-cream plano y las escalas terracota/salvia) se conservan para
+     los componentes ya maquetados hasta su migracion total. */
+  --color-cream-50: #fcf9f8;
+  --color-cream-100: #f6f3f2;
+  --color-cream-200: #ece8e7;
+  --color-cream-300: #dcd9d9;
+
+  --color-forest-800: #2c3e35;
+  --color-forest-900: #1e2b25;
+
+  --color-sand-100: #efece6;
+  --color-sand-200: #e5e1d8;
   --color-bosque-50: oklch(0.965 0.012 155);
   --color-bosque-100: oklch(0.93 0.024 155);
   --color-bosque-200: oklch(0.865 0.042 155);
@@ -28,6 +48,9 @@
   --color-bosque-700: #2c3e35; /* Verde Bosque oficial */
   --color-bosque-800: oklch(0.32 0.045 158);
   --color-bosque-900: oklch(0.26 0.035 158);
+
+  /* Alias semantico: forest-* y bosque-* comparten el verde oficial. */
+  --color-forest-700: #2c3e35;
 
   --color-bronce-50: oklch(0.962 0.014 85);
   --color-bronce-100: oklch(0.925 0.03 85);

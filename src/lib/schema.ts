@@ -341,20 +341,51 @@ export function petServiceNode(): JsonLdNode {
     availableChannel: remoteServiceChannel(url),
     areaServed: areaServedMarkets(),
     audience: { '@type': 'Audience', audienceType: 'Tutores de perros y gatos' },
-    // PLACEHOLDER(cliente): completar historia clínica, desenlace, foto y autor
-    // verificados antes de publicar. Se conserva vacío a propósito.
-    subjectOf: {
-      '@type': 'MedicalCaseStudy',
-      '@id': `${url}#caso-scubby`,
-      name: 'Caso Real de Scubby',
-      description: '',
-      about: '',
-      medicalIndication: '',
-      medicalTherapy: '',
-      outcome: '',
-      image: '',
-      author: '',
-    },
+    // Evidencias clínicas declaradas como sub-nodos MedicalCaseStudy dentro del
+    // @graph. Los datos numéricos provienen del informe original de laboratorio
+    // (Protocolo N° 305353) aportado por la tutora; las fotos se referencian en
+    // su estado original, sin ediciones.
+    subjectOf: [
+      {
+        '@type': 'MedicalCaseStudy',
+        '@id': `${url}#caso-reina`,
+        name: 'Caso Real de Reina',
+        description:
+          'Gata de 17 años con vómitos persistentes y riñones e hígado deteriorados. Tras sesiones de Sanación Reconectiva a distancia facilitadas el 15 de octubre de 2014, recuperó de forma súbita la energía y el apetito.',
+        about: 'Fallo hepático y renal en felino de 17 años. Sesiones a distancia: 15/10/2014.',
+        medicalIndication: 'Cuadro de vómitos con deterioro hepático y renal diagnosticado por veterinario.',
+        medicalTherapy: 'Sesiones de Sanación Reconectiva a distancia, complementarias al tratamiento veterinario en curso.',
+        outcome: 'Recuperación súbita de energía y apetito documentada por la tutora tras las sesiones.',
+        dateOfDiagnosis: '2014-10-15',
+        image: absoluteUrl('/images/reina.webp'),
+        author: 'María M.',
+        relevantSpecialty: 'Medicina veterinaria (felinos)',
+        status: 'Completed',
+        studyLocation: { '@id': ID.business },
+        isPartOf: { '@id': serviceId },
+      },
+      {
+        '@type': 'MedicalCaseStudy',
+        '@id': `${url}#caso-scubby`,
+        name: 'Caso Real de Scubby',
+        description:
+          'Perro de 3 años, La Plata, con cuadro crítico: hematocrito de 4,3% (referencia 37–55%), hemoglobina 2,6 g/dl, glóbulos rojos 0,8 millones/µl y leucocitos 25.300 /µl. Informe de laboratorio del 11/ago/2015 (Protocolo N° 305353).',
+        about: 'Cuadro crítico canino con hematocrito al 4,3%. Informe de laboratorio: 11/Agosto/2015, Protocolo N° 305353.',
+        medicalIndication:
+          'Anemia severa: hematocrito 4,3% (manual 3%) vs referencia 37–55%; hemoglobina 2,6 g/dl vs 12–18 g/dl; glóbulos rojos 0,8 millones/µl vs 5,5–8,5 millones/µl; leucocitos 25.300 /µl vs 6.000–18.000 /µl.',
+        medicalTherapy:
+          'Sanación Reconectiva a distancia solicitada por la tutora Lorena T. mientras el veterinario mantenía el tratamiento y evaluaba una transfusión.',
+        outcome:
+          'Los veterinarios compartieron el estudio con sus colegas ante la evolución observada tras las sesiones.',
+        dateOfDiagnosis: '2015-08-11',
+        image: absoluteUrl('/images/scubby.webp'),
+        author: 'Lorena T.',
+        relevantSpecialty: 'Medicina veterinaria (caninos)',
+        status: 'Completed',
+        studyLocation: { '@id': ID.business },
+        isPartOf: { '@id': serviceId },
+      },
+    ],
   };
 }
 

@@ -6,11 +6,11 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
-import { BUSINESS, PRACTITIONER, SITE } from '../consts';
+import { BUSINESS, PRACTITIONER, SITE, SITE_METADATA } from '../consts';
 import { ID, serviceNode } from '../lib/schema';
 
-const title = SITE.name;
-const description = SITE.defaultDescription;
+const title = SITE_METADATA.home.title;
+const description = SITE_METADATA.home.description;
 
 // Grafo maestro de autoridad (EAV) del home: Person (#person),
 // HealthAndBeautyBusiness/LocalBusiness (#localbusiness) y WebSite se declaran
@@ -74,7 +74,7 @@ const pasos = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" schema={schema}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath="/" schema={schema}>
   <!-- HERO -->
   <section class="bg-aura relative overflow-hidden border-b border-stone-200/70">
     <div class="container-page grid gap-14 py-20 md:py-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-36">

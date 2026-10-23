@@ -6,15 +6,14 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Button from '../components/Button.astro';
-import { SITE } from '../consts';
+import { SITE, SITE_METADATA } from '../consts';
 import { ID, serviceNode } from '../lib/schema';
 
 const path = '/sanacion-reconectiva';
 const url = new URL(path, SITE.url).href;
 
-const title = 'Sanación Reconectiva en Buenos Aires';
-const description =
-  'Qué es la Sanación Reconectiva, cómo se desarrolla una sesión, qué se puede esperar y cuáles son sus límites. Información clara y responsable, sin promesas de curación.';
+const title = SITE_METADATA.sanacionReconectiva.title;
+const description = SITE_METADATA.sanacionReconectiva.description;
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
@@ -44,7 +43,7 @@ const desarrollo = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceReconectiva}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceReconectiva}>
   <PageHeader
     eyebrow="Sesiones individuales"
     title="Sanación Reconectiva"

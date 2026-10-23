@@ -139,3 +139,27 @@ export const MEDICAL_DISCLAIMER =
 
 /** Ultima revisión de los documentos legales (ISO 8601). */
 export const LEGAL_LAST_UPDATE = '2026-09-09';
+
+/**
+ * Metadatos SEO oficiales (title/description) por página clave.
+ * Fuente única de verdad: las páginas deben consumir estos valores en lugar
+ * de hardcodear títulos genéricos, para que `<title>`, meta description,
+ * Open Graph y Twitter Card siempre coincidan con el posicionamiento deseado.
+ */
+export const SITE_METADATA = {
+  home: {
+    title: "Sanación Reconectiva® A Distancia y La Reconexión® en CABA | José A.",
+    description:
+      "José A., Facilitador Certificado Oficial (formado en 2012 por el Dr. Eric Pearl). +10 años y +1.100 sesiones. Sanación Reconectiva® a distancia y La Reconexión® en Recoleta."
+  },
+  sanacionReconectiva: {
+    title: "Sanación Reconectiva® A Distancia (Global) | José A. Facilitador",
+    description:
+      "Sesiones a distancia de Sanación Reconectiva® con alcance global (1 a 3 sugeridas). Personas y mascotas. Retorno al equilibrio sin música ni instrumentos."
+  },
+  laReconexion: {
+    title: "La Reconexión® Presencial en Recoleta CABA | U$D 333 | José A.",
+    description:
+      "Proceso presencial en CABA (Zona Recoleta) de 2 sesiones consecutivas, una única vez en la vida. Facilitado por José A. Tarifa fija universal de U$D 333."
+  }
+} as const;

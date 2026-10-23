@@ -5,15 +5,14 @@ import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { BUSINESS, SITE } from '../consts';
+import { BUSINESS, SITE, SITE_METADATA } from '../consts';
 import { ID, serviceNode } from '../lib/schema';
 
 const path = '/la-reconexion';
 const url = new URL(path, SITE.url).href;
 
-const title = 'La Reconexión: qué es y a quién está dirigida';
-const description =
-  'La Reconexión es un proceso de dos sesiones en días consecutivos que se realiza una sola vez en la vida. Qué implica, cómo se desarrolla y para quién tiene sentido.';
+const title = SITE_METADATA.laReconexion.title;
+const description = SITE_METADATA.laReconexion.description;
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
@@ -43,7 +42,7 @@ const destinatarios = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceLaReconexion}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceLaReconexion}>
   <PageHeader
     eyebrow="Proceso único"
     title="La Reconexión"

@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import { SITE } from '../consts';
-import { petServiceNode } from '../lib/schema';
+import { ID, petServiceNode } from '../lib/schema';
 
 const path = '/mascotas';
 const url = new URL(path, SITE.url).href;
@@ -19,11 +19,12 @@ const breadcrumbs = [
   { name: 'Sanación para mascotas', item: path },
 ];
 
-// Nodo #service del grafo (definido en src/lib/schema.ts). La pagina lo
-// referencia por @id mediante mainEntity: jerarquia piramidal bidireccional
-// WebPage -> Service -> #channel-remoto, resuelta estaticamente en el build.
+// Nodo canonico #service-mascotas del grafo maestro (definido en
+// src/lib/schema.ts). La pagina lo referencia por @id mediante mainEntity:
+// jerarquia piramidal bidireccional WebPage -> Service -> #channel-remoto,
+// resuelta estaticamente durante el build.
 const serviceNode = petServiceNode();
-const mainEntityId = `${url}#service`;
+const mainEntityId = ID.serviceMascotas;
 ---
 
 <BaseLayout
@@ -37,16 +38,44 @@ const mainEntityId = `${url}#service`;
   <PageHeader
     eyebrow="Sesiones a distancia"
     title="Sanación para mascotas"
-    lead="Perros y gatos también pueden recibir las sesiones de Sanación Reconectiva de forma remota. Esta solapa presenta el servicio y dos casos reales documentados: Reina (gata, 17 años) y Scubby (perro, 3 años)."
+    lead="Perros y gatos también pueden recibir las sesiones de Sanación Reconectiva de forma remota, sin el estrés del traslado. Esta solapa presenta el encuadre del servicio y dos casos reales documentados: Reina (gata, 17 años) y Scubby (perro, 3 años)."
     breadcrumbs={breadcrumbs}
   />
 
-  {/* Contenedor fijo Single-Viewport (100vh), sin scroll vertical ni horizontal.
+  {/* Ficha del servicio (design system "Architectural Serenity"). Datos leidos
+      de la SSOT cuando existe; los tiempos se describen en funcion del
+      encuadre estandar de una sesion individual. */}
+  <Section>
+    <div class="grid gap-5 sm:grid-cols-3" data-reveal>
+      <div class="rounded-organic border border-cream-200 bg-cream-100 p-6 text-center">
+        <p class="text-xs font-semibold uppercase tracking-wider text-stone-500">Modalidad</p>
+        <p class="mt-2 font-display text-xl text-stone-900">100% a distancia</p>
+        <p class="mt-1 text-sm text-stone-600">En el hogar de la mascota</p>
+      </div>
+      <div class="rounded-organic border border-cream-200 bg-cream-100 p-6 text-center">
+        <p class="text-xs font-semibold uppercase tracking-wider text-stone-500">Duración</p>
+        <p class="mt-2 font-display text-xl text-stone-900">Hasta 45 min</p>
+        <p class="mt-1 text-sm text-stone-600">Mismo encuadre que una sesión individual</p>
+      </div>
+      <div class="rounded-organic border border-cream-200 bg-cream-100 p-6 text-center">
+        <p class="text-xs font-semibold uppercase tracking-wider text-stone-500">Envío previo</p>
+        <p class="mt-2 font-display text-xl text-stone-900">Foto y datos</p>
+        <p class="mt-1 text-sm text-stone-600">Nombre de la mascota y motivo de consulta</p>
+      </div>
+    </div>
+    <p class="mt-6 max-w-2xl text-sm leading-relaxed text-stone-500">
+     PLACEHOLDER(cliente): confirmar la duración específica de las sesiones para mascotas antes de
+      publicar. Este sitio no publica cifras de tiempo no verificadas.
+    </p>
+  </Section>
+
+  {/* Layout de documento estandar (scroll fluido, orientado a SEO): el
+      contenedor ya NO fija 100dvh ni recorta con overflow-hidden.
       Navegacion interna de pestanas con CSS puro: inputs radio ocultos +
       selectores checked: de Tailwind v4. Cero JavaScript en el cliente; todo
       se resuelve estaticamente durante el build. El Caso Reina es la pestana
       visible por defecto (checked en origen, sin JS). */}
-  <div class="flex h-[calc(100dvh-9rem)] flex-col overflow-hidden">
+  <div class="flex flex-col">
 
     {/* Selector de pestanas (radio nativo, accesible por teclado) */}
     <input

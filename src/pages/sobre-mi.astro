@@ -22,18 +22,25 @@ const hitos = [
   {
     year: '2012',
     title: 'Certificación de Maestría en Sanación Reconectiva',
-    text: `Obtenida en ${PRACTITIONER.masteryLabel}. Placeholder: indicar entidad certificadora, ciudad y número de certificado si es público.`,
+    text: `Obtenida en ${PRACTITIONER.masteryLabel} bajo las directrices de The Reconnection LLC, la organización global oficial del método. PLACEHOLDER(cliente): indicar ciudad y número de certificado si es público.`,
   },
   {
-    year: '2013 — hoy',
+    year: `${String(2026 - PRACTITIONER.yearsOfPractice)} — hoy`,
     title: 'Práctica sostenida en Buenos Aires',
-    text: 'Placeholder: describir volumen aproximado de práctica, modalidades y ámbitos de trabajo.',
+    text: `Práctica ininterrumpida desde la certificación, con más de ${PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')} sesiones facilitadas en modalidades presencial y a distancia. PLACEHOLDER(cliente): ampliar con ámbitos y tipos de acompañamiento.`,
   },
   {
     year: 'Formación continua',
     title: 'Actualización y supervisión',
-    text: 'Placeholder: seminarios, encuentros y formación complementaria relevante.',
+    text: 'PLACEHOLDER(cliente): seminarios, encuentros y formación complementaria relevante.',
   },
+];
+
+/** Métricas clave (SSOT: PRACTITIONER en src/consts.ts). */
+const metricas = [
+  { label: 'Experiencia', value: `${PRACTITIONER.yearsOfPractice} años`, hint: 'Práctica ininterrumpida' },
+  { label: 'Casuística', value: `+${PRACTITIONER.sessionsDelivered.toLocaleString('es-AR')}`, hint: 'Sesiones facilitadas' },
+  { label: 'Acreditación', value: PRACTITIONER.certificationLevel.split('—')[0]!.trim(), hint: 'The Reconnection LLC' },
 ];
 ---
 
@@ -49,13 +56,23 @@ const hitos = [
     title={PRACTITIONER.name}
     lead={PRACTITIONER.jobTitle}
     breadcrumbs={breadcrumbs}
-  />
+  >
+    {/* Insignias de acreditación (design system "Architectural Serenity"). */}
+    <div class="mt-6 flex flex-wrap items-center gap-2">
+      <span class="inline-flex items-center gap-1.5 rounded-full bg-sand-200/70 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-forest-800">
+        ✓ {PRACTITIONER.certificationLevel.split('—')[0]!.trim()}
+      </span>
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-cream-200 bg-cream-100 px-3 py-1 text-[11px] font-medium uppercase tracking-wider text-stone-600">
+        Recoleta · CABA
+      </span>
+    </div>
+  </PageHeader>
 
   <Section>
     <div class="grid gap-12 lg:grid-cols-12 lg:gap-16">
       <div class="lg:col-span-5">
         <div
-          class="aspect-4/5 w-full overflow-hidden rounded-[2.5rem] border border-stone-200 bg-gradient-to-br from-stone-100 via-terracota-50 to-salvia-100"
+          class="aspect-4/5 w-full overflow-hidden rounded-[2.5rem] border border-cream-200 bg-gradient-to-br from-cream-100 via-sand-100 to-cream-200"
         >
           <!-- TODO(cliente): reemplazar por <Image /> de astro:assets con la fotografía profesional. -->
           <div class="flex h-full items-end p-8">
@@ -70,7 +87,7 @@ const hitos = [
           </div>
           <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
             <dt class="text-stone-500">Ubicación</dt>
-            <dd class="text-right text-stone-800">{BUSINESS.address.addressLocality}</dd>
+            <dd class="text-right text-stone-800">{BUSINESS.address.streetAddress}, {BUSINESS.address.addressLocality}</dd>
           </div>
           <div class="flex justify-between gap-4 border-b border-stone-200 pb-3">
             <dt class="text-stone-500">Modalidades</dt>
@@ -83,14 +100,16 @@ const hitos = [
         <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
           <h2>Cómo llegué a este trabajo</h2>
           <p>
-            Placeholder de contenido. Relato en primera persona, concreto y sin épica. Los buscadores y
-            las personas valoran lo mismo: hechos verificables antes que adjetivos.
+            PLACEHOLDER(cliente) de contenido. Relato en primera persona, concreto y sin épica: los
+            buscadores y las personas valoran lo mismo, hechos verificables antes que adjetivos.
           </p>
 
           <h2>Mi criterio de trabajo</h2>
           <p>
-            Placeholder de contenido. Explicitar el compromiso de no interferir con tratamientos médicos,
-            de no emitir diagnósticos y de derivar cuando corresponde.
+            Formación presencial directa bajo las directrices de The Reconnection LLC. Cada sesión se
+            aborda desde el rigor del encuadre, la estricta confidencialidad y el respeto por el proceso
+            individual, prescindiendo de artificios doctrinales. No emito diagnósticos, no interfiro con
+            tratamientos médicos y derivo cuando el pedido excede este trabajo.
           </p>
 
           <h2>Qué podés esperar de mí</h2>
@@ -106,6 +125,25 @@ const hitos = [
   </Section>
 
   <Section tone="muted">
+    <div class="max-w-2xl">
+      <p class="text-xs font-semibold tracking-[0.18em] text-forest-800 uppercase">Métricas clave</p>
+      <h2 class="mt-3 text-3xl md:text-4xl">Trayectoria en números</h2>
+    </div>
+
+    <div class="mt-12 grid gap-5 sm:grid-cols-3">
+      {
+        metricas.map((m) => (
+          <div class="rounded-organic border border-cream-200 bg-cream-100 p-6">
+            <p class="text-xs font-semibold uppercase tracking-wider text-stone-500">{m.label}</p>
+            <p class="mt-2 font-display text-3xl text-stone-900">{m.value}</p>
+            <p class="mt-1 text-sm text-stone-600">{m.hint}</p>
+          </div>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section>
     <div class="max-w-2xl">
       <p class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">Trayectoria</p>
       <h2 class="mt-3 text-3xl md:text-4xl">Formación y práctica</h2>

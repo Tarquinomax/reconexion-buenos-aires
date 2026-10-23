@@ -20,6 +20,12 @@ import '../styles/global.css';
 export interface Props {
   title: string;
   description: string;
+  /**
+   * Si es true, `title` se usa literalmente como <title>/og:title sin
+   * sufijar `| SITE.name`. Usarlo cuando el titulo ya proviene de
+   * SITE_METADATA (fuente unica de verdad) y trae la marca incluida.
+   */
+  rawTitle?: boolean;
   /** Ruta canonica sin dominio, p. ej. '/sanacion-reconectiva'. Por defecto, la ruta actual. */
   canonicalPath?: string;
   /** Imagen Open Graph absoluta o relativa a /public. */
@@ -47,6 +53,7 @@ export interface Props {
 const {
   title,
   description,
+  rawTitle = false,
   canonicalPath,
   image = SITE.defaultImage,
   noindex = false,
@@ -64,7 +71,7 @@ const normalizedPath = pathname !== '/' ? pathname.replace(/\/+$/, '') : '/';
 const canonical = new URL(normalizedPath, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 
-const fullTitle = title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.name}`;
+const fullTitle = rawTitle ? title : title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.name}`;
 
 const graph: JsonLdNode[] = [
   businessNode(),
@@ -135,8 +142,9 @@ const jsonLd = buildGraph(graph);
     <link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
 
     <!-- Tipografias auto-hospedadas: sin conexiones a terceros. -->
-    <Font cssVariable="--font-geist" preload />
+    <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-playfair" preload />
+    <Font cssVariable="--font-geist" />
 
     <script type="application/ld+json" is:inline set:html={jsonLd} />
 

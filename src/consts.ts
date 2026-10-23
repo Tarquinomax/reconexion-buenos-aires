@@ -29,9 +29,11 @@ export const SITE = {
 /** Datos del facilitador — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
   name: 'José A.', // PLACEHOLDER: confirmar apellido completo antes de publicar
-  jobTitle: 'Facilitador certificado de Sanación Reconectiva y La Reconexión',
+  jobTitle: 'Facilitador Oficial de The Reconnection LLC (Sanación Reconectiva y La Reconexión)',
   /** Certificación Nivel III por The Reconnection LLC (organización global oficial). */
   certificationLevel: 'Nivel III — The Reconnection LLC',
+  /** Etiqueta corta de acreditación para badges/insignias de UI. */
+  credentialBadge: 'Facilitador Certificado',
   yearsOfPractice: 12,
   sessionsDelivered: 1100,
   /** Año/mes de la certificación de Maestría citada por el cliente. */
@@ -39,7 +41,9 @@ export const PRACTITIONER = {
   masteryLabel: 'septiembre de 2012',
   image: '/img/practicante.jpg', // PLACEHOLDER
   sameAs: [
-    // PLACEHOLDER: perfiles verificables refuerzan la entidad ante buscadores.
+    // Perfil oficial verificado de The Reconnection (canal del Dr. Eric Pearl).
+    'https://www.youtube.com/@Reconexion333',
+    // PLACEHOLDER: perfiles propios verificables refuerzan la entidad ante buscadores.
     // 'https://www.instagram.com/...',
     // 'https://www.linkedin.com/in/...',
   ] as string[],
@@ -57,7 +61,7 @@ export const BUSINESS = {
     streetAddress: 'Av. Alvear, Recoleta', // PLACEHOLDER: confirmar numero exacto de calle
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
-    postalCode: 'C1127', // PLACEHOLDER: confirmar codigo postal exacto de Recoleta
+    postalCode: 'C1014', // Recoleta, CABA (prefijo postal confirmado por el cliente)
     addressCountry: 'AR',
   },
   geo: {
@@ -77,7 +81,14 @@ export const BUSINESS = {
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
     { days: ['Saturday'], opens: '10:00', closes: '14:00' },
   ],
+  /**
+   * Valor oficial internacional unificado para La Reconexión: 333 USD.
+   * `priceRange` usa el patron microdata de Google ('$$' = rango moderado);
+   * el valor numerico exacto se declara en `laReconexionPriceUsd` y se
+   * inyecta como Offer/priceRange en los nodos Service del grafo JSON-LD.
+   */
   priceRange: '$$',
+  laReconexionPriceUsd: 333,
 } as const;
 
 /**
@@ -128,3 +139,27 @@ export const MEDICAL_DISCLAIMER =
 
 /** Ultima revisión de los documentos legales (ISO 8601). */
 export const LEGAL_LAST_UPDATE = '2026-09-09';
+
+/**
+ * Metadatos SEO oficiales (title/description) por página clave.
+ * Fuente única de verdad: las páginas deben consumir estos valores en lugar
+ * de hardcodear títulos genéricos, para que `<title>`, meta description,
+ * Open Graph y Twitter Card siempre coincidan con el posicionamiento deseado.
+ */
+export const SITE_METADATA = {
+  home: {
+    title: "Sanación Reconectiva® A Distancia y La Reconexión® en CABA | José A.",
+    description:
+      "José A., Facilitador Certificado Oficial (formado en 2012 por el Dr. Eric Pearl). +10 años y +1.100 sesiones. Sanación Reconectiva® a distancia y La Reconexión® en Recoleta."
+  },
+  sanacionReconectiva: {
+    title: "Sanación Reconectiva® A Distancia (Global) | José A. Facilitador",
+    description:
+      "Sesiones a distancia de Sanación Reconectiva® con alcance global (1 a 3 sugeridas). Personas y mascotas. Retorno al equilibrio sin música ni instrumentos."
+  },
+  laReconexion: {
+    title: "La Reconexión® Presencial en Recoleta CABA | U$D 333 | José A.",
+    description:
+      "Proceso presencial en CABA (Zona Recoleta) de 2 sesiones consecutivas, una única vez en la vida. Facilitado por José A. Tarifa fija universal de U$D 333."
+  }
+} as const;

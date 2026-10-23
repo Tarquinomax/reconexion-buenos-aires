@@ -99,5 +99,5 @@ comportamiento explícito:
   `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy` y COOP/CORP.
 - Cache inmutable de un año para `/_assets/*` y archivos de fuentes.
 
-En Cloudflare, mantener el proxy activo y **desactivar** Auto Minify y Rocket
+En Cloudflare, mantener el proxy activo y **desactivar** Auto Minify y Rocket.
 Loader: reescriben el HTML y romperían los hashes de la CSP.

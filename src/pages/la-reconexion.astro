@@ -5,23 +5,34 @@ import Section from '../components/Section.astro';
 import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { BUSINESS, SITE, SITE_METADATA } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const path = '/la-reconexion';
 const url = new URL(path, SITE.url).href;
 
-const title = 'La Reconexión: qué es y a quién está dirigida';
-const description =
-  'La Reconexión es un proceso de dos sesiones en días consecutivos que se realiza una sola vez en la vida. Qué implica, cómo se desarrolla y para quién tiene sentido.';
+const title = SITE_METADATA.laReconexion.title;
+const description = SITE_METADATA.laReconexion.description;
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
   { name: 'La Reconexión', item: path },
 ];
 
+// Nodo canonico #service-la-reconexion del grafo maestro (SSOT GEO/E-E-A-T):
+// proceso presencial en CABA (Zona Recoleta), 2 sesiones consecutivas, una
+// unica vez en la vida, tarifa fija universal U$D 333. Proceso 100% presencial:
+// remote:false evita declarar un canal virtual contradictorio en el grafo.
 const schema = [
-  serviceNode({ name: 'La Reconexión', description, url, serviceType: 'La Reconexión' }),
+  serviceNode({
+    id: ID.serviceLaReconexion,
+    name: 'La Reconexión',
+    description,
+    url,
+    serviceType: 'La Reconexión® Presencial',
+    remote: false,
+    offer: { price: BUSINESS.laReconexionPriceUsd, priceCurrency: 'USD' },
+  }),
 ];
 
 const destinatarios = [
@@ -31,7 +42,7 @@ const destinatarios = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceLaReconexion}>
   <PageHeader
     eyebrow="Proceso único"
     title="La Reconexión"
@@ -43,31 +54,71 @@ const destinatarios = [
     <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
       <h2>Qué es</h2>
       <p>
-        Placeholder de contenido. Explicar el origen del trabajo y su encuadre, evitando afirmaciones
-        sobre líneas energéticas planetarias presentadas como hechos científicos. Conviene enunciarlas
-        como el marco conceptual propio de la práctica.
+        Según el marco conceptual de The Reconnection LLC, La Reconexión es la reconexión de las
+        líneas axiatonales del cuerpo con las cuadrículas energéticas del planeta y con una red más
+        amplia de energía, luz e información. Se describe aquí como el marco propio de la práctica,
+        no como un hecho científico demostrado: este sitio no presenta afirmaciones sobre mecanismos
+        biológicos que la ciencia no haya verificado.
       </p>
 
       <h2>Cómo se desarrolla</h2>
       <ol>
-        <li><strong>Primera sesión.</strong> Placeholder de contenido.</li>
+        <li><strong>Primera sesión.</strong> El encuentro inicial: la persona permanece vestida y acostada, sin contacto físico ni manipulación.</li>
         <li><strong>Segunda sesión.</strong> Se realiza al día siguiente o, como máximo, con 72 horas de diferencia.</li>
       </ol>
       <p>
-        Cada encuentro dura aproximadamente una hora. La persona permanece vestida y acostada, sin
-        contacto físico.
+        Cada encuentro dura aproximadamente una hora. El proceso completo tiene un valor de
+        333 dólares, idéntico en cualquier país, tal como lo establece el encuadre internacional
+        oficial (ver pregunta 14 del <a href="/faq">FAQ</a>).
       </p>
 
       <h2>Por qué una sola vez</h2>
       <p>
-        Placeholder de contenido. Explicar por qué el proceso no se repite y por qué no se ofrecen
-        «refuerzos» ni paquetes de continuidad.
+        Dentro del marco del método, el proceso se considera definitivo: se realiza una única vez en
+        la vida y no admite repeticiones. Por eso no se ofrecen «refuerzos» ni paquetes de
+        continuidad. Si alguien te propone repetir La Reconexión, ese ofrecimiento no proviene de
+        este espacio.
       </p>
 
       <h2>Qué no incluye</h2>
       <p>
         No incluye diagnóstico, no reemplaza atención médica ni psicológica y no está pensada para
-        resolver un cuadro clínico. Si ese es tu objetivo, es preferible no avanzar.
+        resolver un cuadro clínico. Si ese es tu objetivo, es preferible no avanzar. Los encuentros
+        presenciales se realizan en el consultorio de Recoleta, CABA; revisá la
+        <a href="/faq">preparación recomendada</a> antes de reservar.
+      </p>
+    </div>
+  </Section>
+
+  {/* Bloque destacado con el design system "Architectural Serenity": verde
+      bosque oficial (#2c3e35) sobre crema, con contraste AA verificado. */}
+  <Section>
+    <div class="rounded-organic bg-forest-800 p-8 text-cream md:p-12" data-reveal>
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-cream/70">Estructura del proceso</p>
+        <span class="rounded-full bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-cream">
+          Único en la vida
+        </span>
+      </div>
+      <h2 class="mt-4 font-display text-3xl text-cream md:text-4xl">Dos sesiones consecutivas</h2>
+      <p class="mt-4 max-w-2xl leading-relaxed text-cream/80">
+        La Reconexión se realiza una sola vez. La segunda sesión debe completarse con un intervalo
+        máximo de 72 horas entre encuentros, según el encuadre oficial del método.
+      </p>
+      <div class="mt-8 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-white/15 bg-white/10 p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-cream/70">1 · Primera sesión</p>
+          <p class="mt-1 font-display text-lg text-cream">Encuadre y desarrollo</p>
+          <p class="mt-1 text-sm text-cream/70">Aproximadamente una hora · consultorio de Recoleta</p>
+        </div>
+        <div class="rounded-2xl border border-white/15 bg-white/10 p-5">
+          <p class="text-xs font-semibold uppercase tracking-wider text-cream/70">2 · Segunda sesión</p>
+          <p class="mt-1 font-display text-lg text-cream">Cierre del proceso</p>
+          <p class="mt-1 text-sm text-cream/70">Al día siguiente o dentro de las 72 horas</p>
+        </div>
+      </div>
+      <p class="mt-6 text-sm text-cream/70">
+        Valor total del proceso: 333 dólares, idéntico en cualquier país (encuadre internacional oficial).
       </p>
     </div>
   </Section>

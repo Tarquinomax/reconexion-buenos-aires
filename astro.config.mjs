@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
  * Se sobreescribe con la variable de entorno SITE_URL en Vercel
  * (Project Settings -> Environment Variables) para entornos de preview.
  */
-const SITE_URL = process.env.SITE_URL ?? 'https://www.reconexionbuenosaires.com.ar';
+const SITE_URL = process.env.SITE_URL ?? 'https://reconexionbuenosaires.com';
 
 export default defineConfig({
   site: SITE_URL,
@@ -56,13 +56,17 @@ export default defineConfig({
 
   // Tipografias auto-hospedadas: cero requests a terceros (RGPD/LGPD) y
   // preload + font-display optimizados para CLS.
+  // Design system "Architectural Serenity": Playfair Display (titulares),
+  // Inter (cuerpo) y Geist como respaldo historico. Fontsource como proveedor
+  // local; si el paquete no esta disponible en build, la pila de fallback de
+  // --font-display/--font-sans (global.css) mantiene el layout valido.
   fonts: [
     {
-      name: 'Fraunces',
-      cssVariable: '--font-fraunces',
+      name: 'Playfair Display',
+      cssVariable: '--font-playfair',
       provider: fontProviders.fontsource(),
-      weights: [400, 600],
-      styles: ['normal'],
+      weights: ['400 700'],
+      styles: ['normal', 'italic'],
       subsets: ['latin', 'latin-ext'],
       fallbacks: ['Iowan Old Style', 'Georgia', 'serif'],
       optimizedFallbacks: true,
@@ -70,6 +74,16 @@ export default defineConfig({
     {
       name: 'Inter',
       cssVariable: '--font-inter',
+      provider: fontProviders.fontsource(),
+      weights: ['300 400 500 600'],
+      styles: ['normal'],
+      subsets: ['latin', 'latin-ext'],
+      fallbacks: ['system-ui', 'Segoe UI', 'Helvetica Neue', 'sans-serif'],
+      optimizedFallbacks: true,
+    },
+    {
+      name: 'Geist',
+      cssVariable: '--font-geist',
       provider: fontProviders.fontsource(),
       weights: ['400 700'],
       styles: ['normal'],

@@ -6,26 +6,39 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
-import { BUSINESS, PRACTITIONER, SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { BUSINESS, PRACTITIONER, SITE, SITE_METADATA } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
-const title = SITE.name;
-const description = SITE.defaultDescription;
+const title = SITE_METADATA.home.title;
+const description = SITE_METADATA.home.description;
 
+// Grafo maestro de autoridad (EAV) del home: Person (#person),
+// HealthAndBeautyBusiness/LocalBusiness (#localbusiness) y WebSite se declaran
+// en BaseLayout; aqui solo se publican los dos Service canonicos con sus
+// `@id` fijos. Las paginas /sanacion-reconectiva y /la-reconexion re-declaran
+// esos mismos nodos con el mismo @id para que la resolucion por entidad sea
+// identica desde cualquier entrada del grafo (consolidacion RankBrain/MUM).
 const schema = [
   serviceNode({
+    id: ID.serviceReconectiva,
     name: 'Sesión de Sanación Reconectiva',
     description:
-      'Sesión individual de Sanación Reconectiva en Buenos Aires, presencial o a distancia, con encuadre claro y sin promesas de curación.',
+      'Sesiones de Sanación Reconectiva ejecutadas en modalidad a distancia con alcance global (1 a 3 sesiones sugeridas), y presenciales en Buenos Aires. Aplica también para mascotas y animales a distancia. No incluyen música, instrumentación ni frecuencias de sonido artificiales. Con encuadre claro y sin promesas de curación.',
     url: new URL('/sanacion-reconectiva', SITE.url).href,
-    serviceType: 'Sanación Reconectiva',
+    serviceType: 'Sanación Reconectiva® a Distancia',
   }),
   serviceNode({
-    name: 'La Reconexión',
+    id: ID.serviceLaReconexion,
+    name: 'La Reconexión Presencial en CABA',
     description:
-      'Proceso de dos sesiones en días consecutivos que se realiza una única vez en la vida.',
+      'Proceso presencial en Ciudad Autónoma de Buenos Aires (Zona Recoleta). Consta de 2 sesiones consecutivas y se realiza una única vez en la vida.',
     url: new URL('/la-reconexion', SITE.url).href,
-    serviceType: 'La Reconexión',
+    serviceType: 'La Reconexión® Presencial',
+    // Proceso 100% presencial: no se declara canal remoto para evitar
+    // contaminar el grafo con una tripletas areaServed/canal contradictoria.
+    remote: false,
+    // Valor oficial internacional unificado (SSOT: consts.BUSINESS).
+    offer: { price: BUSINESS.laReconexionPriceUsd, priceCurrency: 'USD' },
   }),
 ];
 
@@ -61,7 +74,7 @@ const pasos = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath="/" schema={schema}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath="/" schema={schema}>
   <!-- HERO -->
   <section class="bg-aura relative overflow-hidden border-b border-stone-200/70">
     <div class="container-page grid gap-14 py-20 md:py-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-36">

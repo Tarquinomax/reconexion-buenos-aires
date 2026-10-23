@@ -6,27 +6,32 @@ import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Button from '../components/Button.astro';
-import { SITE } from '../consts';
-import { serviceNode } from '../lib/schema';
+import { SITE, SITE_METADATA } from '../consts';
+import { ID, serviceNode } from '../lib/schema';
 
 const path = '/sanacion-reconectiva';
 const url = new URL(path, SITE.url).href;
 
-const title = 'Sanación Reconectiva en Buenos Aires';
-const description =
-  'Qué es la Sanación Reconectiva, cómo se desarrolla una sesión, qué se puede esperar y cuáles son sus límites. Información clara y responsable, sin promesas de curación.';
+const title = SITE_METADATA.sanacionReconectiva.title;
+const description = SITE_METADATA.sanacionReconectiva.description;
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
   { name: 'Sanación Reconectiva', item: path },
 ];
 
+// Nodo canonico #service-reconectiva del grafo maestro (SSOT GEO/E-E-A-T):
+// cobertura global a distancia, 1 a 3 sesiones sugeridas, aplica a personas y
+// mascotas. Regla de pureza estricta: cero menciones a musica, instrumentos,
+// frecuencias Solfeggio/Theta/Hz o ASMR.
 const schema = [
   serviceNode({
+    id: ID.serviceReconectiva,
     name: 'Sesión de Sanación Reconectiva',
-    description,
+    description:
+      'Sesiones de Sanación Reconectiva ejecutadas en modalidad a distancia con alcance global (1 a 3 sesiones sugeridas), y presenciales en Buenos Aires. Aplica también para mascotas y animales a distancia. No incluyen música, instrumentación ni frecuencias de sonido artificiales. Con encuadre claro y sin promesas de curación.',
     url,
-    serviceType: 'Sanación Reconectiva',
+    serviceType: 'Sanación Reconectiva® a Distancia',
   }),
 ];
 
@@ -38,7 +43,7 @@ const desarrollo = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+<BaseLayout title={title} description={description} rawTitle canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={ID.serviceReconectiva}>
   <PageHeader
     eyebrow="Sesiones individuales"
     title="Sanación Reconectiva"
@@ -50,15 +55,21 @@ const desarrollo = [
     <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
       <h2>Qué es</h2>
       <p>
-        Placeholder de contenido. Reemplazar por la explicación definitiva, redactada en primera persona
-        y sin terminología pseudocientífica. Conviene describir el trabajo en términos de experiencia y
-        encuadre, evitando afirmaciones sobre mecanismos biológicos no demostrados.
+        La Sanación Reconectiva es una sesión individual de aproximadamente 30 a 45 minutos en la que
+        se facilita una interacción con frecuencias de energía, luz e información, según el marco del
+        método desarrollado por The Reconnection LLC. Se realiza sin contacto físico: la persona
+        permanece vestida y acostada sobre una camilla. No implica diagnóstico, manipulación corporal
+        ni rituales. Lo que cada persona percibe forma parte de su experiencia subjetiva; este sitio
+        describe el encuadre real de la sesión y no afirma mecanismos biológicos no demostrados.
       </p>
 
       <h2>En qué se diferencia de otras prácticas</h2>
       <p>
-        Placeholder de contenido. Comparar brevemente con otras prácticas de bienestar sin descalificarlas
-        y sin atribuirse superioridad terapéutica.
+        A diferencia de técnicas que requieren símbolos, imposición de manos o pasos técnicos
+        repetitivos, aquí no hay manipulación física ni protocolo ceremonial: es una interacción
+        directa dentro del marco conceptual propio del método. Esta comparación no implica superioridad
+        terapéutica alguna: otras prácticas de acompañamiento energético son respetables y pueden tener
+        sentido para otras personas.
       </p>
 
       <h2>Para quién puede tener sentido</h2>
@@ -100,7 +111,9 @@ const desarrollo = [
     <p class="mt-5 leading-relaxed text-stone-600">
       Las sensaciones son variables: calor, cosquilleo, movimientos involuntarios, somnolencia o
       nada perceptible. Ninguna de esas respuestas indica que la sesión «funcionó» o «no funcionó».
-      Placeholder de contenido: ampliar con descripciones propias.
+      Muchas personas describen simplemente un estado de calma y descanso profundo durante el
+      encuentro; otras no recuerdan nada particular al terminar. Ambas experiencias son igual de
+      válidas dentro del encuadre.
     </p>
 
     <Disclaimer class="mt-10">

@@ -5,11 +5,12 @@ import Section from '../components/Section.astro';
 import TestimonialCard from '../components/TestimonialCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
+import { ID } from '../lib/schema';
 
 const path = '/testimonios';
 const title = 'Testimonios de sesiones';
 const description =
-  'Experiencias reales compartidas con autorización expresa y presentadas en contexto. Los testimonios describen vivencias personales y no garantizan resultados equivalentes.';
+  'Experiencias reales compartidas con autorización expresa y presentadas en contexto. Los testimonios describen vivencias personales y no garantizan resultados similares.';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
@@ -72,7 +73,7 @@ const testimonios = [
 ];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} mainEntityId={ID.business}>
   <PageHeader
     eyebrow="Experiencias"
     title="Testimonios en contexto"

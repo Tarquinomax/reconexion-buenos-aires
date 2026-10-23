@@ -1,0 +1,118 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import Section from '../components/Section.astro';
+import CtaBanner from '../components/CtaBanner.astro';
+import { SITE } from '../consts';
+import { ID, videoNode, type JsonLdNode, type VideoObjectOptions } from '../lib/schema';
+
+const path = '/entrevistas';
+const url = new URL(path, SITE.url).href;
+
+const title = 'Entrevistas del Dr. Eric Pearl';
+const description =
+  'Entrevistas y apariciones del Dr. Eric Pearl, creador de la Sanación Reconectiva, en español. Material en video para conocer el origen y el marco conceptual del trabajo.';
+
+const breadcrumbs = [
+  { name: 'Inicio', item: '/' },
+  { name: 'Entrevistas', item: path },
+];
+
+/**
+ * PLACEHOLDER(cliente): reemplazar por las entrevistas reales (título, miniatura,
+ * fecha de subida, duración y URL de YouTube/Vimeo). Requisitos por video:
+ *  - thumbnailUrl: imagen local o original del canal, sin filtros artificiales.
+ *  - uploadDate ISO 8601 y duration ISO 8601 (ej: 'PT42M15S').
+ *  - embedUrl/contentUrl apuntando al player oficial.
+ * Los contadores de interaccion se declaran en 0 hasta tener valores verificables.
+ */
+const entrevistas: Array<VideoObjectOptions & { provider: string; langLabel: string }> = [
+  {
+    id: `${url}#video-eric-pearl-origen`,
+    name: 'El origen de la Sanación Reconectiva — Entrevista al Dr. Eric Pearl',
+    description:
+      'El Dr. Eric Pearl relata cómo surgió el trabajo que luego se conoció como La Reconexión. Video de referencia con subtítulos en español.',
+    thumbnailUrl: '/og/og-default.svg', // PLACEHOLDER: miniatura real del video
+    uploadDate: '2024-01-01T12:00:00Z', // PLACEHOLDER
+    duration: 'PT42M0S', // PLACEHOLDER
+    embedUrl: 'https://www.youtube.com/embed/REEMPLAZAR-ID-DE-VIDEO', // PLACEHOLDER
+    creatorId: ID.person,
+    userInteractionCount: 0,
+    provider: 'YouTube',
+    langLabel: 'Español (subtitulado)',
+  },
+  {
+    id: `${url}#video-reconexion-como-funciona`,
+    name: 'La Reconexión: cómo funciona — Entrevista al Dr. Eric Pearl',
+    description:
+      'Aparición del Dr. Eric Pearl explicando el proceso de dos sesiones y su encuadre internacional. Video de referencia con subtítulos en español.',
+    thumbnailUrl: '/og/og-default.svg', // PLACEHOLDER: miniatura real del video
+    uploadDate: '2024-06-01T12:00:00Z', // PLACEHOLDER
+    duration: 'PT35M0S', // PLACEHOLDER
+    embedUrl: 'https://www.youtube.com/embed/REEMPLAZAR-ID-DE-VIDEO', // PLACEHOLDER
+    creatorId: ID.person,
+    userInteractionCount: 0,
+    provider: 'YouTube',
+    langLabel: 'Español (subtitulado)',
+  },
+];
+
+// Los videos se declaran como entidades del @graph; la pagina los referencia
+// por @id (mainEntity) y el ItemList ordena la coleccion sin duplicar nodos.
+const videoNodes: JsonLdNode[] = entrevistas.map((item) => videoNode(item));
+const mainVideoId = entrevistas[0]?.id ?? `${url}#video-eric-pearl-origen`;
+const playlistId = `${url}#playlist`;
+
+const collectionNode: JsonLdNode = {
+  '@type': 'ItemList',
+  '@id': playlistId,
+  name: 'Entrevistas del Dr. Eric Pearl',
+  itemListElement: entrevistas.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    url: item.id,
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={[...videoNodes, collectionNode]} mainEntityId={mainVideoId}>
+  <PageHeader
+    eyebrow="Material en video"
+    title="Entrevistas del Dr. Eric Pearl"
+    lead="Selección de entrevistas y apariciones del creador de la Sanación Reconectiva, en español o subtituladas. Sirven para conocer el origen y el marco conceptual del trabajo directamente de su fuente."
+    breadcrumbs={breadcrumbs}
+  />
+
+  <Section>
+    <p class="text-stone-600 leading-relaxed">
+      El material pertenece a sus canales oficiales y se reproduce bajo las condiciones de la plataforma.
+      Las miniaturas se muestran en su estado original, sin ediciones ni filtros.
+    </p>
+
+    <div class="mt-8 grid gap-6 md:grid-cols-2">
+      {
+        entrevistas.map((item) => (
+          <article class="rounded-organic border border-stone-200 bg-stone-50 p-6 md:p-8">
+            <h2 class="font-display text-xl leading-snug">{item.name}</h2>
+            <p class="mt-2 text-sm leading-relaxed text-stone-600">{item.description}</p>
+            <p class="mt-3 text-xs uppercase tracking-wide text-stone-500">
+              {item.provider} · {item.langLabel} · {item.duration.replace('PT', '').replace('M', ' min ').replace('S', ' s')}
+            </p>
+            {/* PLACEHOLDER(cliente): incrustar el iframe oficial solo tras confirmar la URL del video.
+                Se mantiene como enlace simple para no cargar scripts de terceros sin consentimiento. */}
+            <a
+              href={item.embedUrl}
+              class="mt-4 inline-flex items-center gap-2 rounded-full bg-terracota-700 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-terracota-800"
+              rel="noopener noreferrer"
+              target="_blank"
+            >
+              Ver entrevista
+            </a>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <CtaBanner />
+</BaseLayout>

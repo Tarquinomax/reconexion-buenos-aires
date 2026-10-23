@@ -2,16 +2,66 @@
 @plugin '@tailwindcss/typography';
 
 /* ------------------------------------------------------------------
-   Design tokens
-   Paleta calida: piedra/arena como base, terracota como acento de accion,
-   salvia como acento de calma. Contrastes verificados >= WCAG AA sobre stone-50.
+   Design tokens — "Serenidad Arquitectonica" (paleta oficial del proyecto)
+   Fondo crema suave #FCF9F8 · Primario verde bosque #2C3E35 · Bronce #8C7853.
+   Terracota/salvia se conservan como escala legacy para componentes ya
+   maquetados; los nuevos tokens institucionales son crema/bosque/bronce.
+   Contrastes verificados >= WCAG AA sobre el fondo crema.
    ------------------------------------------------------------------ */
 @theme {
-  /* Tipografias auto-hospedadas por la Fonts API de Astro.
-     El segundo argumento de var() garantiza una pila valida si la descarga
-     de fuentes falla en build (red restringida, CDN caido). */
-  --font-sans: var(--font-inter, ui-sans-serif, system-ui, 'Segoe UI', sans-serif);
-  --font-display: var(--font-fraunces, 'Iowan Old Style', Georgia, serif);
+  /* Tipografias oficiales: Playfair Display (titulares) e Inter (cuerpo),
+     auto-hospedadas via Fontsource (sin conexiones a Google Fonts en runtime).
+     El segundo argumento de var() garantiza una pila valida si la fuente local
+     falla en build (red restringida, paquete ausente). */
+  --font-sans: var(
+    --font-inter,
+    var(--font-geist, ui-sans-serif, system-ui, 'Segoe UI', sans-serif)
+  );
+  --font-display: var(--font-playfair, 'Iowan Old Style', Georgia, serif);
+
+  /* Tokens institucionales */
+  --color-cream: #fcf9f8;
+
+  /* Escala "Architectural Serenity" del nuevo sistema de diseno: crema /
+     verde bosque / arena. Declarada como escalas numeradas para que las
+     utilidades generadas por Tailwind v4 (bg-cream-100, text-forest-800,
+     border-sand-200...) funcionen sin tailwind.config. Los tokens legacy
+     (--color-cream plano y las escalas terracota/salvia) se conservan para
+     los componentes ya maquetados hasta su migracion total. */
+  --color-cream-50: #fcf9f8;
+  --color-cream-100: #f6f3f2;
+  --color-cream-200: #ece8e7;
+  --color-cream-300: #dcd9d9;
+
+  --color-forest-800: #2c3e35;
+  --color-forest-900: #1e2b25;
+
+  --color-sand-100: #efece6;
+  --color-sand-200: #e5e1d8;
+  --color-bosque-50: oklch(0.965 0.012 155);
+  --color-bosque-100: oklch(0.93 0.024 155);
+  --color-bosque-200: oklch(0.865 0.042 155);
+  --color-bosque-300: oklch(0.77 0.06 155);
+  --color-bosque-400: oklch(0.65 0.072 156);
+  --color-bosque-500: oklch(0.52 0.07 157);
+  --color-bosque-600: oklch(0.435 0.06 158);
+  --color-bosque-700: #2c3e35; /* Verde Bosque oficial */
+  --color-bosque-800: oklch(0.32 0.045 158);
+  --color-bosque-900: oklch(0.26 0.035 158);
+
+  /* Alias semantico: forest-* y bosque-* comparten el verde oficial. */
+  --color-forest-700: #2c3e35;
+
+  --color-bronce-50: oklch(0.962 0.014 85);
+  --color-bronce-100: oklch(0.925 0.03 85);
+  --color-bronce-200: oklch(0.86 0.05 85);
+  --color-bronce-300: oklch(0.78 0.07 85);
+  --color-bronce-400: oklch(0.69 0.085 85);
+  --color-bronce-500: #8c7853; /* Bronce oficial */
+  --color-bronce-600: oklch(0.55 0.075 85);
+  --color-bronce-700: oklch(0.47 0.065 85);
+  --color-bronce-800: oklch(0.4 0.05 85);
+  --color-bronce-900: oklch(0.33 0.04 85);
 
   --color-terracota-50: oklch(0.968 0.014 45);
   --color-terracota-100: oklch(0.936 0.031 45);
@@ -40,6 +90,9 @@
   --spacing-section-lg: 7.5rem;
 
   --radius-organic: 1.75rem;
+
+  /* Sombra institucional para superficies elevadas (dock, modal). */
+  --shadow-elevated: 0 12px 32px -8px oklch(0.26 0.035 158 / 0.35);
 
   --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -91,8 +144,8 @@
   }
 
   body {
-    background-color: var(--color-stone-50);
-    color: var(--color-stone-800);
+    background-color: var(--color-cream);
+    color: var(--color-bosque-900);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
     /* Evita el salto horizontal en animaciones de entrada. */
@@ -104,10 +157,10 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 400;
+    font-weight: 500;
     letter-spacing: -0.015em;
     text-wrap: balance;
-    color: var(--color-stone-900);
+    color: var(--color-bosque-800);
   }
 
   p {
@@ -116,14 +169,14 @@
 
   /* Foco visible y consistente en todo el sitio (WCAG 2.4.7). */
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
-    outline: 2px solid var(--color-terracota-600);
+    outline: 2px solid var(--color-bronce-500);
     outline-offset: 3px;
     border-radius: 0.25rem;
   }
 
   ::selection {
-    background-color: var(--color-terracota-200);
-    color: var(--color-stone-900);
+    background-color: var(--color-bronce-200);
+    color: var(--color-bosque-900);
   }
 
   /* La marca de agua del optimizador de imagenes nunca debe romper el layout. */

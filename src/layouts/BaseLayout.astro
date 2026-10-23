@@ -2,6 +2,7 @@
 import { Font } from 'astro:assets';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import NavigationDock from '../components/NavigationDock.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { SITE } from '../consts';
 import {
@@ -19,6 +20,12 @@ import '../styles/global.css';
 export interface Props {
   title: string;
   description: string;
+  /**
+   * Si es true, `title` se usa literalmente como <title>/og:title sin
+   * sufijar `| SITE.name`. Usarlo cuando el titulo ya proviene de
+   * SITE_METADATA (fuente unica de verdad) y trae la marca incluida.
+   */
+  rawTitle?: boolean;
   /** Ruta canonica sin dominio, p. ej. '/sanacion-reconectiva'. Por defecto, la ruta actual. */
   canonicalPath?: string;
   /** Imagen Open Graph absoluta o relativa a /public. */
@@ -29,6 +36,11 @@ export interface Props {
   breadcrumbs?: BreadcrumbEntry[];
   /** Nodos JSON-LD adicionales (Service, FAQPage, Article...). */
   schema?: JsonLdNode[];
+  /**
+   * @id de la entidad principal de la pagina (p. ej. `${canonical}#faq`).
+   * Activa la jerarquia WebPage -> mainEntity dentro del @graph.
+   */
+  mainEntityId?: string;
   /** ISO 8601 */
   datePublished?: string;
   dateModified?: string;
@@ -41,11 +53,13 @@ export interface Props {
 const {
   title,
   description,
+  rawTitle = false,
   canonicalPath,
   image = SITE.defaultImage,
   noindex = false,
   breadcrumbs = [],
   schema = [],
+  mainEntityId,
   datePublished,
   dateModified,
   ogType = 'website',
@@ -57,7 +71,7 @@ const normalizedPath = pathname !== '/' ? pathname.replace(/\/+$/, '') : '/';
 const canonical = new URL(normalizedPath, SITE.url).href;
 const ogImage = new URL(image, SITE.url).href;
 
-const fullTitle = title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.name}`;
+const fullTitle = rawTitle ? title : title === SITE.name ? SITE.defaultTitle : `${title} | ${SITE.name}`;
 
 const graph: JsonLdNode[] = [
   businessNode(),
@@ -68,6 +82,7 @@ const graph: JsonLdNode[] = [
     title: fullTitle,
     description,
     hasBreadcrumb: breadcrumbs.length > 0,
+    mainEntityId,
     datePublished,
     dateModified,
   }),
@@ -128,7 +143,8 @@ const jsonLd = buildGraph(graph);
 
     <!-- Tipografias auto-hospedadas: sin conexiones a terceros. -->
     <Font cssVariable="--font-inter" preload />
-    <Font cssVariable="--font-fraunces" preload />
+    <Font cssVariable="--font-playfair" preload />
+    <Font cssVariable="--font-geist" />
 
     <script type="application/ld+json" is:inline set:html={jsonLd} />
 
@@ -150,6 +166,7 @@ const jsonLd = buildGraph(graph);
     </main>
 
     <Footer />
+    <NavigationDock />
     <CookieConsent />
 
     <script>

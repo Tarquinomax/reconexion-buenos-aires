@@ -5,7 +5,7 @@ import Section from '../components/Section.astro';
 import FaqItem from '../components/FaqItem.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { MEDICAL_DISCLAIMER, SITE } from '../consts';
+import { MEDICAL_DISCLAIMER, SITE, BUSINESS } from '../consts';
 import { faqNode, type FaqEntry } from '../lib/schema';
 
 const path = '/faq';
@@ -13,7 +13,9 @@ const url = new URL(path, SITE.url).href;
 
 const title = 'Preguntas frecuentes y límites del servicio';
 const description =
-  'Respuestas directas sobre sesiones de Sanación Reconectiva y La Reconexión: duración, modalidades, contraindicaciones y, sobre todo, qué queda fuera del alcance de este trabajo.';
+  'Las 20 preguntas frecuentes sobre Sanación Reconectiva y La Reconexión en Buenos Aires: sesiones, modalidades, costos, preparación, ciencia y límites del servicio.';
+/** ISO 8601 de la ultima revision editorial del FAQ (frescura para el nodo FAQPage). */
+const faqUpdated = '2026-10-22';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
@@ -23,75 +25,165 @@ const breadcrumbs = [
 /**
  * Fuente unica de las FAQ: alimenta a la vez el HTML visible y el JSON-LD.
  * Nunca deben divergir (Google penaliza el marcado que no coincide con la pagina).
+ *
+ * Numeracion correlativa 1-20: preguntas 1-10 del repositorio original +
+ * preguntas 11-20 incorporadas de la web de 2012, sin solaparse entre si.
  */
-const faqs: Array<FaqEntry & { group: string }> = [
+const faqs: Array<FaqEntry & { id: string; group: string }> = [
   {
+    id: 'q01',
     group: 'La sesión',
     question: '¿Cuánto dura una sesión?',
     answer:
       'La sesión dura entre 30 y 45 minutos efectivos. El encuentro completo, incluyendo el encuadre inicial y el cierre, ronda la hora.',
   },
   {
+    id: 'q02',
     group: 'La sesión',
     question: '¿Hay contacto físico?',
     answer:
       'No. La persona permanece vestida y acostada sobre una camilla. No hay contacto físico, manipulación corporal ni maniobras de ningún tipo.',
   },
   {
+    id: 'q03',
     group: 'La sesión',
     question: '¿Qué se siente durante la sesión?',
     answer:
       'Las percepciones son variables: calor, cosquilleo, movimientos involuntarios, somnolencia o nada perceptible. No sentir nada en particular no significa que la sesión haya fallado.',
   },
   {
+    id: 'q04',
     group: 'Modalidades',
     question: '¿Las sesiones a distancia son equivalentes a las presenciales?',
     answer:
       'El encuadre es el mismo y la duración también. La diferencia está en el ámbito: en la modalidad a distancia necesitás un espacio tranquilo donde puedas recostarte sin interrupciones.',
   },
   {
+    id: 'q05',
     group: 'Modalidades',
     question: '¿Cuántas sesiones se recomiendan?',
     answer:
       'No se venden paquetes ni series obligatorias. Lo habitual es una sesión, evaluar la experiencia y decidir después, sin presión comercial.',
   },
   {
+    id: 'q06',
     group: 'Límites',
     question: '¿Esto cura enfermedades?',
     answer: MEDICAL_DISCLAIMER,
   },
   {
+    id: 'q07',
     group: 'Límites',
     question: '¿Puedo dejar mi medicación o mi tratamiento?',
     answer:
       'No. Nunca modifiques ni interrumpas un tratamiento indicado por un profesional de la salud. Ninguna sesión de este sitio justifica ese cambio.',
   },
   {
+    id: 'q08',
     group: 'Límites',
     question: '¿Hay situaciones en las que no aceptás una sesión?',
     answer:
       'Sí. No trabajo con personas que buscan sustituir atención médica o psicológica, ni con quienes llegan esperando una promesa de curación. En esos casos la respuesta honesta es una derivación.',
   },
   {
+    id: 'q09',
     group: 'Reservas',
     question: '¿Cómo reservo y cómo se abona?',
-    answer:
-      'La reserva se coordina por WhatsApp o correo electrónico. Placeholder: detallar medios de pago aceptados y política de señas.',
+    answer: `La reserva se coordina por WhatsApp (${BUSINESS.phoneDisplay}) o escribiendo a ${BUSINESS.email}. El valor de las sesiones de Sanación Reconectiva es una tarifa fija transparente alineada con los aranceles internacionales oficiales, y se informa de manera clara antes de confirmar el turno. Los encuentros presenciales de La Reconexión se realizan en el consultorio de Recoleta, Ciudad Autónoma de Buenos Aires (coordenadas -34.595856, -58.392926) y el proceso completo tiene un valor de 333 dólares, idéntico en cualquier país.`,
   },
   {
+    id: 'q10',
     group: 'Reservas',
     question: '¿Qué pasa si necesito cancelar?',
     answer:
-      'Placeholder: especificar el plazo mínimo de aviso y las condiciones de reprogramación o devolución.',
+      'Avisá con al menos 24 horas de anticipación por el mismo canal de la reserva y reprogramamos el turno sin costo. Si cancelás con menos de 24 horas, el espacio queda liberado para otra persona y la seña no se reintegra; ante una emergencia de salud, la devolución se evalúa caso por caso. Ante cualquier síntoma, consultá siempre a un profesional de la salud matriculado.',
+  },
+  {
+    id: 'q11',
+    group: 'Alcance',
+    question: '¿Es necesario estar enfermo para recibir estas sesiones?',
+    answer:
+      'No, en absoluto. La Sanación Reconectiva no es un tratamiento dirigido a una dolencia específica. Es un proceso de interacción con frecuencias de energía, luz e información que operan a nivel integral. Cualquier persona, busque o no un restablecimiento físico, puede recibir las sesiones para permitir que su organismo recupere su armonía intrínseca, claridad mental y estabilidad general.',
+  },
+  {
+    id: 'q12',
+    group: 'Alcance',
+    question: '¿Tiene contraindicaciones?',
+    answer:
+      'No posee contraindicaciones de ninguna índole ni efectos secundarios adversos. Al no ser una intervención médica, clínica o química, y al facilitarse de manera no invasiva (completamente a distancia para la Sanación Reconectiva), el acceso a estas frecuencias es absolutamente seguro para personas de todas las edades y condiciones.',
+  },
+  {
+    id: 'q13',
+    group: 'Alcance',
+    question: '¿Cuál es el costo de las sesiones?',
+    answer:
+      'El valor de las sesiones de Sanación Reconectiva se gestiona bajo una tarifa fija transparente alineada con los aranceles internacionales estipulados oficiales. Los detalles específicos sobre los honorarios correspondientes a las sesiones individuales y las facilidades de abono se informan de manera clara antes de confirmar el turno, garantizando un marco administrativo sin sorpresas.',
+  },
+  {
+    id: 'q14',
+    group: 'Alcance',
+    question: '¿Por qué el valor de La Reconexión es de 333 dólares?',
+    answer:
+      'El valor de 333 dólares para el proceso de La Reconexión es universal y obligatorio a nivel mundial, establecido originalmente por el Dr. Eric Pearl. Este número posee una frecuencia y vibración matemática específica que forma parte intrínseca del proceso de reconexión axiatonal. Representa un compromiso y un intercambio justo con la vibración del servicio, manteniéndose idéntico en cualquier país del mundo.',
+  },
+  {
+    id: 'q15',
+    group: 'La Reconexión',
+    question: '¿Se puede recibir más de una Reconexión en la vida?',
+    answer:
+      'No. La Reconexión es un procedimiento definitivo que se realiza una sola vez en la vida. Es un proceso protocolar estricto que consta de exactamente dos sesiones consecutivas (facilitadas en días seguidos o con un máximo de dos noches intermedias). Una vez completado este entrelazado con las líneas del planeta y del universo, la conexión permanece activa de forma permanente.',
+  },
+  {
+    id: 'q16',
+    group: 'Formación',
+    question: '¿Quién puede aprender a facilitar estas frecuencias?',
+    answer:
+      'Cualquier persona tiene la capacidad innata de interactuar, percibir y aprender a facilitar estas frecuencias de energía, luz e información. No se requieren dones especiales, talentos ocultos ni conocimientos previos de anatomía o terapias energéticas tradicionales. La formación se adquiere asistiendo a los seminarios oficiales internacionales dictados por la organización global autorizada.',
+  },
+  {
+    id: 'q17',
+    group: 'Comparaciones',
+    question: '¿Es esto un tipo de Reiki o sanación energética tradicional?',
+    answer:
+      'No, va mucho más allá. Aunque el Reiki y otras técnicas tradicionales de sanación energética son herramientas respetables que canalizan energía, la Sanación Reconectiva da un salto cualitativo al dar acceso a un espectro completo que incluye no solo energía, sino también luz e información. No requiere rituales, símbolos, imposiciones rígidas ni pasos técnicos repetitivos; es una interacción directa y moderna con el campo cuántico.',
+  },
+  {
+    id: 'q18',
+    group: 'Ciencia',
+    question: '¿Qué dice la ciencia sobre la Sanación Reconectiva?',
+    answer:
+      'Ha sido objeto de rigurosas investigaciones y estudios científicos a nivel internacional por parte de reconocidos físicos, médicos y laboratorios mundiales (como el Dr. William Tiller, el Dr. Gary Schwartz y el Dr. Konstantin Korotkov). Los experimentos demuestran de forma documentada que estas frecuencias producen reestructuraciones medibles en el ADN, disminuyen el caos térmico en el entorno y generan un estado de coherencia superior en el campo electromagnético humano.',
+  },
+  {
+    id: 'q19',
+    group: 'Poblaciones',
+    question: '¿Se puede aplicar en niños o personas embarazadas?',
+    answer:
+      'Sí, es perfectamente seguro y muy recomendable. Al no representar un tratamiento invasivo ni requerir manipulación física alguna, tanto los niños pequeños como las mujeres en etapa de gestación responden de manera extraordinaria a la pureza de estas frecuencias. El proceso respeta de forma natural el ritmo biológico y la respuesta orgánica de la madre y del bebé.',
+  },
+  {
+    id: 'q20',
+    group: 'Preparación',
+    question: '¿Existe alguna preparación previa para asistir a la sesión?',
+    answer:
+      'No se requiere ninguna preparación mental, meditativa ni física compleja. Para las sesiones presenciales en el consultorio de Recoleta (exclusivas de La Reconexión), se aconseja asistir con ropa cómoda y se solicita de forma estricta evitar el uso de perfumes, lociones aromatizadas o fragancias intensas el día del turno, para no interferir con la percepción sensorial natural durante el proceso.',
   },
 ];
 
 const grupos = [...new Set(faqs.map((faq) => faq.group))];
 
-const schema = [faqNode(faqs.map(({ question, answer }) => ({ question, answer })), url)];
+const faqPageUrl = url;
+const schema = [faqNode(faqs.map(({ question, answer, id }) => ({ question, answer, id, dateModified: faqUpdated })), faqPageUrl)];
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  schema={schema}
+  mainEntityId={`${faqPageUrl}#faq`}
+>
   <PageHeader
     eyebrow="Antes de reservar"
     title="Preguntas frecuentes"

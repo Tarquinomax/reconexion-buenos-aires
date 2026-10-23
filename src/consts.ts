@@ -9,11 +9,15 @@
 export const SITE = {
   name: 'Reconexión Buenos Aires',
   shortName: 'Reconexión BA',
-  /** Debe coincidir con `site` en astro.config.mjs */
-  url: 'https://www.reconexionbuenosaires.com.ar', // PLACEHOLDER
+  /**
+   * Debe coincidir con `site` en astro.config.mjs.
+   * Se lee de import.meta.env.SITE_URL (Vercel) o import.meta.env.SITE (Astro),
+   * de modo que canonical y JSON-LD nunca divergen entre entornos.
+   */
+  url: import.meta.env.SITE_URL ?? import.meta.env.SITE ?? 'https://reconexionbuenosaires.com',
   locale: 'es-AR',
   lang: 'es',
-  themeColor: '#fafaf9',
+  themeColor: '#fcf9f8',
   defaultTitle: 'Reconexión Buenos Aires | Sanación Reconectiva y La Reconexión',
   defaultDescription:
     'Sesiones de Sanación Reconectiva y La Reconexión en Buenos Aires. Práctica presencial y a distancia, explicada con claridad, límites honestos y acompañamiento respetuoso.',
@@ -22,16 +26,24 @@ export const SITE = {
   twitter: '', // PLACEHOLDER: '@usuario' si existe
 } as const;
 
-/** Datos de la practicante — alimentan Schema.org Person y la señal E-E-A-T. */
+/** Datos del facilitador — alimentan Schema.org Person y la señal E-E-A-T. */
 export const PRACTITIONER = {
-  name: 'Nombre Apellido', // PLACEHOLDER
-  jobTitle: 'Practicante certificada de Sanación Reconectiva y La Reconexión',
+  name: 'José A.', // PLACEHOLDER: confirmar apellido completo antes de publicar
+  jobTitle: 'Facilitador Oficial de The Reconnection LLC (Sanación Reconectiva y La Reconexión)',
+  /** Certificación Nivel III por The Reconnection LLC (organización global oficial). */
+  certificationLevel: 'Nivel III — The Reconnection LLC',
+  /** Etiqueta corta de acreditación para badges/insignias de UI. */
+  credentialBadge: 'Facilitador Certificado',
+  yearsOfPractice: 12,
+  sessionsDelivered: 1100,
   /** Año/mes de la certificación de Maestría citada por el cliente. */
   masteryDate: '2012-09',
   masteryLabel: 'septiembre de 2012',
   image: '/img/practicante.jpg', // PLACEHOLDER
   sameAs: [
-    // PLACEHOLDER: perfiles verificables refuerzan la entidad ante buscadores.
+    // Perfil oficial verificado de The Reconnection (canal del Dr. Eric Pearl).
+    'https://www.youtube.com/@Reconexion333',
+    // PLACEHOLDER: perfiles propios verificables refuerzan la entidad ante buscadores.
     // 'https://www.instagram.com/...',
     // 'https://www.linkedin.com/in/...',
   ] as string[],
@@ -39,30 +51,60 @@ export const PRACTITIONER = {
 
 /** NAP (Name, Address, Phone) — debe ser idéntico en Google Business Profile. */
 export const BUSINESS = {
-  legalName: 'Reconexión Buenos Aires', // PLACEHOLDER
-  email: 'contacto@reconexionbuenosaires.com.ar', // PLACEHOLDER
+  legalName: 'Reconexión Buenos Aires',
+  email: 'contacto@reconexionbuenosaires.com',
   /** Formato E.164, requerido por Schema.org y por los enlaces tel:/wa.me */
-  phone: '+5491100000000', // PLACEHOLDER
-  phoneDisplay: '+54 9 11 0000-0000', // PLACEHOLDER
-  whatsapp: '5491100000000', // PLACEHOLDER (sin '+', formato wa.me)
+  phone: '+5491136680356',
+  phoneDisplay: '+54 9 11 3668-0356',
+  whatsapp: '5491136680356', // sin '+', formato wa.me
   address: {
-    streetAddress: 'Consultorio en Palermo', // PLACEHOLDER
+    streetAddress: 'Av. Alvear, Recoleta', // PLACEHOLDER: confirmar numero exacto de calle
     addressLocality: 'Ciudad Autónoma de Buenos Aires',
     addressRegion: 'CABA',
-    postalCode: 'C1425', // PLACEHOLDER
+    postalCode: 'C1014', // Recoleta, CABA (prefijo postal confirmado por el cliente)
     addressCountry: 'AR',
   },
   geo: {
-    latitude: -34.5885, // PLACEHOLDER
-    longitude: -58.4106, // PLACEHOLDER
+    latitude: -34.595856,
+    longitude: -58.392926,
   },
-  areaServed: ['Ciudad Autónoma de Buenos Aires', 'Gran Buenos Aires', 'Argentina', 'Online'],
+  /** Logo cuadrado para Schema.org (recomendado >= 112x112px). */
+  logo: '/img/logo.svg', // PLACEHOLDER: sustituir por el logo real cuando exista
+  areaServed: ['Recoleta, CABA', 'Argentina', 'LATAM', 'España', 'Online'],
+  /** Perfiles externos verificables (redes sociales / Google Maps CID) para la entidad. */
+  sameAs: [
+    // PLACEHOLDER:
+    // 'https://www.instagram.com/...',
+    // 'https://maps.google.com/?cid=...',
+  ] as string[],
   openingHours: [
     { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '10:00', closes: '19:00' },
     { days: ['Saturday'], opens: '10:00', closes: '14:00' },
   ],
+  /**
+   * Valor oficial internacional unificado para La Reconexión: 333 USD.
+   * `priceRange` usa el patron microdata de Google ('$$' = rango moderado);
+   * el valor numerico exacto se declara en `laReconexionPriceUsd` y se
+   * inyecta como Offer/priceRange en los nodos Service del grafo JSON-LD.
+   */
   priceRange: '$$',
+  laReconexionPriceUsd: 333,
 } as const;
+
+/**
+ * Diccionario centralizado de días de atención (inglés Schema.org -> español UI).
+ * Evita hardcodeos en las plantillas: contacto.astro y cualquier vista de horarios
+ * deben leer de aqui. Las claves coinciden con los valores de `openingHours.days`.
+ */
+export const DIAS_SEMANA: Record<string, string> = {
+  Monday: 'Lunes',
+  Tuesday: 'Martes',
+  Wednesday: 'Miércoles',
+  Thursday: 'Jueves',
+  Friday: 'Viernes',
+  Saturday: 'Sábado',
+  Sunday: 'Domingo',
+};
 
 export type NavItem = {
   href: string;
@@ -77,6 +119,8 @@ export const NAV_PRIMARY: NavItem[] = [
   { href: '/sobre-mi', label: 'Sobre mí', hint: 'Trayectoria y formación' },
   { href: '/testimonios', label: 'Testimonios', hint: 'Experiencias en contexto' },
   { href: '/faq', label: 'Preguntas frecuentes', hint: 'Dudas y límites del servicio' },
+  { href: '/entrevistas', label: 'Entrevistas', hint: 'Videos del Dr. Eric Pearl en español' },
+  { href: '/mascotas', label: 'Mascotas', hint: 'Sanación Reconectiva para perros y gatos' },
   { href: '/blog', label: 'Blog', hint: 'Artículos y recursos' },
 ];
 
@@ -95,3 +139,27 @@ export const MEDICAL_DISCLAIMER =
 
 /** Ultima revisión de los documentos legales (ISO 8601). */
 export const LEGAL_LAST_UPDATE = '2026-09-09';
+
+/**
+ * Metadatos SEO oficiales (title/description) por página clave.
+ * Fuente única de verdad: las páginas deben consumir estos valores en lugar
+ * de hardcodear títulos genéricos, para que `<title>`, meta description,
+ * Open Graph y Twitter Card siempre coincidan con el posicionamiento deseado.
+ */
+export const SITE_METADATA = {
+  home: {
+    title: "Sanación Reconectiva® A Distancia y La Reconexión® en CABA | José A.",
+    description:
+      "José A., Facilitador Certificado Oficial (formado en 2012 por el Dr. Eric Pearl). +10 años y +1.100 sesiones. Sanación Reconectiva® a distancia y La Reconexión® en Recoleta."
+  },
+  sanacionReconectiva: {
+    title: "Sanación Reconectiva® A Distancia (Global) | José A. Facilitador",
+    description:
+      "Sesiones a distancia de Sanación Reconectiva® con alcance global (1 a 3 sugeridas). Personas y mascotas. Retorno al equilibrio sin música ni instrumentos."
+  },
+  laReconexion: {
+    title: "La Reconexión® Presencial en Recoleta CABA | U$D 333 | José A.",
+    description:
+      "Proceso presencial en CABA (Zona Recoleta) de 2 sesiones consecutivas, una única vez en la vida. Facilitado por José A. Tarifa fija universal de U$D 333."
+  }
+} as const;

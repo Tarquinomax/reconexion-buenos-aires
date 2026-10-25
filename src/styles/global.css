@@ -62,9 +62,9 @@
   --color-salvia-800: oklch(0.375 0.036 145);
   --color-salvia-900: oklch(0.315 0.029 145);
 
-  /* Ritmo vertical modular de las secciones. */
-  --spacing-section: 5rem;
-  --spacing-section-lg: 7.5rem;
+  /* Ritmo vertical de secciones — densificado para desktop (menos vacío). */
+  --spacing-section: 3.5rem;
+  --spacing-section-lg: 5rem;
 
   --radius-organic: 1.75rem;
 

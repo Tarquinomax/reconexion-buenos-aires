@@ -2,10 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Section from '../components/Section.astro';
 import Button from '../components/Button.astro';
-import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { BUSINESS, PRACTITIONER, SITE } from '../consts';
+import { BUSINESS, SITE } from '../consts';
 import { serviceNode } from '../lib/schema';
 
 const title = 'Sanación Reconectiva® a Distancia en Buenos Aires y Argentina';
@@ -33,30 +32,30 @@ const schema = [
 <BaseLayout title={title} description={description} canonicalPath="/">
   <!-- HERO -->
   <section class="bg-aura relative overflow-hidden border-b border-stone-200/70">
-    <div class="container-page grid gap-14 py-20 md:py-28 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-36">
+    <div class="container-page grid gap-10 py-12 md:py-16 lg:grid-cols-12 lg:items-center lg:gap-10 lg:py-20">
       <div class="animate-fade-up lg:col-span-7">
         <p class="text-xs font-semibold tracking-[0.2em] text-terracota-700 uppercase">
           Buenos Aires · Argentina · Exclusivamente a distancia
         </p>
 
-        <h1 class="mt-5 text-4xl leading-[1.08] sm:text-5xl lg:text-6xl xl:text-7xl">
+        <h1 class="mt-4 text-4xl leading-[1.08] sm:text-5xl lg:text-6xl">
           Sanación Reconectiva®<br class="hidden sm:block" />
           <span class="text-terracota-700">a Distancia</span>
         </h1>
 
-        <p class="mt-7 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
+        <p class="mt-5 max-w-xl text-lg leading-relaxed text-stone-600 md:text-xl">
           Una forma integral de acceder al equilibrio natural a través de un espectro amplio de frecuencias
           compuesto por energía, luz e información. Sesiones facilitadas exclusivamente a distancia.
         </p>
 
-        <div class="mt-10 flex flex-wrap gap-3">
+        <div class="mt-8 flex flex-wrap gap-3">
           <Button href="/contacto" size="lg">Reservar una sesión</Button>
           <Button href="/sanacion-reconectiva" variant="secondary" size="lg">
             Conocer más
           </Button>
         </div>
 
-        <dl class="mt-14 grid max-w-lg grid-cols-3 gap-6 border-t border-stone-200 pt-8">
+        <dl class="mt-10 grid max-w-lg grid-cols-3 gap-6 border-t border-stone-200 pt-6">
           <div>
             <dt class="text-xs tracking-[0.12em] text-stone-500 uppercase">Desde</dt>
             <dd class="mt-1 font-display text-2xl text-stone-900">2012</dd>

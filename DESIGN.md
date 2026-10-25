@@ -38,8 +38,9 @@ La navegación principal debe permitir acceso directo a cada sección, como en e
 1. **Serenidad arquitectónica** — Calma, claridad, espacio. Nada grita.
 2. **Honestidad visual** — Sin hype, sin stock genérico, sin promesas visuales de “curación”.
 3. **Web app, no landing** — Secciones cortas, navegables, con jerarquía clara.
-4. **Rendimiento primero** — Estático, sin JS pesado, animaciones solo si aportan y respetan `prefers-reduced-motion`.
-5. **Accesibilidad base** — Contraste AA, foco visible, semántica correcta.
+4. **Densidad controlada** — En desktop evitar sensación de vacío; aire suficiente sin “páginas huecas”.
+5. **Rendimiento primero** — Estático, sin JS pesado, animaciones solo si aportan y respetan `prefers-reduced-motion`.
+6. **Accesibilidad base** — Contraste AA, foco visible, semántica correcta.
 
 ---
 
@@ -84,7 +85,9 @@ La navegación principal debe permitir acceso directo a cada sección, como en e
 
 - Contenedor principal: `max-width: 80rem` (`container-page`).
 - Contenedor de prosa: `max-width: 44rem` (`container-prose`).
-- Ritmo de sección: `--spacing-section` (5rem) / `--spacing-section-lg` (7.5rem).
+- Ritmo de sección: `--spacing-section` (**3.5rem**) / `--spacing-section-lg` (**5rem**).
+- Hero: `py-12` móvil → `py-16` md → `py-20` lg (no más de eso).
+- PageHeader: `pt-8 pb-10` / `md:pt-10 md:pb-14`.
 - Radio orgánico: `--radius-organic: 1.75rem`.
 - Padding horizontal: 1.25rem móvil → 2rem desktop.
 
@@ -198,6 +201,7 @@ Cualquier librería de animación nueva debe justificarse por valor real y peso.
 - [ ] ¿Modalidad de servicio es consistente?
 - [ ] ¿Animaciones respetan reduced-motion?
 - [ ] ¿Datos de negocio (NAP, nombre, precios) vienen de `consts.ts`?
+- [ ] ¿En desktop se siente denso (sin huecos excesivos)?
 
 ---
 

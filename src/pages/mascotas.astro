@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
+import FaqItem from '../components/FaqItem.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Button from '../components/Button.astro';
@@ -44,92 +45,87 @@ const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURICompone
   />
 
   <Section width="prose">
-    <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
-      <p>
-        Las sesiones para mascotas se facilitan <strong>exclusivamente a distancia</strong>. Esta modalidad garantiza que
-        el animal permanezca tranquilo en su propio entorno habitual de descanso, sin someterlo al estrés, la
-        incomodidad o el desgaste físico que implica un traslado. El espectro de frecuencias cuánticas opera más allá del
-        espacio y la distancia física.
-      </p>
+    <p class="leading-relaxed text-stone-600">
+      Las sesiones para mascotas se facilitan <strong>exclusivamente a distancia</strong>. Esta modalidad garantiza que el
+      animal permanezca tranquilo en su propio entorno habitual de descanso, sin someterlo al estrés, la incomodidad o el
+      desgaste físico que implica un traslado. El espectro de frecuencias cuánticas opera más allá del espacio y la
+      distancia física.
+    </p>
 
-      <h2>Experiencias y testimonios reales</h2>
-
-      <h3>Caso 1: Testimonio de María M., sobre su gata Reina</h3>
-      <figure class="not-prose my-6">
-        <img
-          src="/images/reina.webp"
-          alt="Reina, gata de 17 años, fotografía original aportada por su tutora"
-          width="640"
-          height="480"
-          loading="lazy"
-          decoding="async"
-          class="w-full max-w-md rounded-organic border border-stone-200 object-cover"
-        />
-        <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
-          Reina · fotografía original, sin ediciones.
-        </figcaption>
-      </figure>
-      <blockquote>
+    <div class="mt-8">
+      <FaqItem question="Caso 1: Testimonio de María M., sobre su gata Reina" open>
+        <figure class="my-2">
+          <img
+            src="/images/reina.webp"
+            alt="Reina, gata de 17 años, fotografía original aportada por su tutora"
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+            class="w-full max-w-md rounded-organic border border-stone-200 object-cover"
+          />
+          <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
+            Reina · fotografía original, sin ediciones.
+          </figcaption>
+        </figure>
         <p>
           El día 15 de Octubre a la tarde lo llamé a José para pedirle si podía hacer algo por mi gatita Reina que no
-          estaba bien de salud, tiene 17 años y los riñones y el hígado estaban muy deteriorados debido a su avanzada edad.
-          Más o menos con medicación homeopática y la aplicación de suero fisiológico 1 vez a la semana se mantenía bastante
-          bien. Pero ese día 15 de Octubre había vomitado 5 veces, incluso hasta el agua que tomaba la vomitaba y me
-          preocupé mucho al verla así y no quería que sufriera. Ahí fue cuando lo llamo a Jose para que le hiciera Sanacion
-          Reconectiva.
+          estaba bien de salud, tiene 17 años y los riñones y el hígado estaban muy deteriorados debido a su avanzada
+          edad. Más o menos con medicación homeopática y la aplicación de suero fisiológico 1 vez a la semana se mantenía
+          bastante bien. Pero ese día 15 de Octubre había vomitado 5 veces, incluso hasta el agua que tomaba la vomitaba y
+          me preocupé mucho al verla así y no quería que sufriera. Ahí fue cuando lo llamo a Jose para que le hiciera
+          Sanacion Reconectiva.
         </p>
-        <p>
+        <p class="mt-3">
           José accedió generosa y amorosamente a mi pedido, sin siquiera conocerme, sólo por el contacto telefonico que hice
-          para solicitarle una sanación para mí, pero lo cambié para REINA. Me respondió que le iba a hacer una sanación ese
-          día y al siguiente.
+          para solicitarle una sanación para mí, pero lo cambié para REINA. Me respondió que le iba a hacer una sanación
+          ese día y al siguiente.
         </p>
-        <p>
+        <p class="mt-3">
           A la noche de ese dia 15 de Octubre yo ya había arreglado todo para darle suero a REINA porque se había
           deshidratado mucho y estaba muy caída. Pero antes de la hora de la aplicación del suero, Reina se levantó bastante
           animada y costó mucho darle el suero porque ella con sus manitas se sacaba la aguja a cada rato con una energía
           que un par de horas antes no tenía en absoluto.
         </p>
-        <p>
+        <p class="mt-3">
           Al otro día su mejoría fue muy notoria comenzó a comer bien y no vomito más. El dia 17 de Octubre yo no estuve en
           casa hasta la noche y cuando llegué, Reina me fue a recibir a la puerta como lo hacía cuando era más joven
           reclamando mi atención pidiendo comida..!! Ahora cada vez que me siento en la computadora se sube upa, etc., etc.
           Y así cada día la veo mejor, realmente ha rejuvenecido. Obviamente no tengo más que palabras de agradecimiento
           para José.
         </p>
-      </blockquote>
-      <p>La Sanación Reconectiva tambien son para las mascotas.</p>
+        <p class="mt-3">La Sanación Reconectiva tambien son para las mascotas.</p>
+      </FaqItem>
 
-      <h3>Caso 2: El Milagro de Scuby, el perrito de Lorena T., de La Plata, Buenos Aires</h3>
-      <figure class="not-prose my-6">
-        <img
-          src="/images/scubby.webp"
-          alt="Scuby, perro de 3 años, fotografía original aportada por su tutora Lorena T."
-          width="640"
-          height="480"
-          loading="lazy"
-          decoding="async"
-          class="w-full max-w-md rounded-organic border border-stone-200 object-cover"
-        />
-        <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
-          Scuby · fotografía original, sin ediciones.
-        </figcaption>
-      </figure>
-      <p>
-        Domingo 9 de Agosto a las 20.30 hs me contacta Lorena por mi
-        <a href="https://www.facebook.com/lareconexionbuenosaires/" target="_blank" rel="noopener noreferrer">página de Facebook</a>:
-      </p>
-      <blockquote>
+      <FaqItem question="Caso 2: El Milagro de Scuby, el perrito de Lorena T., de La Plata">
+        <figure class="my-2">
+          <img
+            src="/images/scubby.webp"
+            alt="Scuby, perro de 3 años, fotografía original aportada por su tutora Lorena T."
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+            class="w-full max-w-md rounded-organic border border-stone-200 object-cover"
+          />
+          <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
+            Scuby · fotografía original, sin ediciones.
+          </figcaption>
+        </figure>
         <p>
+          Domingo 9 de Agosto a las 20.30 hs me contacta Lorena por mi página de Facebook:
+        </p>
+        <p class="mt-3">
           Lorena: Hola José, tengo a mi perrito muy grave y no se si llegan a hacerle una transfusión mañana, se llama
           scuby.. Le podes mandar un poquito de esa energía divina…? Nos vemos pronto!
         </p>
-        <p>Le respondo: «Hola Lorena, si, le voy a facilitar unos minutos de sesion. Gracias por contactarme».</p>
-        <p>Lorena: Gracias.!despues te cuento como va. Un abrazo!</p>
-        <p>
+        <p class="mt-3">Le respondo: «Hola Lorena, si, le voy a facilitar unos minutos de sesion. Gracias por contactarme».</p>
+        <p class="mt-3">Lorena: Gracias.!despues te cuento como va. Un abrazo!</p>
+        <p class="mt-3">
           A los 20 minutos le envío este mensaje a Lorena: «Te cuento que le facilité la sesión desde las 20.50 hs hasta
           las 21 hs, mañana Lunes le facilito otros 10 minutos mas de sesión».
         </p>
-        <p>
+        <p class="mt-3">
           El domingo 16 me contacta nuevamente Lorena y me envía este mensaje: «Hola José, te cuento que Escuby esta
           recuperándose muy bien, el día que te escribí pensábamos que no pasaría la noche, pero sí lo hizo y se le pudo
           hacer la transfusión. Recién fuimos a la veterinaria y nos mostraron los estudios y ni ellos pueden creer que
@@ -137,67 +133,62 @@ const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURICompone
           algo (para mantenerse con vida).. Dicen que enviaron fotos a todos sus colegas de los hematocritos de Scuby
           porque nadie les creía jjjaa! Que me contás?»
         </p>
-      </blockquote>
+        <figure class="my-4">
+          <img
+            src="/images/laboratorio-scubby.webp"
+            alt="Informe de laboratorio de Scuby, documento original escaneado"
+            width="640"
+            height="480"
+            loading="lazy"
+            decoding="async"
+            class="w-full rounded-organic border border-stone-200 object-contain"
+          />
+          <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
+            Informe de laboratorio de Scuby · documento original.
+          </figcaption>
+        </figure>
+        <p>
+          Al momento que me envía el mensaje ese día yo estaba en mi casa preparándome para el día siguiente y ví que iba a
+          tener unos minutos sin interrupciones así que comencé la sesión, es por eso que le dije que solo podrían ser unos
+          10 minutos. Sabía que mucho más tiempo quizás no podría tenerlos sin interrupciones, así que después de eso no me
+          comunique más con Lorena. Sé que el Universo hará todo lo que le tenga reservado para Scuby y su propia
+          evolución. Y así fué y así lo hizo. Gracias, gracias, gracias.
+        </p>
+        <p class="mt-3">Las mascotas también sanan más allá de su dolencia o antiguedad de su enfermedad.</p>
+      </FaqItem>
 
-      <figure class="not-prose my-6">
-        <img
-          src="/images/laboratorio-scubby.webp"
-          alt="Informe de laboratorio de Scuby, documento original escaneado"
-          width="640"
-          height="480"
-          loading="lazy"
-          decoding="async"
-          class="w-full rounded-organic border border-stone-200 object-contain"
-        />
-        <figcaption class="mt-2 text-xs uppercase tracking-wide text-stone-500">
-          Informe de laboratorio de Scuby · documento original.
-        </figcaption>
-      </figure>
+      <FaqItem question="Coordinación de sesiones a distancia para mascotas">
+        <ol class="list-decimal space-y-2 pl-5">
+          <li>
+            <strong>Contacto y datos:</strong> El tutor o responsable se comunica vía WhatsApp para coordinar la sesión. Se
+            solicita el nombre del animal y, de ser posible, una fotografía reciente.
+          </li>
+          <li>
+            <strong>Entorno habitual:</strong> Durante el momento acordado, se procura que el animal se encuentre
+            descansando tranquilamente en su lugar habitual dentro del hogar.
+          </li>
+          <li>
+            <strong>Observación posterior:</strong> El tutor observa con serenidad el comportamiento, el nivel de vitalidad
+            y los cambios que puedan manifestarse en los días sucesivos.
+          </li>
+        </ol>
+      </FaqItem>
+    </div>
 
-      <p>
-        Al momento que me envía el mensaje ese día yo estaba en mi casa preparándome para el día siguiente y ví que iba a
-        tener unos minutos sin interrupciones así que comencé la sesión, es por eso que le dije que solo podrían ser unos
-        10 minutos. Sabía que mucho más tiempo quizás no podría tenerlos sin interrupciones, así que después de eso no me
-        comunique más con Lorena. Sé que el Universo hará todo lo que le tenga reservado para Scuby y su propia evolución.
-        Y así fué y así lo hizo. Gracias, gracias, gracias.
-      </p>
-      <p>Las mascotas también sanan más allá de su dolencia o antiguedad de su enfermedad.</p>
-
-      <h2>Coordinación de sesiones a distancia para mascotas</h2>
-      <ol>
-        <li>
-          <strong>Contacto y datos:</strong> El tutor o responsable se comunica vía WhatsApp para coordinar la sesión. Se
-          solicita el nombre del animal y, de ser posible, una fotografía reciente.
-        </li>
-        <li>
-          <strong>Entorno habitual:</strong> Durante el momento acordado, se procura que el animal se encuentre
-          descansando tranquilamente en su lugar habitual dentro del hogar.
-        </li>
-        <li>
-          <strong>Observación posterior:</strong> El tutor observa con serenidad el comportamiento, el nivel de vitalidad y
-          los cambios que puedan manifestarse en los días sucesivos.
-        </li>
-      </ol>
-
-      <div class="not-prose mt-8">
-        <Button href={whatsappHref} size="lg" external>
-          Consultar por sesión para mascotas a distancia
-        </Button>
-      </div>
-
+    <div class="mt-10 border-t border-stone-200 pt-8">
+      <Button href={whatsappHref} size="lg" external>
+        Consultar por sesión para mascotas a distancia
+      </Button>
       <p class="mt-8 text-sm text-stone-600">
         <strong>José A. | Facilitador Certificado de Sanación Reconectiva® y La Reconexión®</strong><br />
         Formado oficialmente por The Reconnection y el Dr. Eric Pearl en 2012 (Buenos Aires, Argentina). Más de una década
         facilitando procesos de sintonización y equilibrio energético a personas y animales de compañía.
       </p>
-
-      <p class="text-sm text-stone-600">
-        <em
-          >Aclaración ética y legal: La Sanación Reconectiva® no constituye un diagnóstico veterinario, pronóstico médico ni
-          tratamiento farmacológico o clínico para animales. Es una disciplina complementaria orientada al restablecimiento
-          del equilibrio integral y no sustituye en ningún caso los cuidados, diagnósticos ni prescripciones de un médico
-          veterinario matriculado.</em
-        >
+      <p class="mt-4 text-sm text-stone-600">
+        Aclaración ética y legal: La Sanación Reconectiva® no constituye un diagnóstico veterinario, pronóstico médico ni
+        tratamiento farmacológico o clínico para animales. Es una disciplina complementaria orientada al restablecimiento
+        del equilibrio integral y no sustituye en ningún caso los cuidados, diagnósticos ni prescripciones de un médico
+        veterinario matriculado.
       </p>
     </div>
   </Section>

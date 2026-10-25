@@ -2,21 +2,13 @@
 @plugin '@tailwindcss/typography';
 
 /* ------------------------------------------------------------------
-   Design tokens — "Serenidad Arquitectonica" (paleta oficial del proyecto)
-   Fondo crema suave #FCF9F8 · Primario verde bosque #2C3E35 · Bronce #8C7853.
-   Terracota/salvia se conservan como escala legacy para componentes ya
-   maquetados; los nuevos tokens institucionales son crema/bosque/bronce.
-   Contrastes verificados >= WCAG AA sobre el fondo crema.
+   Design tokens — "Serenidad Arquitectonica"
+   Fondo crema #FCF9F8 · Primario verde bosque #2C3E35 · Bronce #8C7853
    ------------------------------------------------------------------ */
 @theme {
-  /* Tipografias oficiales: Playfair Display (titulares) y Geist (cuerpo),
-     auto-hospedadas via Fontsource (sin conexiones a Google Fonts en runtime).
-     El segundo argumento de var() garantiza una pila valida si la fuente local
-     falla en build (red restringida, paquete ausente). */
   --font-sans: var(--font-geist, ui-sans-serif, system-ui, 'Segoe UI', sans-serif);
   --font-display: var(--font-playfair, 'Iowan Old Style', Georgia, serif);
 
-  /* Tokens institucionales */
   --color-cream: #fcf9f8;
   --color-bosque-50: oklch(0.965 0.012 155);
   --color-bosque-100: oklch(0.93 0.024 155);
@@ -25,7 +17,7 @@
   --color-bosque-400: oklch(0.65 0.072 156);
   --color-bosque-500: oklch(0.52 0.07 157);
   --color-bosque-600: oklch(0.435 0.06 158);
-  --color-bosque-700: #2c3e35; /* Verde Bosque oficial */
+  --color-bosque-700: #2c3e35;
   --color-bosque-800: oklch(0.32 0.045 158);
   --color-bosque-900: oklch(0.26 0.035 158);
 
@@ -34,7 +26,7 @@
   --color-bronce-200: oklch(0.86 0.05 85);
   --color-bronce-300: oklch(0.78 0.07 85);
   --color-bronce-400: oklch(0.69 0.085 85);
-  --color-bronce-500: #8c7853; /* Bronce oficial */
+  --color-bronce-500: #8c7853;
   --color-bronce-600: oklch(0.55 0.075 85);
   --color-bronce-700: oklch(0.47 0.065 85);
   --color-bronce-800: oklch(0.4 0.05 85);
@@ -62,13 +54,11 @@
   --color-salvia-800: oklch(0.375 0.036 145);
   --color-salvia-900: oklch(0.315 0.029 145);
 
-  /* Ritmo vertical de secciones — densificado para desktop (menos vacío). */
   --spacing-section: 3.5rem;
   --spacing-section-lg: 5rem;
 
   --radius-organic: 1.75rem;
 
-  /* Sombra institucional para superficies elevadas (dock, modal). */
   --shadow-elevated: 0 12px 32px -8px oklch(0.26 0.035 158 / 0.35);
 
   --ease-organic: cubic-bezier(0.22, 1, 0.36, 1);
@@ -97,16 +87,12 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Base
-   ------------------------------------------------------------------ */
 @layer base {
   :root {
     color-scheme: light;
     scroll-behavior: smooth;
-    /* Compensa el header sticky al saltar a un ancla. */
     scroll-padding-top: 6rem;
-    accent-color: var(--color-terracota-600);
+    accent-color: var(--color-bronce-500);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -125,8 +111,15 @@
     color: var(--color-bosque-900);
     font-family: var(--font-sans);
     font-synthesis-weight: none;
-    /* Evita el salto horizontal en animaciones de entrada. */
     overflow-x: hidden;
+    /* Espacio para el dock móvil fijo */
+    padding-bottom: 5.5rem;
+  }
+
+  @media (width >= 48rem) {
+    body {
+      padding-bottom: 0;
+    }
   }
 
   h1,
@@ -144,7 +137,6 @@
     text-wrap: pretty;
   }
 
-  /* Foco visible y consistente en todo el sitio (WCAG 2.4.7). */
   :where(a, button, input, textarea, select, summary, [tabindex]):focus-visible {
     outline: 2px solid var(--color-bronce-500);
     outline-offset: 3px;
@@ -156,7 +148,6 @@
     color: var(--color-bosque-900);
   }
 
-  /* La marca de agua del optimizador de imagenes nunca debe romper el layout. */
   img,
   picture,
   svg,
@@ -166,9 +157,6 @@
   }
 }
 
-/* ------------------------------------------------------------------
-   Utilidades de composicion
-   ------------------------------------------------------------------ */
 @utility container-page {
   width: 100%;
   margin-inline: auto;
@@ -191,30 +179,20 @@
   }
 }
 
-/* Textura organica sutil de fondo: gradientes radiales, coste cero en red. */
 @utility bg-aura {
   background-image:
-    radial-gradient(60% 55% at 12% 8%, var(--color-terracota-100) 0%, transparent 62%),
-    radial-gradient(52% 48% at 92% 22%, var(--color-salvia-100) 0%, transparent 58%);
+    radial-gradient(60% 55% at 12% 8%, var(--color-bronce-100) 0%, transparent 62%),
+    radial-gradient(52% 48% at 92% 22%, var(--color-bosque-100) 0%, transparent 58%);
   background-repeat: no-repeat;
 }
 
-/* ------------------------------------------------------------------
-   Animaciones de entrada (progressive enhancement)
-   Estado inicial en CSS, revelado por IntersectionObserver, con doble red de
-   seguridad: media (scripting: none) y una animacion failsafe a los 2.5 s.
-   ------------------------------------------------------------------ */
 @layer components {
-  /* Estado inicial en CSS puro: sin flash de contenido (evita el salto que
-     produce anadir una clase desde un script diferido). El script de reveal
-     marca [data-revealed] al entrar en viewport. */
   [data-reveal] {
     opacity: 0;
     transform: translate3d(0, 1.5rem, 0);
     transition:
       opacity 0.7s var(--ease-organic),
       transform 0.7s var(--ease-organic);
-    /* Failsafe: si el bundle no llega a ejecutarse, el contenido aparece igual. */
     animation: fade-in 0.01s linear 2.5s forwards;
   }
 
@@ -224,7 +202,6 @@
     animation: none;
   }
 
-  /* Navegadores sin JS: contenido visible de inmediato. */
   @media (scripting: none) {
     [data-reveal] {
       opacity: 1;

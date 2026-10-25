@@ -4,16 +4,22 @@ import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Disclaimer from '../components/Disclaimer.astro';
+import Button from '../components/Button.astro';
+import { BUSINESS } from '../consts';
 
 const path = '/entrevistas';
 const title = 'Entrevistas al Dr. Eric Pearl';
 const description =
-  'Entrevistas y apariciones del Dr. Eric Pearl, creador de la Sanación Reconectiva y La Reconexión. Material periodístico y notas históricas.';
+  'Entrevistas y apariciones del Dr. Eric Pearl, creador de la Sanación Reconectiva y La Reconexión. Material periodístico y notas históricas de FM Mantra, DiarioVeloz y El Tiempo.';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
   { name: 'Entrevistas', item: path },
 ];
+
+const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+  'Hola José, quisiera consultar por una sesión',
+)}`;
 ---
 
 <BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs}>
@@ -27,128 +33,162 @@ const breadcrumbs = [
   <Section width="prose">
     <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
       <h2>Entrevista cedida gentilmente por FM MANTRA 91.9</h2>
-      <p>
-        <a href="https://www.mantrafm.com.ar" target="_blank" rel="noopener noreferrer">www.mantrafm.com.ar</a>
-      </p>
+      <p><a href="https://www.mantrafm.com.ar" target="_blank" rel="noopener noreferrer">www.mantrafm.com.ar</a></p>
 
       <h3>¿Qué es La Reconexión? ¿Una terapia? ¿una técnica? ¿una energía?</h3>
-      <p>
-        La Sanación Reconectiva (Reconnective Healing) es un enfoque de sanación exhaustivo que va más allá y nos libera
-        completamente de los rituales complejos y las técnicas esenciales de las numerosas modalidades de sanación
-        energética conocidas en la actualidad. Es un enfoque de sanación fácil y no invasivo que todo el mundo puede
-        aprender, para ayudar a sanar a otros y a uno mismo.
-      </p>
-      <p>
-        Reconnective Healing no es ni una terapia ni un tratamiento, ya que no trata síntomas. Es muchísimo más. Un
-        profesional de Reconnective Healing no diagnostica ni trata síntomas. Simplemente interactúa con las frecuencias
-        de Reconnective Healing, y el resultado a menudo son sanaciones inmediatas que permanecen para siempre.
-      </p>
-      <p>
-        Generalmente no se necesitan más sesiones como suele pasar con otras terapias o técnicas de «sanación energética»,
-        ya que una verdadera sanación se puede llevar a cabo en un abrir y cerrar de ojos, y a menudo ocurre
-        instantáneamente. La persona que recibe la sanación decide cuántas sesiones necesita para aceptar la sanación.
-        Algunas eligen más de una sesión. Se recomiendan de una a tres sesiones. Luego hay que dejarse ir y permitir que
-        la sanación continúe la transformación.
-      </p>
+      <p>La Sanación Reconectiva (Reconnective Healing) es un enfoque de sanación exhaustivo que va más allá y nos libera completamente de los rituales complejos y las técnicas esenciales de las numerosas modalidades de sanación energética conocidas en la actualidad. Es un enfoque de sanación fácil y no invasivo que todo el mundo puede aprender, para ayudar a sanar a otros y a uno mismo.</p>
+      <p>Reconnective Healing no es ni una terapia ni un tratamiento, ya que no trata síntomas. Es muchísimo más. Un profesional de Reconnective Healing no diagnostica ni trata síntomas. Simplemente interactúa con las frecuencias de Reconnective Healing, y el resultado a menudo son sanaciones inmediatas que permanecen para siempre.</p>
+      <p>Generalmente no se necesitan más sesiones como suele pasar con otras terapias o técnicas de «sanación energética», ya que una verdadera sanación se puede llevar a cabo en un abrir y cerrar de ojos, y a menudo ocurre instantáneamente. La persona que recibe la sanación decide cuántas sesiones necesita para aceptar la sanación. Algunas eligen más de una sesión. Se recomiendan de una a tres sesiones. Luego hay que dejarse ir y permitir que la sanación continúe la transformación.</p>
 
       <h3>Para los lectores que puedan dudar entre qué les conviene más ¿Qué diferencia la Reconexión de una Sanación Reconectiva?</h3>
-      <p>
-        Reconnective Healing es una parte de La Reconexión (The Reconnection) y con The Reconnection se introducen nuevas
-        líneas axiatonales de energía que le permite establecer permanentemente una conexión con la fuente de toda sanación
-        a través de un nuevo espectro de energía, luz e información exhaustivo. Hoy en día, la ciencia generalmente lo
-        llama el espectro de Reconnective Healing.
-      </p>
-      <p>
-        Una sesión de Reconnective Healing tiene muchos beneficios, como equilibrar a la persona a todos los niveles:
-        emocional, mental, espiritual y físicamente. Reconnective Healing ayuda a que nuestro cuerpo recupere su
-        vibración natural de salud.
-      </p>
+      <p>Reconnective Healing es una parte de La Reconexión (The Reconnection) y con The Reconnection se introducen nuevas líneas axiatonales de energía que le permite establecer permanentemente una conexión con la fuente de toda sanación a través de un nuevo espectro de energía, luz e información exhaustivo. Hoy en día, la ciencia generalmente lo llama el espectro de Reconnective Healing.</p>
+      <p>Una sesión de Reconnective Healing tiene muchos beneficios, como equilibrar a la persona a todos los niveles: emocional, mental, espiritual y físicamente. Reconnective Healing ayuda a que nuestro cuerpo recupere su vibración natural de salud.</p>
 
       <h3>¿Cómo llegó la Reconexión a su vida?</h3>
-      <p>
-        Durante 12 años fui muy feliz ejerciendo de médico. Tenía una de las consultas de quiropráctica de más éxito y
-        grandes de Los Ángeles, y pensaba que me pasaría la vida así. Pero regresé a casa un jueves pensando que era un
-        quiropráctico y cuando volví a mi consulta el lunes era otra cosa.
-      </p>
-      <p>
-        Ese jueves una luz brillante me despertó por la noche. Abrí los ojos para ver qué era. No era nada espiritual ni
-        metafísico; era la lámpara de mi mesita de noche. Se había encendido sola. Tenía esa lámpara desde hacía diez años,
-        y nunca antes se había encendido sola. También sentí que había gente en mi casa, lo cual es una sensación muy
-        incómoda, la verdad. Me armé de valor y recorrí toda la casa. No encontré a nadie, así que regresé a la cama y me
-        dije que sería mi imaginación.
-      </p>
-      <p>
-        Pero ese lunes cuando fui a la oficina, siete de mis pacientes me dijeron que sentían a alguien en la sala, como
-        yo había sentido en mi casa por la noche cuando me desperté por la luz. Llevaba doce años ejerciendo y nadie me
-        había dicho nada semejante hasta entonces, pero siete personas en un día… Entenderá que eso me llamó la atención.
-      </p>
-      <p>
-        Otros pacientes me dijeron que podían sentir mis manos antes de que les tocara. Evidentemente, no les creí y les
-        pedí que cerraran los ojos y se tumbaran en la camilla. Me situé a uno, dos o tres metros de ellos y con las
-        palmas de las manos apunté en diferentes direcciones. Podían decirme si estaba apuntando a sus tobillos, sus
-        dedos o su cabeza. Podía apreciar cómo se les movían involuntariamente pequeños músculos de la cara; los músculos
-        se tensaban en la frente, el mentón, las cejas, los labios. Veía que los dedos y los pies se movían
-        involuntariamente, agitaban los brazos o piernas y la respiración cambiaba. Aquí comencé a darme cuenta de que
-        algo único estaba pasando.
-      </p>
+      <p>Durante 12 años fui muy feliz ejerciendo de médico. Tenía una de las consultas de quiropráctica de más éxito y grandes de Los Ángeles, y pensaba que me pasaría la vida así. Pero regresé a casa un jueves pensando que era un quiropráctico y cuando volví a mi consulta el lunes era otra cosa.</p>
+      <p>Ese jueves una luz brillante me despertó por la noche. Abrí los ojos para ver qué era. No era nada espiritual ni metafísico; era la lámpara de mi mesita de noche. Se había encendido sola. Tenía esa lámpara desde hacía diez años, y nunca antes se había encendido sola. También sentí que había gente en mi casa, lo cual es una sensación muy incómoda, la verdad. Me armé de valor y recorrí toda la casa. No encontré a nadie, así que regresé a la cama y me dije que sería mi imaginación.</p>
+      <p>Pero ese lunes cuando fui a la oficina, siete de mis pacientes me dijeron que sentían a alguien en la sala, como yo había sentido en mi casa por la noche cuando me desperté por la luz. Llevaba doce años ejerciendo y nadie me había dicho nada semejante hasta entonces, pero siete personas en un día… Entenderá que eso me llamó la atención.</p>
+      <p>Otros pacientes me dijeron que podían sentir mis manos antes de que les tocara. Evidentemente, no les creí y les pedí que cerraran los ojos y se tumbaran en la camilla. Me situé a uno, dos o tres metros de ellos y con las palmas de las manos apunté en diferentes direcciones. Podían decirme si estaba apuntando a sus tobillos, sus dedos o su cabeza. Podía apreciar cómo se les movían involuntariamente pequeños músculos de la cara; los músculos se tensaban en la frente, el mentón, las cejas, los labios. Veía que los dedos y los pies se movían involuntariamente, agitaban los brazos o piernas y la respiración cambiaba. Aquí comencé a darme cuenta de que algo único estaba pasando.</p>
 
-      <h3>¿De dónde procede? ¿Qué o quién cree usted que es la Fuente?</h3>
-      <p>
-        La fuente de The Reconnection y Reconnective Healing representa a Dios, al Amor o al Universo. Elija la palabra
-        que más le guste.
-      </p>
+      <h3>¿De dónde procede? ¿Qué o quién cree usted que es la Fuente? ¿Dios, extraterrestres, maestros ascendidos,…?</h3>
+      <p>La fuente de The Reconnection y Reconnective Healing representa a Dios, al Amor o al Universo. Elija la palabra que más le guste.</p>
 
-      <h3>La Ciencia se ha interesado por la Reconexión y le han hecho distintos estudios en Universidades. ¿Cuáles han sido las principales conclusiones?</h3>
-      <p>
-        Científicos y universidades de todo el mundo llevan aproximadamente dos décadas investigando activamente
-        Reconnective Healing. Varios de estos estudios de investigación se publicaron recientemente en un libro en
-        inglés de Konstantin Korotkov llamado Science Confirms Reconnective Healing [La ciencia confirma las Sanaciones
-        Reconectivas].
-      </p>
-      <p>
-        Uno de estos estudios cataloga los descubrimientos de una prueba a doble ciego realizada por el Dr. Korotkov con
-        atletas olímpicos rusos y de talla mundial. Se testó a los atletas antes y después de recibir Reconnective Healing.
-        Los resultados mostraron un efecto positivo rápido con todos los participantes. La mitad de los que recibieron una
-        sesión de Reconnective Healing aumentaron significativamente sus parámetros de energía y diez días después su
-        mejora fue aún más significativa a nivel estadístico. Otros estudios mostraron una disminución de la presión
-        arterial, un aumento de la actividad metabólica, inmune, antitoxínica y antioxidante del cuerpo, una función
-        cardiovascular mejorada y mejoras en el ADN.
-      </p>
-      <p>
-        El Dr. Korotkov dijo: «Esto indica el efecto duradero de Reconnective Healing y la importancia que tiene para el
-        bienestar y preparación de los atletas».
-      </p>
+      <h3>La Ciencia se ha interesado por la Reconexión y le han hecho distintos estudios en Universidades. ¿Cuáles han sido las principales conclusiones? ¿Cree que ha convencido a los escépticos?</h3>
+      <p>Científicos y universidades de todo el mundo llevan aproximadamente dos décadas investigando activamente Reconnective Healing. Varios de estos estudios de investigación se publicaron recientemente en un libro en inglés de Konstantin Korotkov llamado Science Confirms Reconnective Healing [La ciencia confirma las Sanaciones Reconectivas].</p>
+      <p>Uno de estos estudios cataloga los descubrimientos de una prueba a doble ciego realizada por el Dr. Korotkov con atletas olímpicos rusos y de talla mundial. Se testó a los atletas antes y después de recibir Reconnective Healing. Los resultados mostraron un efecto positivo rápido con todos los participantes. La mitad de los que recibieron una sesión de Reconnective Healing aumentaron significativamente sus parámetros de energía y diez días después su mejora fue aún más significativa a nivel estadístico. Otros estudios mostraron una disminución de la presión arterial, un aumento de la actividad metabólica, inmune, antitoxínica y antioxidante del cuerpo, una función cardiovascular mejorada y mejoras en el ADN.</p>
+      <p>El Dr. Korotkov dijo: «Esto indica el efecto duradero de Reconnective Healing y la importancia que tiene para el bienestar y preparación de los atletas».</p>
+      <p>Si estos hallazgos significativos «han convencido» a los escépticos o no, nunca lo sabré ni tampoco me preocupa. Creo que yo era un gran escéptico. Pensaba que era un quiropráctico, mis pacientes venían a ver a un quiropráctico. ¡No se puede realizar un estudio a doble ciego mejor que este! Creo que cualquier «escéptico», si es suficientemente abierto para experimentar las frecuencias de sanación por sí mismo, puede tener una experiencia para toda la vida.</p>
+
+      <h3>¿Por qué cree que en este momento nos han facilitado esta sanación? ¿Puede tener que ver con la cercanía del 2012 y el final de era?</h3>
+      <p>Estamos experimentando un cambio ahora mismo, pero hemos sufrido muchos cambios en el pasado y continuaremos teniendo más en el futuro. Hasta ahora hemos vivido en una burbuja de cuatro dimensiones. La ciencia nos explica que hoy el tiempo avanza más rápido, y no de forma lineal como del punto A al B, sino en todas direcciones a la vez. Accedemos a algo que es nuevo aquí en la Tierra. Nos lleva más allá de la energía, hacia un espectro recién descubierto de energía, luz e información.</p>
 
       <h3>¿Todos podemos aprender a sanar?</h3>
-      <p>
-        Cuando comencé por primera vez a enseñar esto, me planteaba la misma pregunta. Probablemente me persiguió los
-        primeros dos años. Después de observar que todo el mundo acababa los seminarios pudiendo realizar este trabajo,
-        empecé a darme cuenta de que cualquiera puede aprender a hacerlo. Aún no hemos visto a nadie que haya asistido al
-        seminario que no pueda acceder a estas nuevas frecuencias de energía, luz e información.
-      </p>
+      <p>Cuando comencé por primera vez a enseñar esto, me planteaba la misma pregunta. Después de observar que todo el mundo acababa los seminarios pudiendo realizar este trabajo, empecé a darme cuenta de que cualquiera puede aprender a hacerlo. Aún no hemos visto a nadie que haya asistido al seminario que no pueda acceder a estas nuevas frecuencias de energía, luz e información. También contamos con miles de profesionales de todo el mundo, como médicos, enfermeras y fisioterapeutas, que han asistido a nuestros seminarios y ahora incorporan Reconnective Healing en sus consultas.</p>
 
-      <h3>Usted dice que en 3 personas con el mismo diagnóstico se producen resultados distintos ¿Por qué?</h3>
-      <p>
-        Por lo que sé, en principio no existe nada con lo que no funcione Reconnective Healing. Sin embargo, no es la
-        enfermedad quien recibe la sanación. Es la persona. Sí, tres personas pueden presentar el mismo diagnóstico, los
-        mismos síntomas, y recibir tres tipos de resultados diferentes, según lo que sea adecuado para esa persona en su
-        trayectoria vital. Así que no es el proceso de la enfermedad que recibe la sanación, sino la persona.
-      </p>
+      <h3>¿En usted es más intensa la capacidad de sanar que en otros Sanadores Reconectivos?</h3>
+      <p>De ninguna manera. He enseñado a unas 90.000 personas en todo el mundo, y cada persona tiene la capacidad de ofrecer este trabajo al máximo nivel, como yo o cualquier otro.</p>
+
+      <h3>Usted dice que en 3 personas con el mismo diagnóstico se producen resultados distintos ¿Por qué cree que hay gente que se cura y gente que no?</h3>
+      <p>Por lo que sé, en principio no existe nada con lo que no funcione Reconnective Healing. Sin embargo, no es la enfermedad quien recibe la sanación. Es la persona. Sí, tres personas pueden presentar el mismo diagnóstico, los mismos síntomas, y recibir tres tipos de resultados diferentes, según lo que sea adecuado para esa persona en su trayectoria vital. Así que no es el proceso de la enfermedad que recibe la sanación, sino la persona.</p>
 
       <h3>Además de sanaciones en la salud, ¿se producen cambios emocionales, psíquicos, espirituales?</h3>
-      <p>
-        The Reconnection le permite establecer permanentemente una conexión con la fuente de toda sanación a través de un
-        nuevo espectro exhaustivo de energía, luz e información. Por eso advierto a la gente de que a la larga acelera el
-        curso de la vida, ¡incluso más rápido de lo que se imagina! Si está listo para el próximo nivel en su vida, está
-        preparado para recibir la Reconexión.
-      </p>
+      <p>The Reconnection le permite establecer permanentemente una conexión con la fuente de toda sanación a través de un nuevo espectro exhaustivo de energía, luz e información. Por eso advierto a la gente de que a la larga acelera el curso de la vida. Si está listo para el próximo nivel en su vida, está preparado para recibir la Reconexión. ¡Pero le advierto de que no hay vuelta atrás una vez se inicia el viaje!</p>
+      <p>La verdadera sanación tiene que ver con el equilibro. No existe solo una sanación física, mental o emocional. La sanación brinda un equilibrio en todos los sentidos.</p>
 
-      <p class="text-sm text-stone-500">
-        Material de referencia del archivo del sitio. Canales oficiales:
-        <a href="https://www.youtube.com/@Reconexion333" target="_blank" rel="noopener noreferrer">YouTube</a>
-        ·
-        <a href="https://vimeo.com/reconexionbuenosaires" target="_blank" rel="noopener noreferrer">Vimeo</a>
-      </p>
+      <h3>Hay testimonios de pacientes que han visto ángeles ¿Ha visto usted ángeles también?</h3>
+      <p>No, personalmente no los he visto como los han visto algunos pacientes/receptores de Reconnective Healing. Para serle sincero, ¡me siento un poco excluido! Me encantaría verles. Existen tantas personas que no se conocen entre ellas que ven y escuchan a los mismos ángeles que tengo que reconocer que es una realidad de este trabajo.</p>
+
+      <h3>¿Cree en la reencarnación? ¿En el más allá?</h3>
+      <p>Existen almas antiguas y nuevas. Nos reencarnamos para vivir nuestras experiencias vitales desde distintas perspectivas, para aprender nuestras lecciones, para evolucionar no solo en esta vida… sino de vida en vida. Sí, creo en la reencarnación.</p>
+
+      <h3>¿Qué diferencia existe entre la Reconexión y otras sanaciones como Reiki, EMF, Sanación Cuántica?</h3>
+      <p>El reiki, como sabemos, es solo un subgrupo de energía. El reiki, johrei, jin shin, QiGong (todas las técnicas de sanación energéticas) acceden a distintas partes del campo energético porque a través de una técnica lo único a lo que podemos acceder es a un subgrupo, fragmento o fracción de energía. Reconnective Healing no es una técnica. Es un modo de trascender las técnicas y, por lo tanto, nos lleva más allá de la totalidad de la energía, hacia un espectro no solo de energía, sino de luz e información.</p>
+
+      <h3>En estos 20 años, desde 1993, ¿ha notado algún cambio en la energía?</h3>
+      <p>Por una parte, existe una comprensión mucho más científica de cómo funciona y también confirmación científica de que funciona. Hoy se sabe que Reconnective Healing reestructura nuestro ADN y aporta un nivel de luz más coherente del que emiten nuestras células. Un estudio reciente de la Universidad de Arizona demostró que diez minutos de Reconnective Healing son mucho más efectivos que una terapia física.</p>
+
+      <h3>¿Es usted feliz? Esta sanación ¿le ha ayudado en su vida personal o es una pesada carga?</h3>
+      <p>Sí, estoy contento. Estoy cumpliendo con mi misión. Aunque a veces es muy difícil, estoy contento de poder cumplir con esta misión cada día. Viajo por el mundo 42 semanas al año, para difundir este nuevo nivel de sanación.</p>
+
+      <h3>Usted ha hablado ante la ONU ¿cómo reaccionaron?</h3>
+      <p>Se mostraron muy abiertos. De hecho, me han vuelto a invitar como ponente. Estamos aquí para aportar una conciencia de evolución al planeta, una conciencia de unidad.</p>
+
+      <h3>Si desea añadir algo para nuestros lectores…</h3>
+      <p>El mensaje es que ya no necesitamos buscar sanadores «especiales» que vivan en algún lugar remoto. Ha llegado el momento de darse cuenta de que nosotros somos los sanadores, de que si nos lo permitimos, podemos alcanzar la cumbre de la sanación aquí mismo, en nuestras casas.</p>
+
+      <h3>Dr Pearl, ¿Cómo ayuda La Reconexión a modificar las conexiones neuronales?</h3>
+      <p>Antes de nada indicar que el cerebro no trabaja de la manera que nos indicaron que trabajaba. Ahora sabemos que toda la información se sitúa en la totalidad del cerebro, ahora los científicos le han dado el nombre de «Campo 0». Cuando estamos interactuando con la frecuencia de la Sanación Reconectiva y de la Reconexión, estamos recogiendo información de todos los lados. Hay estudios que indican que La Reconexión llega a modificar la estructura de nuestro ADN.</p>
+      <p class="text-sm text-stone-500">Dr. Eric Pearl, julio 2009.</p>
+
+      <hr />
+
+      <h2>El poder de la sanación reconectiva (Entrevista realizada en Buenos Aires 2011)</h2>
+      <p>La Sanación Reconectiva es una «forma de sanar» a través de frecuencias conocidas como «Medicina de la Información». DiarioVeloz.com habló con el Dr. Eric Pearl. Por Sofía Tarruella.</p>
+      <p>Esta terapia fue descubierta por el Dr. Eric Pearl, autor del libro «La Reconexión: Sana a otros, Sánate a ti mismo» best seller internacional y publicado en 36 idiomas.</p>
+
+      <h3>¿Qué enfermedades o patologías pueden ser curadas con la «sanación reconectiva»?</h3>
+      <p>Todo puede ser sanado, pero no es la enfermedad lo que se cura sino la persona. Tres personas pueden venir con la misma diagnosis y síntomas, y recibir técnicas distintas dependiendo de lo que sea apropiado para cada uno de ellos en determinado momento de sus vidas.</p>
+
+      <h3>¿Quién puede aprender a sanar?</h3>
+      <p>Yo tenía miedo en los primeros años de que no todos pudieran aprender esto, pero ahora que lo vengo enseñando hace ya doce años y a más de 70 mil personas alrededor del mundo, descubrí que cualquier persona lo puede aprender.</p>
+
+      <h3>¿Cómo funciona la sesión de sanación?</h3>
+      <p>La experiencia de cada uno es única. A menudo la sanación ocurre en una sola sesión o a veces tarda un poco más. Las personas se tumban en una camilla, se relajan, cierran los ojos y sienten. No hay que poner la mente en blanco, visualizar, hacer un tipo de respiración especial, ni meditar.</p>
+
+      <h3>¿Es preciso que la persona que va a ser sanada crea en esta técnica?</h3>
+      <p>Creer no tiene nada que ver con esto, cuando esto comenzó mis pacientes venían a verme porque yo era quiropráctico y ninguno de nosotros esperaba que esto sucediera.</p>
+
+      <h3>¿En qué y cómo ha cambiado tu vida, descubrir la «sanación reconectiva»?</h3>
+      <p>Me convertí en una persona mucho más consciente de que somos seres multidimensionales y que hay un propósito mayor en nuestras vidas.</p>
+
+      <h3>¿Qué opina de los que sostienen que el año 2012 será un traspaso o un cambio energético?</h3>
+      <p>Muchas personas creen que será el fin del mundo y por supuesto que no será así. Ha habido muchos «saltos» antes y habrá muchos después. Creo que miraremos para atrás y apreciaremos la enorme transformación de los seres humanos.</p>
+
+      <h3>¿En qué se parece o diferencia esta técnica con otras similares como el Reiki?</h3>
+      <p>La «sanación reconectiva» es muy diferente al Reiki u otras maneras de sanación que funcionan mediante las energías que conozcamos. Es una manera de trascender las técnicas completamente. Es algo más global y expansivo.</p>
+
+      <h3>¿Por qué si esto es tan bueno y fácil de aprender, no es tan conocido?</h3>
+      <p>La medicina tradicional ha estado vigente durante mucho tiempo; la «sanación reconectiva» surgió como tal en agosto de 1993. Ahora se ha vuelto mucho más conocida porque hubo mucha investigación alrededor del mundo. He hablado en las Naciones Unidas, en hospitales y universidades, a gobiernos, congresistas.</p>
+
+      <hr />
+
+      <h2>La energía del cuerpo, el medio para brindar bienestar y curar males (Entrevista al Dr Eric Pearl – Colombia, Agosto de 2014)</h2>
+      <p>Por Nicolás Congote Gutiérrez, 26 de Agosto de 2014. Redactor de EL TIEMPO – Colombia.</p>
+      <p>Con un movimiento en las manos, el estadounidense Eric Pearl trabaja la Sanación Reconectiva. Tras 12 años de ejercicio, algo cambió. «Me fui a la cama como todos los días y luego de una hora de repente un brillo de luz fuerte me despertó. Fue la lámpara de mi mesa de noche que se encendió.»</p>
+      <p>«Cuando llegué a mi consultorio, mis pacientes empezaron a tener respuestas inusuales. Cuando pasaba mis manos cerca de sus cuerpos tenían movimientos involuntarios. Cuando abrían los ojos me decían que veían colores como nunca antes, que olían flores y empezaron a curarse de sus males.»</p>
+
+      <h3>¿Cómo surgió la sanación reconectiva?</h3>
+      <p>En el 2000 lo dejé del todo. Fue difícil, pero sabía que tenía que enseñar. Me pregunté cuál podría ser el peor escenario. Uno era continuar con este trabajo, llegar a viejo y morir habiendo compartido lo que sabía. Lo otro era morir y saber que me habían dado ese don y nunca lo hice por miedo. Era una respuesta con la que no podía vivir.</p>
+
+      <h3>Hay mucho escéptico que no cree en lo que usted hace…</h3>
+      <p>Mucha gente me pregunta cómo lo manejo con tanto escéptico. Mi respuesta es que cuando vienes con tu escepticismo a nadie más le importa. Lo único que puedes hacer es compartir la verdad de tu propia experiencia.</p>
+
+      <h3>¿Le incomoda que le cuestionen que no tiene una explicación de cómo ocurre?</h3>
+      <p>No me incomoda porque al niño que puede caminar tranquilo y que deja de sufrir epilepsia no le importa cómo se sanó. A la mamá de ese niño tampoco le interesa. Es un tema real.</p>
+
+      <h3>Usted dice que hay estudios que certifican lo que hace…</h3>
+      <p>Al menos seis estudios han demostrado que la sanación reconectiva reestructura nuestro ADN. Lo que dicen los científicos es que la sanación reconectiva es un software humano que se actualiza instantáneamente y nos otorga muchas ventajas.</p>
+
+      <h3>Pero ¿es algo que se puede garantizar?</h3>
+      <p>Hay que entender que nada funciona ciento por ciento ni para todas las personas. La medicina no lo hace y por supuesto que esto tampoco. Pero al igual que la medicina, esto funciona para un grupo significativo en un amplio número de casos.</p>
+
+      <h3>¿La sanación reconectiva tiene algo que ver con fe o religión?</h3>
+      <p>No era algo que tuviera que ver con fe, esperanza, creencia, hipnosis. Solo pasó. Sabía que estaba parado en frente de algo más grande de lo que había experimentado en mi vida.</p>
+
+      <h3>¿Qué sienten las personas a las que se les practica la sanación reconectiva?</h3>
+      <p>Sienten cómo los dedos tienen movimientos inconscientes. Los científicos explican que esto ocurre porque el nivel de energía es una demostración de que el cuerpo cambia al sentir estas frecuencias por primera vez hasta que los tejidos se acostumbran.</p>
+
+      <h3>¿Se necesita todos los días?</h3>
+      <p>No. No es una adicción ni algo de lo que se deba depender. Cuando enseñamos la reconexión, las personas solo necesitan una, dos o tres sesiones y las dejamos ir.</p>
+
+      <h3>¿Cómo saber que se necesita la sanación?</h3>
+      <p>Cuando algo por dentro te dice que puedes ser más. Ese es un indicador de que se necesita una reconexión. La sanación es nuestra evolución.</p>
+
+      <h3>El objetivo entonces es lograr un balance de las energías…</h3>
+      <p>Creo que la sanación no es solo un tema de diagnóstico, sino que tiene que ver con el balance. Mantenerlo en un nivel físico, emocional, espiritual, mental.</p>
+
+      <h3>En sus visitas a Colombia, ¿cómo ha sentido nuestra energía?</h3>
+      <p>Hay algo en la energía de la gente de acá que me llama la atención. La música es buenísima, la comida es deliciosa, la gente es grandiosa, pero hay algo importante aquí y por la belleza de este país hay polos opuestos. Polaridad.</p>
+
+      <h3>¿De qué habla en sus seminarios?</h3>
+      <p>Traemos voluntarios del público que pueden tener enfermedades o discapacidades y damos demostraciones de sanaciones. Ahí vemos la realidad, somos testigos y eso nos hace ir más allá hasta aprender a curar.</p>
+
+      <h3>¿Quiénes lo pueden aprender?</h3>
+      <p>Esto lo puede aprender cualquier persona. Lo he enseñado en hospitales, en universidades, a médicos, hablé en las Naciones Unidas, también con gobiernos. Enseñamos en nuestros seminarios a personas entre 7 y 97 años. No tenemos que enviar la sanación a ningún lado, tenemos que convertirnos en ella.</p>
+
+      <hr />
+
+      <h2>Facilitación Profesional de Sanación Reconectiva y La Reconexión</h2>
+      <p><strong>José A. — Facilitador Certificado Oficial</strong><br />Formado personalmente en Buenos Aires en 2012 por el Dr. Eric Pearl y The Reconnection. Más de 1.100 sesiones facilitadas.</p>
+      <ul>
+        <li>Sanación Reconectiva: Exclusivamente a distancia (40 minutos).</li>
+        <li>La Reconexión: Exclusivamente presencial en CABA (2 sesiones consecutivas).</li>
+      </ul>
+
+      <div class="not-prose mt-6 flex flex-wrap gap-3">
+        <Button href={whatsappHref} size="lg" external>Consultar por Sesiones vía WhatsApp</Button>
+        <Button href="https://www.facebook.com/lareconexionbuenosaires/" variant="secondary" size="lg" external>Comunidad de Facebook</Button>
+      </div>
     </div>
   </Section>
 

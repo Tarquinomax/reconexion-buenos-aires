@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
+import FaqItem from '../components/FaqItem.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
 import Button from '../components/Button.astro';
@@ -21,6 +22,62 @@ const breadcrumbs = [
 const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
   'Hola José, quisiera consultar por una sesión',
 )}`;
+
+const items = [
+  {
+    title: '1. Mi camino personal: Cómo descubro la Sanación Reconectiva',
+    body: `
+      <p>En este video abro mi corazón para contarles cómo llegué a este camino. No fue algo que busqué, sino algo que llegó a mi vida en un momento de crisis profunda: material, existencial y espiritual.</p>
+      <p>Tras una búsqueda de respuestas que comenzó de manera fortuita en internet, el mensaje de Eric Pearl y «La Matriz de la Vida» se cruzó en mi camino repetidamente. A pesar de mis dudas iniciales, sentí un llamado que no podía ignorar: <em>«Eso era lo que yo estaba buscando en la vida y no sabía qué era»</em>.</p>
+      <p>Vendí lo poco que me quedaba para formarme en el seminario de 2012 y hoy, años después, mi propósito es facilitar ese mismo equilibrio para otros.</p>
+      <p><a href="${PRACTITIONER.videoTestimonio}" target="_blank" rel="noopener noreferrer">Ver video en YouTube →</a></p>
+    `,
+  },
+  {
+    title: '2. Arteriosclerosis y Demencia Senil: Retorno al equilibrio en el caso de Justino',
+    body: `
+      <p>Comparto el testimonio enviado por la Sra. Mirta A., de Buenos Aires, quien nos autorizó a difundir su experiencia:</p>
+      <blockquote>
+        <p>«Hola mi nombre es Mirta A. En febrero del 2015, durante mis vacaciones de verano me hablaron de la Sanacion Reconectiva en la provincia de Cordoba y de la pelicula «Mas alla de la luz»… Intrigada apenas llegué a Buenos Aires busqué por internet. Así dí con José y decidí llevar a mi padre para que recibiera una sesión.</p>
+        <p>Mi padre, Justino, es un hombre de 81 años y que según los medicos padecía de Arterioesclerosis y Demencia Senil. Había dejado de hablar hacía ya más de 3 años, solo balbuceaba, no dejaba de balancearse y ya casi no caminaba.</p>
+        <p>En un momento de la sesión mi padre mira hacia la pared, levanta la vista y dice: «Vos me vas a curar?»… no sé a quién le habló. Realmente habló después de más de 3 años.</p>
+        <p>Hoy a 5 meses de ser atendido mi padre camina solo, se levanta, se baña, come solo, habla poco pero lo hace, dejó gran parte de la medicación… Los médicos están sorprendidos. Doy fé que esto es cierto… GRACIAS…»</p>
+      </blockquote>
+    `,
+  },
+  {
+    title: '3. Esclerodermia y lesiones dérmicas: Retorno al equilibrio en el caso de Noemí',
+    body: `
+      <p>En este video, Noemí comparte cómo la Sanación Reconectiva impactó su vida mientras transitaba una Esclerodermia con heridas abiertas en sus manos.</p>
+      <ul>
+        <li><strong>Recuperación física:</strong> Tras la segunda sesión, sus heridas dejaron de sangrar y para la tercera se habían cerrado por completo.</li>
+        <li><strong>Mejora en la calidad de vida:</strong> Al desaparecer el dolor, logró descansar mejor y aliviar molestias en el esófago.</li>
+        <li><strong>Experiencias durante la sesión:</strong> Sensaciones de calor, cambios en el peso corporal y percibir los movimientos del facilitador con los ojos cerrados.</li>
+      </ul>
+    `,
+  },
+  {
+    title: '4. Desaparece dolor agudo en el pecho: Retorno al equilibrio durante mi conferencia (2014)',
+    body: `
+      <p>En mayo de 2014, durante una conferencia informativa para la Asociación Argentina de Esclerodermia, ocurrió este hecho.</p>
+      <p>Al finalizar la charla, una asistente de 76 años se acercó para compartir lo que experimentó mientras escuchaba: un dolor profundo en el pecho que se desvaneció por completo mientras estaba conectada con la información que se brindaba.</p>
+      <p>Este fragmento quedó grabado de forma espontánea por mi camarógrafa, capturando la sorpresa y la alegría de la señora al sentirse «iluminada» y sin dolor.</p>
+    `,
+  },
+  {
+    title: '5. Pudo ver una presencia celestial durante mi charla: Vivencia a los 92 años (Palermo, 2013)',
+    body: `
+      <p>En noviembre de 2013, durante mi segunda charla en un Centro de Jubilados del barrio de Palermo (CABA), ocurrió algo que cambió mi percepción sobre las conferencias.</p>
+      <p>Mientras explicaba «¿Qué es la Sanación Reconectiva?», una señora de 92 años percibió una presencia asombrosa. Al finalizar, me relató que vio un Ser de Luz detrás de mí, el cual se acercó a ella antes de desvanecerse, dejándola envuelta en calor profundo y mucha paz.</p>
+    `,
+  },
+  {
+    title: '6. Extracto de película documental con el Dr. Eric Pearl: El increíble caso de Dmitri',
+    body: `
+      <p>El caso narrado por el Dr. Eric Pearl y el testimonio de su propia madre. Dmitri nació con parálisis cerebral. Tras una breve sesión de apenas unos minutos, Dmitri no solo comenzó a caminar de forma plana (sin puntillas), sino que empezó a correr y saltar. Además, logró abrir su mano —que mantenía siempre cerrada en puño— permitiéndole beber de un vaso por sí mismo y dar abrazos con ambos brazos.</p>
+    `,
+  },
+];
 ---
 
 <BaseLayout
@@ -33,176 +90,33 @@ const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURICompone
   <PageHeader
     eyebrow="Experiencias"
     title="Testimonios"
-    lead="Descargo ético y legal sobre experiencias testimoniales: Los testimonios en video y relatos compartidos en esta página reflejan vivencias personales y evoluciones individuales de consultantes y asistentes a conferencias. La Sanación Reconectiva® y La Reconexión® son enfoques de bienestar integral y armonización energética; no constituyen prácticas médicas, no son tratamientos médicos, no diagnostican ni pretenden curar enfermedades. Como enseñó el Dr. Eric Pearl desde 1985: se sana la persona, no la enfermedad. Los resultados son singulares en cada ser y no deben interpretarse como garantías médicas ni sustituto de la consulta médica profesional."
+    lead="Descargo ético y legal: Los testimonios reflejan vivencias personales. La Sanación Reconectiva® y La Reconexión® no constituyen prácticas médicas, no diagnostican ni pretenden curar enfermedades. Como enseñó el Dr. Eric Pearl: se sana la persona, no la enfermedad."
     breadcrumbs={breadcrumbs}
   />
 
   <Section width="prose">
-    <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
-      <h2>1. Mi camino personal: Cómo descubro la Sanación Reconectiva</h2>
-      <p>
-        En este video abro mi corazón para contarles cómo llegué a este camino. No fue algo que busqué, sino algo que
-        llegó a mi vida en un momento de crisis profunda: material, existencial y espiritual.
-      </p>
-      <p>
-        Tras una búsqueda de respuestas que comenzó de manera fortuita en internet, el mensaje de Eric Pearl y «La Matriz
-        de la Vida» se cruzó en mi camino repetidamente. A pesar de mis dudas iniciales, sentí un llamado que no podía
-        ignorar: <em>«Eso era lo que yo estaba buscando en la vida y no sabía qué era»</em>.
-      </p>
-      <p>
-        Vendí lo poco que me quedaba para formarme en el seminario de 2012 y hoy, años después, mi propósito es facilitar
-        ese mismo equilibrio para otros.
-      </p>
-      <p>
-        <a href={PRACTITIONER.videoTestimonio} target="_blank" rel="noopener noreferrer">
-          Ver video en YouTube →
-        </a>
-      </p>
+    <div class="mt-2">
+      {
+        items.map((item, index) => (
+          <FaqItem question={item.title} open={index === 0}>
+            <div class="prose prose-stone max-w-none prose-a:text-terracota-700" set:html={item.body} />
+          </FaqItem>
+        ))
+      }
+    </div>
 
-      <hr />
-
-      <h2>2. Arteriosclerosis y Demencia Senil: Retorno al equilibrio en el caso de Justino</h2>
-      <p>
-        Comparto con ustedes el testimonio enviado por la Sra. Mirta A., de Buenos Aires, quien amablemente nos autorizó
-        a difundir su experiencia con la Sanación Reconectiva:
-      </p>
-      <blockquote>
-        <p>
-          «Hola mi nombre es Mirta A. En febrero del 2015, durante mis vacaciones de verano me hablaron de la Sanacion
-          Reconectiva en la provincia de Cordoba y de la pelicula «Mas alla de la luz»… Intrigada apenas llegué a Buenos
-          Aires busqué (la película) por internet. Así dí con José..ví su página web y decidí llevar a mi padre para que
-          recibiera una sesión de Sanación Reconectiva.
-        </p>
-        <p>
-          Mi padre, Justino, es un hombre de 81 años y que según los medicos padecía de Arterioesclerosis y Demencia
-          Senil, cosa que los médicos nunca determinaron bien que era lo que sufria mi padre.
-        </p>
-        <p>
-          Me contacté con José y coordinamos un día y horario para que le faciltara sesiones a mi padre. En la primer
-          sesión José comienza a trabajar con mi padre (él habia dejado de hablar hacía ya mas de 3 años y fué después de
-          recibir una noticia inesperada que le provocó un shock emocional muy fuerte), mi padre solo balbuceaba todo el
-          día, no dejaba de balancearse ni un momento,asi todo el día y además ya casi no caminaba y teníamos que ayudarlo
-          a moverse de un lugar a otro entre mi madre y yo.
-        </p>
-        <p>
-          José decide realizarle la sesión a mi padre con Él sentado en una silla y José se para detrás de él ya que no
-          dejaba de moverse un instante y recostarlo sobre la camilla hubiera sido una molestia para mi padre, así que
-          José comenzó a realizarle la sesión sobre su cabeza.
-        </p>
-        <p>
-          En un momento de la sesión mi padre mira hacia la pared, levanta la vista y dice : «Vos me vas a curar?»…no sé
-          a quién le habló!! Ni bien terminó la sesión miré a mi madre que también presenció la sesión y le pregunté si
-          ella también lo escuchó hablar a mi padre y me dijo que Sí! ,o sea que no fue mi imaginación. Él realmente
-          hablo después de mas de 3 años!!
-        </p>
-        <p>
-          José nos pidió que nos quedaramos tranquilas que íbamos a ver los cambios..y hoy a 5 meses de ser atendido mi
-          padre, él camina solo, se levanta.. se baña, come solo.. habla poco pero lo hace, dejó gran parte de la
-          medicación… Los médicos están sorprendidos, los vecinos y familiares… Hoy agradezco a José por lo que hace, y a
-          todos aquellos los que me preguntan que sucedió les hago referencia de la Sanación Reconectiva…Doy fé que esto
-          es cierto y quien quiera saber más dejo mi correo pero confíen y si realmente tienen un ser querido que esta
-          padeciendo una enfermedad que creen que no tiene cura..confíen,y acerquense..GRACIAS…»
-        </p>
-      </blockquote>
-      <p>
-        A través de su relato y de este registro audiovisual, podemos observar cómo las frecuencias de energía, luz e
-        información actúan devolviendo el equilibrio natural al ser humano, operando cambios profundos en el bienestar
-        físico, mental y emocional.
-      </p>
-
-      <hr />
-
-      <h2>3. Esclerodermia y lesiones dérmicas: Retorno al equilibrio en el caso de Noemí</h2>
-      <p>
-        En este video, Noemí comparte cómo la Sanación Reconectiva impactó su vida mientras transitaba una Esclerodermia
-        con heridas abiertas en sus manos.
-      </p>
-      <p><strong>Lo que Noemí experimentó durante su proceso:</strong></p>
-      <ul>
-        <li>
-          <strong>Recuperación física:</strong> Tras la segunda sesión, sus heridas dejaron de sangrar y para la tercera
-          se habían cerrado por completo.
-        </li>
-        <li>
-          <strong>Mejora en la calidad de vida:</strong> Al desaparecer el dolor, logró descansar mejor y aliviar
-          molestias en el esófago, mejorando notablemente su alimentación.
-        </li>
-        <li>
-          <strong>Experiencias durante la sesión:</strong> Describe sensaciones de calor, cambios en el peso corporal y
-          la capacidad de percibir con precisión los movimientos del facilitador con los ojos cerrados.
-        </li>
-      </ul>
-
-      <hr />
-
-      <h2>4. Desaparece dolor agudo en el pecho: Retorno al equilibrio durante mi conferencia (2014)</h2>
-      <p>
-        En mayo de 2014, durante una conferencia informativa para la Asociación Argentina de Esclerodermia, ocurrió este
-        hecho asombroso.
-      </p>
-      <p>
-        Al finalizar la charla, una asistente de 76 años se acercó para compartir lo que experimentó mientras escuchaba:
-        un dolor profundo en el pecho que se desvaneció por completo mientras estaba conectada con la información que se
-        brindaba.
-      </p>
-      <p>
-        Este fragmento quedó grabado de forma espontánea por mi camarógrafa, capturando la sorpresa y la alegría de la
-        señora al sentirse «iluminada» y sin dolor. Es una prueba de cómo las frecuencias de luz e información actúan
-        devolviendo el equilibrio natural en cualquier entorno receptivo.
-      </p>
-
-      <hr />
-
-      <h2>5. Pudo ver una presencia celestial durante mi charla: Vivencia a los 92 años (Palermo, 2013)</h2>
-      <p>
-        En noviembre de 2013, durante mi segunda charla en un Centro de Jubilados del barrio de Palermo (CABA), ocurrió
-        algo que cambió mi percepción sobre las conferencias.
-      </p>
-      <p>
-        Mientras explicaba «¿Qué es la Sanación Reconectiva?», una señora de 92 años que se encontraba a pocos metros
-        percibió una presencia asombrosa. Al finalizar, me relató con total claridad que vio un Ser de Luz detrás de mí,
-        el cual se acercó a ella antes de desvanecerse, dejándola envuelta en una sensación de calor profundo y mucha paz.
-      </p>
-      <p>
-        Este suceso nos demuestra que las frecuencias de Sanación Reconectiva (o «Ángeles») no solo están presentes en las
-        sesiones privadas, sino que también acompañan y actúan durante las charlas informativas.
-      </p>
-
-      <hr />
-
-      <h2>6. Extracto de película documental con el Dr. Eric Pearl: El increíble caso de Dmitri</h2>
-      <p>
-        El caso narrado por el Dr. Eric Pearl y el testimonio de su propia madre confirmando los hechos. Dmitri nació con
-        parálisis cerebral, una condición para la cual la medicina tradicional no ofrecía esperanzas de una vida
-        independiente. Sus padres, inicialmente escépticos, decidieron probar una alternativa tras conocer el trabajo de
-        Eric Pearl.
-      </p>
-      <p>
-        En este video verán cómo, tras una breve sesión de apenas unos minutos, Dmitri no solo comenzó a caminar de forma
-        plana (sin puntillas), sino que empezó a correr y saltar ante la sorpresa de sus padres. Además, logró abrir su
-        mano —que mantenía siempre cerrada en puño— permitiéndole realizar tareas cotidianas como beber de un vaso por sí
-        mismo y dar abrazos con ambos brazos.
-      </p>
-      <p>
-        Este caso es un ejemplo de cómo las frecuencias de Energía, Luz e Información actúan devolviendo el equilibrio
-        donde parecía no haber retorno.
-      </p>
-
-      <hr />
-
-      <h2>Facilitación Profesional de Sanación Reconectiva y La Reconexión</h2>
-      <p>
+    <div class="mt-10 border-t border-stone-200 pt-8">
+      <h2 class="font-display text-xl">Facilitación Profesional</h2>
+      <p class="mt-3 text-sm leading-relaxed text-stone-600">
         <strong>José A. — Facilitador Certificado Oficial</strong><br />
-        Certificado en septiembre de 2012 por el Dr. Eric Pearl y The Reconnection en Buenos Aires. Más de 1.100 sesiones
-        facilitadas a consultantes de Argentina y del mundo.
+        Certificado en septiembre de 2012 por el Dr. Eric Pearl y The Reconnection. Más de 1.100 sesiones facilitadas.
       </p>
-      <ul>
-        <li><strong>Sanación Reconectiva®:</strong> Exclusivamente a distancia (40 minutos).</li>
-        <li><strong>La Reconexión®:</strong> Exclusivamente presencial en CABA (2 sesiones consecutivas).</li>
-        <li><strong>Mascotas y Animales:</strong> Sesiones a distancia.</li>
+      <ul class="mt-3 space-y-1 text-sm text-stone-600">
+        <li>Sanación Reconectiva®: exclusivamente a distancia (40 minutos).</li>
+        <li>La Reconexión®: exclusivamente presencial en CABA (2 sesiones consecutivas).</li>
+        <li>Mascotas y Animales: sesiones a distancia.</li>
       </ul>
-
-      <div class="not-prose mt-6">
+      <div class="mt-6">
         <Button href={whatsappHref} size="lg" external>
           Consultar por Sesiones vía WhatsApp
         </Button>

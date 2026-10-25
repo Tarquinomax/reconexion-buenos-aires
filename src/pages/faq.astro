@@ -5,175 +5,162 @@ import Section from '../components/Section.astro';
 import FaqItem from '../components/FaqItem.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { MEDICAL_DISCLAIMER, SITE, BUSINESS } from '../consts';
+import Button from '../components/Button.astro';
+import { BUSINESS, SITE } from '../consts';
 import { faqNode, type FaqEntry } from '../lib/schema';
 
 const path = '/faq';
 const url = new URL(path, SITE.url).href;
 
-const title = 'Preguntas frecuentes y límites del servicio';
+const title = 'Preguntas';
 const description =
-  'Las 20 preguntas frecuentes sobre Sanación Reconectiva y La Reconexión en Buenos Aires: sesiones, modalidades, costos, preparación, ciencia y límites del servicio.';
-/** ISO 8601 de la ultima revision editorial del FAQ (frescura para el nodo FAQPage). */
-const faqUpdated = '2026-10-22';
+  'Preguntas frecuentes sobre Sanación Reconectiva® y La Reconexión®: qué son, diferencias, sesiones a distancia, preparación, beneficios y valor de La Reconexión.';
+
+const faqUpdated = '2026-10-25';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
-  { name: 'Preguntas frecuentes', item: path },
+  { name: 'Preguntas', item: path },
 ];
 
-/**
- * Fuente unica de las FAQ: alimenta a la vez el HTML visible y el JSON-LD.
- * Nunca deben divergir (Google penaliza el marcado que no coincide con la pagina).
- *
- * Numeracion correlativa 1-20: preguntas 1-10 del repositorio original +
- * preguntas 11-20 incorporadas de la web de 2012, sin solaparse entre si.
- */
-const faqs: Array<FaqEntry & { id: string; group: string }> = [
+const faqs: Array<FaqEntry & { id: string }> = [
   {
     id: 'q01',
-    group: 'La sesión',
-    question: '¿Cuánto dura una sesión?',
+    question: '¿Qué es la Sanación Reconectiva®?',
     answer:
-      'La sesión dura entre 30 y 45 minutos efectivos. El encuentro completo, incluyendo el encuadre inicial y el cierre, ronda la hora.',
+      'La Sanación Reconectiva® es una forma de sanación que se encuentra presente en nuestro planeta por primera vez (manifestada a partir del año 1985 con el Dr. Eric Pearl). Nos reconecta de manera directa con la plenitud del universo y, simultáneamente, con la plenitud del Ser que somos. No se trata de una terapia tradicional ni de un conjunto de técnicas energéticas aisladas; es el acceso a un nuevo y amplio espectro de sanación compuesto por frecuencias de energía, luz e información. La existencia y los efectos tangibles de este ancho de banda han sido demostrados tanto en la práctica cotidiana con miles de personas alrededor del mundo como en rigurosas investigaciones científicas y de laboratorio internacional.',
   },
   {
     id: 'q02',
-    group: 'La sesión',
-    question: '¿Hay contacto físico?',
+    question: '¿Qué es La Reconexión®?',
     answer:
-      'No. La persona permanece vestida y acostada sobre una camilla. No hay contacto físico, manipulación corporal ni maniobras de ningún tipo.',
+      'La Reconexión® es el proceso integral de reconexión con el universo que profundiza y expande el trabajo iniciado con la Sanación Reconectiva®. Estas frecuencias evolutivas forman parte de la Nueva Energía y nos llegan a través de un espectro continuo de luz e información. Gracias a La Reconexión®, el ser humano es capaz de interactuar conscientemente con estos nuevos niveles de frecuencia, reactivando los filamentos del ADN y restaurando el puente de comunicación entre el macrocosmos y el microcosmos. Es un paso evolutivo definitivo que se realiza una sola vez en la vida.',
   },
   {
     id: 'q03',
-    group: 'La sesión',
-    question: '¿Qué se siente durante la sesión?',
+    question: '¿Qué diferencia hay entre la Sanación Reconectiva® y La Reconexión®?',
     answer:
-      'Las percepciones son variables: calor, cosquilleo, movimientos involuntarios, somnolencia o nada perceptible. No sentir nada en particular no significa que la sesión haya fallado.',
+      'La diferencia radica fundamentalmente en el propósito y la intención con la que se facilita cada proceso. La Sanación Reconectiva® tiene por objetivo restaurar el equilibrio integral de la persona, ya sea en el plano físico, mental, emocional o espiritual. La Reconexión® está orientada a la reconexión inherente con el universo. Se realiza a través de un protocolo exacto de dos sesiones individuales presenciales. Ejemplo: la Sanación Reconectiva® equivale a ordenar los programas de una computadora; La Reconexión® equivale a conectarla a Internet por primera vez.',
   },
   {
     id: 'q04',
-    group: 'Modalidades',
-    question: '¿Las sesiones a distancia son equivalentes a las presenciales?',
+    question: '¿Cómo sana el cuerpo con la Sanación Reconectiva®?',
     answer:
-      'El encuadre es el mismo y la duración también. La diferencia está en el ámbito: en la modalidad a distancia necesitás un espacio tranquilo donde puedas recostarte sin interrupciones.',
+      'No seguimos el modelo mecánico o químico aprendido convencionalmente en las escuelas; el cuerpo humano responde de manera profunda a frecuencias e intercambios de información. Como demostró la biofísica contemporánea a través de las investigaciones sobre biofotones (Dr. Fritz-Albert Popp), cada una de las células emite y absorbe luz en frecuencias específicas. La Sanación Reconectiva® introduce al campo biológico un espectro puro de energía, luz e información que permite que el propio cuerpo reconozca su estado natural de orden y reactive sus mecanismos innatos de autorregulación.',
   },
   {
     id: 'q05',
-    group: 'Modalidades',
-    question: '¿Cuántas sesiones se recomiendan?',
+    question: '¿Sobre qué síntomas o dolencias actúa la Sanación Reconectiva®?',
     answer:
-      'No se venden paquetes ni series obligatorias. Lo habitual es una sesión, evaluar la experiencia y decidir después, sin presión comercial.',
+      '«Se sana la persona, no la enfermedad», como enseña el Dr. Eric Pearl. La Sanación Reconectiva® no está dirigida a tratar síntomas específicos, dolencias puntuales ni patologías de forma aislada. Restablece la coherencia y el equilibrio integral del Ser en todos sus planos: físico, mental, emocional y espiritual. Dos personas con el mismo diagnóstico médico pueden experimentar transformaciones completamente distintas.',
   },
   {
     id: 'q06',
-    group: 'Límites',
-    question: '¿Esto cura enfermedades?',
-    answer: MEDICAL_DISCLAIMER,
+    question: '¿Qué base científica sustenta la Sanación Reconectiva® y La Reconexión®?',
+    answer:
+      'Ambos procesos encuentran un marco explicativo claro en los conceptos de la física cuántica contemporánea y la teoría de cuerdas. La materia, en su nivel fundamental, es energía e información vibrando en un campo unificado. La física cuántica ha demostrado el principio de no-localidad. La Sanación Reconectiva® opera en ese nivel de campo informativo, facilitando un colapso del estado cuántico hacia el orden y la armonía.',
   },
   {
     id: 'q07',
-    group: 'Límites',
-    question: '¿Puedo dejar mi medicación o mi tratamiento?',
+    question: 'La experiencia durante la sesión, ¿qué indica?',
     answer:
-      'No. Nunca modifiques ni interrumpas un tratamiento indicado por un profesional de la salud. Ninguna sesión de este sitio justifica ese cambio.',
+      'Durante las sesiones se puede o no experimentar sensaciones desde lo sensorial (cambios de temperatura, hormigueos, movimientos musculares involuntarios o registros), pero eso no indica ni determina en absoluto el grado ni la profundidad de los beneficios. Hay personas que durante la sesión «no sintieron nada» y, sin embargo, a partir de ese momento comienzan a notar cambios notorios y profundos en su vida cotidiana.',
   },
   {
     id: 'q08',
-    group: 'Límites',
-    question: '¿Hay situaciones en las que no aceptás una sesión?',
+    question: '¿Cómo son las sesiones de Sanación Reconectiva® a distancia y cómo se preparan?',
     answer:
-      'Sí. No trabajo con personas que buscan sustituir atención médica o psicológica, ni con quienes llegan esperando una promesa de curación. En esos casos la respuesta honesta es una derivación.',
+      'En mi práctica profesional, la Sanación Reconectiva® se facilita de manera exclusiva a distancia, con exactamente la misma efectividad que una sesión presencial. Se coordina previamente un día y horario. Pautas: vestir ropa cómoda; quitarse el calzado; evitar perfumes o fragancias intensas; recostarse boca arriba, cerrar los ojos y descansar en silencio durante 40 minutos. Al concluir, nos comunicamos de forma inmediata por WhatsApp o llamada.',
   },
   {
     id: 'q09',
-    group: 'Reservas',
-    question: '¿Cómo reservo y cómo se abona?',
-    answer: `La reserva se coordina por WhatsApp (${BUSINESS.phoneDisplay}) o escribiendo a ${BUSINESS.email}. El valor de las sesiones de Sanación Reconectiva es una tarifa fija transparente alineada con los aranceles internacionales oficiales, y se informa de manera clara antes de confirmar el turno. Los encuentros presenciales de La Reconexión se realizan en el consultorio de Recoleta, Ciudad Autónoma de Buenos Aires (coordenadas -34.595856, -58.392926) y el proceso completo tiene un valor de 333 dólares, idéntico en cualquier país.`,
+    question: '¿Cómo son las sesiones para La Reconexión®?',
+    answer:
+      'La Reconexión® se facilita exclusivamente de manera presencial en la Ciudad Autónoma de Buenos Aires (CABA). Dos sesiones individuales, con intervalo mínimo de 24 horas y máximo de 72 horas. La persona se recuesta sobre una camilla boca arriba, con ropa cómoda y los ojos cerrados. Sin contacto físico. Se realiza una única vez en la vida.',
   },
   {
     id: 'q10',
-    group: 'Reservas',
-    question: '¿Qué pasa si necesito cancelar?',
+    question: '¿Cuánto dura una sesión y cómo se comprende el tiempo en este proceso?',
     answer:
-      'Avisá con al menos 24 horas de anticipación por el mismo canal de la reserva y reprogramamos el turno sin costo. Si cancelás con menos de 24 horas, el espacio queda liberado para otra persona y la seña no se reintegra; ante una emergencia de salud, la devolución se evalúa caso por caso. Ante cualquier síntoma, consultá siempre a un profesional de la salud matriculado.',
+      'En una sesión de Sanación Reconectiva® a distancia, el tiempo operativo es de 40 minutos. Estas frecuencias pertenecen al dominio cuántico, donde rige la no-localidad: el estímulo de coherencia ocurre instantáneamente y continúa desplegándose e integrándose a lo largo de las semanas siguientes. La Reconexión® no posee una duración fija predeterminada en minutos; varía según cada persona.',
   },
   {
     id: 'q11',
-    group: 'Alcance',
-    question: '¿Es necesario estar enfermo para recibir estas sesiones?',
+    question: '¿Qué actitud es recomendable tener durante la sesión?',
     answer:
-      'No, en absoluto. La Sanación Reconectiva no es un tratamiento dirigido a una dolencia específica. Es un proceso de interacción con frecuencias de energía, luz e información que operan a nivel integral. Cualquier persona, busque o no un restablecimiento físico, puede recibir las sesiones para permitir que su organismo recupere su armonía intrínseca, claridad mental y estabilidad general.',
+      'La mejor actitud interior es la entrega neutra y sin expectativas fijas. No es necesario meditar de forma forzada, concentrarse en un síntoma, visualizar colores ni repetir afirmaciones mentales. El Dr. Eric Pearl: «Si eres afortunado, tu sanación vendrá en la forma que habías anticipado. Si eres verdaderamente afortunado, tu sanación vendrá de una forma que ni siquiera habías soñado, aquella que el Universo ha reservado especialmente para ti».',
   },
   {
     id: 'q12',
-    group: 'Alcance',
-    question: '¿Tiene contraindicaciones?',
+    question: '¿Qué beneficios se pueden esperar con La Reconexión®?',
     answer:
-      'No posee contraindicaciones de ninguna índole ni efectos secundarios adversos. Al no ser una intervención médica, clínica o química, y al facilitarse de manera no invasiva (completamente a distancia para la Sanación Reconectiva), el acceso a estas frecuencias es absolutamente seguro para personas de todas las edades y condiciones.',
+      'Con La Reconexión® se reactiva y acelera el proceso evolutivo individual. Al reconectar los meridianos axiatonales y los filamentos energéticos del ADN, la persona experimenta una integración profunda con su propósito vital. Muchos consultantes reportan mayor intuición, disolución de patrones de estancamiento, nuevas oportunidades y sensación de arraigo y sincronía.',
   },
   {
     id: 'q13',
-    group: 'Alcance',
-    question: '¿Cuál es el costo de las sesiones?',
+    question: '¿Qué beneficios se pueden obtener con una sesión de Sanación Reconectiva®?',
     answer:
-      'El valor de las sesiones de Sanación Reconectiva se gestiona bajo una tarifa fija transparente alineada con los aranceles internacionales estipulados oficiales. Los detalles específicos sobre los honorarios correspondientes a las sesiones individuales y las facilidades de abono se informan de manera clara antes de confirmar el turno, garantizando un marco administrativo sin sorpresas.',
+      '«Se sana la persona, no la enfermedad». Entre los beneficios observados con mayor frecuencia: desaparición o disminución de molestias y dolores físicos, restablecimiento del sueño, liberación de estrés y angustia, y claridad mental. La energía recibida ayuda a disolver memorias energéticas discordantes.',
   },
   {
     id: 'q14',
-    group: 'Alcance',
-    question: '¿Por qué el valor de La Reconexión es de 333 dólares?',
+    question: '¿Cómo se compara esto con otras frecuencias y formas de trabajo con la energía?',
     answer:
-      'El valor de 333 dólares para el proceso de La Reconexión es universal y obligatorio a nivel mundial, establecido originalmente por el Dr. Eric Pearl. Este número posee una frecuencia y vibración matemática específica que forma parte intrínseca del proceso de reconexión axiatonal. Representa un compromiso y un intercambio justo con la vibración del servicio, manteniéndose idéntico en cualquier país del mundo.',
+      'Las técnicas energéticas tradicionales (Qi Gong, Sanación Pránica, imposición de manos) cumplieron y cumplen un rol de valor; sin embargo, muchas están sujetas a rituales, símbolos e invocaciones. La Sanación Reconectiva® trasciende la necesidad de rituales, amuletos o escudos de protección, trabajando con un espectro holístico e inagotable de Energía, Luz e Información.',
   },
   {
     id: 'q15',
-    group: 'La Reconexión',
-    question: '¿Se puede recibir más de una Reconexión en la vida?',
+    question: '¿Entonces esta disciplina es mejor que otras técnicas?',
     answer:
-      'No. La Reconexión es un procedimiento definitivo que se realiza una sola vez en la vida. Es un proceso protocolar estricto que consta de exactamente dos sesiones consecutivas (facilitadas en días seguidos o con un máximo de dos noches intermedias). Una vez completado este entrelazado con las líneas del planeta y del universo, la conexión permanece activa de forma permanente.',
+      'No se plantea bajo la premisa de superioridad, sino de amplitud y evolución del espectro. Una técnica energética concreta suele operar con un puñado de letras del abecedario; la Sanación Reconectiva® otorga acceso al alfabeto completo.',
   },
   {
     id: 'q16',
-    group: 'Formación',
-    question: '¿Quién puede aprender a facilitar estas frecuencias?',
+    question: 'Diferencias entre Reiki y Sanación Reconectiva®: ¿Cómo se aplican y cómo operan?',
     answer:
-      'Cualquier persona tiene la capacidad innata de interactuar, percibir y aprender a facilitar estas frecuencias de energía, luz e información. No se requieren dones especiales, talentos ocultos ni conocimientos previos de anatomía o terapias energéticas tradicionales. La formación se adquiere asistiendo a los seminarios oficiales internacionales dictados por la organización global autorizada.',
+      'En el Reiki: disciplina estructurada con sintonizaciones por niveles; manos sobre o cerca de puntos específicos; símbolos; protocolos de cierre. En la Sanación Reconectiva®: no es canalización ni depende de niveles; no se toca el cuerpo; manos libres y dinámicas en el campo energético; sin protecciones ni limpiezas posteriores; el facilitador también recibe sanación mientras facilita.',
   },
   {
     id: 'q17',
-    group: 'Comparaciones',
-    question: '¿Es esto un tipo de Reiki o sanación energética tradicional?',
+    question: '¿Cuántas sesiones son necesarias?',
     answer:
-      'No, va mucho más allá. Aunque el Reiki y otras técnicas tradicionales de sanación energética son herramientas respetables que canalizan energía, la Sanación Reconectiva da un salto cualitativo al dar acceso a un espectro completo que incluye no solo energía, sino también luz e información. No requiere rituales, símbolos, imposiciones rígidas ni pasos técnicos repetitivos; es una interacción directa y moderna con el campo cuántico.',
+      'No se realizan tratamientos. Se sugiere experimentar entre 1 y 3 sesiones de Sanación Reconectiva®. Cada sesión es completa en sí misma. La persona decide libremente. Para La Reconexión®: estrictamente 2 únicas sesiones en la vida.',
   },
   {
     id: 'q18',
-    group: 'Ciencia',
-    question: '¿Qué dice la ciencia sobre la Sanación Reconectiva?',
+    question: '¿Las mascotas son receptivas a las sesiones de Sanación Reconectiva®?',
     answer:
-      'Ha sido objeto de rigurosas investigaciones y estudios científicos a nivel internacional por parte de reconocidos físicos, médicos y laboratorios mundiales (como el Dr. William Tiller, el Dr. Gary Schwartz y el Dr. Konstantin Korotkov). Los experimentos demuestran de forma documentada que estas frecuencias producen reestructuraciones medibles en el ADN, disminuyen el caos térmico en el entorno y generan un estado de coherencia superior en el campo electromagnético humano.',
+      'Sí, las mascotas son extraordinariamente receptivas. Al no poseer dudas intelectuales ni expectativas, conectan de forma pura e inmediata. Las sesiones se facilitan exclusivamente a distancia, en su entorno habitual.',
   },
   {
     id: 'q19',
-    group: 'Poblaciones',
-    question: '¿Se puede aplicar en niños o personas embarazadas?',
+    question: '¿Se pueden facilitar sesiones en niños, mujeres embarazadas o personas internadas?',
     answer:
-      'Sí, es perfectamente seguro y muy recomendable. Al no representar un tratamiento invasivo ni requerir manipulación física alguna, tanto los niños pequeños como las mujeres en etapa de gestación responden de manera extraordinaria a la pureza de estas frecuencias. El proceso respeta de forma natural el ritmo biológico y la respuesta orgánica de la madre y del bebé.',
+      'Sí, en todos los casos. Es completamente segura y no presenta contraindicaciones ni efectos secundarios. Los niños responden con rapidez. En embarazadas favorece el bienestar de madre y bebé. A distancia puede brindarse a personas hospitalizadas sin interferir en su entorno médico.',
   },
   {
     id: 'q20',
-    group: 'Preparación',
-    question: '¿Existe alguna preparación previa para asistir a la sesión?',
+    question: '¿Por qué La Reconexión® tiene un valor de intercambio fijado internacionalmente en 333?',
     answer:
-      'No se requiere ninguna preparación mental, meditativa ni física compleja. Para las sesiones presenciales en el consultorio de Recoleta (exclusivas de La Reconexión), se aconseja asistir con ropa cómoda y se solicita de forma estricta evitar el uso de perfumes, lociones aromatizadas o fragancias intensas el día del turno, para no interferir con la percepción sensorial natural durante el proceso.',
+      'El valor 333 responde a un estándar ético y universal establecido por el Dr. Eric Pearl en su libro Sana a otros, sánate a ti mismo y regulado globalmente por The Reconnection. Corresponde al intercambio que el propio Dr. Pearl abonó al recibir su Reconexión personal. Previene la especulación comercial: ningún facilitador puede elevar ni abaratar el costo. Se establece en 333 dólares, euros o el equivalente oficial en moneda local según el país.',
   },
 ];
 
-const grupos = [...new Set(faqs.map((faq) => faq.group))];
+const schema = [
+  faqNode(
+    faqs.map(({ question, answer, id }) => ({
+      question,
+      answer,
+      id,
+      dateModified: faqUpdated,
+    })),
+    url,
+  ),
+];
 
-const faqPageUrl = url;
-const schema = [faqNode(faqs.map(({ question, answer, id }) => ({ question, answer, id, dateModified: faqUpdated })), faqPageUrl)];
+const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+  'Hola José, quisiera hacerte una consulta',
+)}`;
 ---
 
 <BaseLayout
@@ -182,34 +169,39 @@ const schema = [faqNode(faqs.map(({ question, answer, id }) => ({ question, answ
   canonicalPath={path}
   breadcrumbs={breadcrumbs}
   schema={schema}
-  mainEntityId={`${faqPageUrl}#faq`}
+  mainEntityId={`${url}#faq`}
 >
   <PageHeader
     eyebrow="Antes de reservar"
-    title="Preguntas frecuentes"
-    lead="Incluye también lo que este trabajo no hace. Si tu duda no aparece acá, escribime y la respondo sin compromiso."
+    title="Preguntas"
+    lead="Respuestas sobre Sanación Reconectiva® y La Reconexión®. Si tu duda no aparece acá, escribime y la respondo sin compromiso."
     breadcrumbs={breadcrumbs}
   />
 
   <Section width="prose">
-    {
-      grupos.map((grupo, groupIndex) => (
-        <div class:list={[groupIndex > 0 ? 'mt-16' : '']}>
-          <h2 class="text-xs font-semibold tracking-[0.18em] text-terracota-700 uppercase">{grupo}</h2>
-          <div class="mt-4">
-            {faqs
-              .filter((faq) => faq.group === grupo)
-              .map((faq, index) => (
-                <FaqItem question={faq.question} open={groupIndex === 0 && index === 0}>
-                  <p>{faq.answer}</p>
-                </FaqItem>
-              ))}
-          </div>
-        </div>
-      ))
-    }
+    <div class="mt-2">
+      {
+        faqs.map((faq, index) => (
+          <FaqItem question={faq.question} open={index === 0}>
+            <p>{faq.answer}</p>
+          </FaqItem>
+        ))
+      }
+    </div>
 
-    <Disclaimer class="mt-16" />
+    <div class="not-prose mt-10">
+      <Button href={whatsappHref} size="lg" external>
+        Consultar por WhatsApp
+      </Button>
+    </div>
+
+    <p class="mt-8 text-sm text-stone-600">
+      Facilitado por José A. | Facilitador Certificado de Sanación Reconectiva® (Nivel I y II) y La Reconexión® (Nivel
+      III) formado oficialmente en 2012 por el Dr. Eric Pearl y The Reconnection. Más de 1.100 sesiones facilitadas en
+      Argentina y a nivel internacional.
+    </p>
+
+    <Disclaimer class="mt-10" />
   </Section>
 
   <CtaBanner title="¿Te quedó una duda sin responder?" />

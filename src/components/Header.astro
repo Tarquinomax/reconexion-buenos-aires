@@ -6,16 +6,16 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-stone-200/70 bg-stone-50/85 backdrop-blur-md supports-[backdrop-filter]:bg-stone-50/70"
+  class="sticky top-0 z-50 border-b border-bosque-900/8 bg-cream/90 backdrop-blur-xl supports-[backdrop-filter]:bg-cream/75"
 >
-  <div class="container-page flex h-16 items-center justify-between gap-6 md:h-20">
+  <div class="container-page flex h-16 items-center justify-between gap-4 md:h-[4.5rem]">
     <a
       href="/"
-      class="group flex items-center gap-2.5 text-stone-900 transition-opacity hover:opacity-80"
+      class="group flex min-w-0 items-center gap-2.5 text-bosque-900 transition-opacity duration-300 hover:opacity-80"
       aria-label={`${SITE.name} — Inicio`}
     >
       <span
-        class="inline-flex size-9 items-center justify-center rounded-full bg-terracota-100 text-terracota-700 transition-transform duration-500 ease-[var(--ease-organic)] group-hover:rotate-45"
+        class="inline-flex size-9 shrink-0 items-center justify-center rounded-full bg-bronce-100 text-bronce-700 transition-transform duration-500 ease-[var(--ease-organic)] group-hover:rotate-45"
         aria-hidden="true"
       >
         <svg viewBox="0 0 24 24" fill="none" class="size-5" stroke="currentColor" stroke-width="1.5">
@@ -25,24 +25,32 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
         </svg>
       </span>
       <span class="font-display text-lg leading-tight tracking-tight md:text-xl">
-        Reconexión <span class="text-terracota-700">Buenos Aires</span>
+        Reconexión <span class="text-bronce-600">Buenos Aires</span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+    <nav class="hidden items-center gap-0.5 xl:flex" aria-label="Navegación principal">
       {
         NAV_PRIMARY.map((item) => (
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'rounded-full px-3.5 py-2 text-sm transition-colors duration-300',
+              'relative rounded-full px-3 py-2 text-[13px] transition-all duration-300 ease-[var(--ease-organic)]',
               isActive(item.href)
-                ? 'bg-terracota-100/70 font-medium text-terracota-800'
-                : 'text-stone-600 hover:bg-stone-200/60 hover:text-stone-900',
+                ? 'bg-bosque-900/6 font-medium text-bosque-900'
+                : 'text-bosque-700/75 hover:bg-bosque-900/5 hover:text-bosque-900',
             ]}
           >
             {item.label}
+            {
+              isActive(item.href) && (
+                <span
+                  class="absolute inset-x-3 -bottom-px h-0.5 rounded-full bg-bronce-500"
+                  aria-hidden="true"
+                />
+              )
+            }
           </a>
         ))
       }
@@ -51,7 +59,7 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
     <div class="flex items-center gap-2">
       <a
         href="/contacto"
-        class="hidden rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition-all duration-300 ease-[var(--ease-organic)] hover:-translate-y-0.5 hover:bg-terracota-700 sm:inline-block"
+        class="hidden rounded-full bg-bosque-900 px-5 py-2.5 text-sm font-medium text-cream shadow-sm transition-all duration-300 ease-[var(--ease-organic)] hover:-translate-y-0.5 hover:bg-bronce-600 hover:shadow-md sm:inline-flex"
       >
         Reservar sesión
       </a>
@@ -59,7 +67,7 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
       <button
         type="button"
         id="menu-toggle"
-        class="inline-flex size-10 items-center justify-center rounded-full text-stone-700 transition-colors hover:bg-stone-200/70 lg:hidden"
+        class="inline-flex size-10 items-center justify-center rounded-full text-bosque-800 transition-colors duration-300 hover:bg-bosque-900/8 xl:hidden"
         aria-expanded="false"
         aria-controls="menu-movil"
         aria-label="Abrir menú de navegación"
@@ -71,11 +79,10 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
     </div>
   </div>
 
-  <!-- Menú móvil: se renderiza en el HTML y solo alterna el atributo hidden. -->
   <div
     id="menu-movil"
     hidden
-    class="border-t border-stone-200/70 bg-stone-50/95 backdrop-blur-md lg:hidden"
+    class="border-t border-bosque-900/8 bg-cream/95 backdrop-blur-xl xl:hidden"
   >
     <nav class="container-page flex flex-col gap-1 py-4" aria-label="Navegación principal móvil">
       {
@@ -84,18 +91,20 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             class:list={[
-              'rounded-2xl px-4 py-3 transition-colors',
-              isActive(item.href) ? 'bg-terracota-100/70 text-terracota-800' : 'hover:bg-stone-200/60',
+              'rounded-2xl px-4 py-3 transition-all duration-300 ease-[var(--ease-organic)]',
+              isActive(item.href)
+                ? 'bg-bosque-900/6 text-bosque-900'
+                : 'hover:bg-bosque-900/5',
             ]}
           >
-            <span class="block text-base font-medium text-stone-900">{item.label}</span>
-            {item.hint && <span class="block text-sm text-stone-500">{item.hint}</span>}
+            <span class="block text-base font-medium text-bosque-900">{item.label}</span>
+            {item.hint && <span class="block text-sm text-bosque-700/60">{item.hint}</span>}
           </a>
         ))
       }
       <a
         href="/contacto"
-        class="mt-2 rounded-full bg-stone-900 px-5 py-3 text-center text-base font-medium text-stone-50"
+        class="mt-2 rounded-full bg-bosque-900 px-5 py-3 text-center text-base font-medium text-cream transition-colors duration-300 hover:bg-bronce-600"
       >
         Reservar sesión
       </a>
@@ -125,8 +134,7 @@ const isActive = (href: string) => pathname === href || pathname.startsWith(`${h
       }
     });
 
-    // Cierra el menú al pasar a viewport de escritorio y evita estados inconsistentes.
-    const desktop = window.matchMedia('(min-width: 1024px)');
+    const desktop = window.matchMedia('(min-width: 1280px)');
     desktop.addEventListener('change', (event) => {
       if (event.matches) setOpen(false);
     });

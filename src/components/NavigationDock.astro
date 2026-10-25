@@ -2,19 +2,15 @@
 import { NAV_PRIMARY, SITE } from '../consts';
 
 /**
- * Glass Dock — barra de navegacion inferior flotante con las 8 solapas
- * oficiales del proyecto. Diseno minimalista: pastillas translucidas con
- * backdrop-blur sobre la paleta institucional (crema / verde bosque / bronce).
- * Mobile: dock horizontal con scroll nativo oculto. Desktop: barra centrada.
- * Cero JavaScript: navegacion por enlaces estaticos + aria-current resuelto
- * en el build.
+ * Dock inferior SOLO en móvil (DESIGN.md).
+ * En desktop el header ya tiene el menú completo. Mostrar las dos barras
+ * recorta las etiquetas y duplica la navegación.
  */
 const pathname = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
 type IconName = 'persona' | 'reconexion' | 'sanacion' | 'entrevistas' | 'testimonios' | 'preguntas' | 'reserva' | 'mascotas';
 
-/** Iconografia SVG inline (stroke currentColor, sin dependencias externas). */
 const ICONS: Record<string, string> = {
   persona: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c0-3.9 3.1-6.5 7-6.5s7 2.6 7 6.5"/>',
   reconexion: '<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="12" r="2.5"/><path d="M8.5 12h7"/><path d="M12 4.5v3M12 16.5v3"/>',
@@ -26,7 +22,6 @@ const ICONS: Record<string, string> = {
   mascotas: '<circle cx="7" cy="9" r="1.6"/><circle cx="12" cy="7" r="1.6"/><circle cx="17" cy="9" r="1.6"/><path d="M12 12c-3 0-5 2.2-5 4.2 0 1.6 1.4 2.3 2.8 1.9 1.4-.4 3-.4 4.4 0 1.4.4 2.8-.3 2.8-1.9 0-2-2-4.2-5-4.2z"/>',
 };
 
-/** Mapeo ruta -> icono. Las 8 solapas del proyecto en orden oficial. */
 const DOCK_ITEMS: { href: string; label: string; short: string; icon: IconName }[] = [
   { href: '/sobre-mi', label: 'Quién soy', short: 'Quién soy', icon: 'persona' },
   { href: '/la-reconexion', label: 'La Reconexión', short: 'Reconexión', icon: 'reconexion' },
@@ -38,9 +33,6 @@ const DOCK_ITEMS: { href: string; label: string; short: string; icon: IconName }
   { href: '/mascotas', label: 'Sanación para mascotas', short: 'Mascotas', icon: 'mascotas' },
 ];
 
-// Sanity check en build: el dock debe cubrir rutas declaradas en la SSOT.
-// '/contacto' es la solapa de reserva y se valida aparte (no vive en
-// NAV_PRIMARY porque el header la expone como CTA dedicada).
 const navHrefs = new Set([...NAV_PRIMARY.map((n) => n.href), '/contacto']);
 for (const item of DOCK_ITEMS) {
   if (!navHrefs.has(item.href)) {
@@ -50,21 +42,21 @@ for (const item of DOCK_ITEMS) {
 ---
 
 <nav
-  aria-label="Navegación principal (dock)"
-  class="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:pb-4"
+  aria-label="Navegación principal (móvil)"
+  class="fixed inset-x-0 bottom-0 z-50 flex justify-center px-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] md:hidden"
 >
   <ul
-    class="flex w-full max-w-3xl items-stretch gap-1 overflow-x-auto rounded-full border border-bronce-500/20 bg-bosque-900/70 p-1.5 shadow-elevated backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden md:w-auto md:justify-center"
+    class="flex w-full items-stretch gap-1 overflow-x-auto rounded-full border border-bronce-500/20 bg-bosque-900/85 p-1.5 shadow-elevated backdrop-blur-md [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
   >
     {
       DOCK_ITEMS.map((item) => (
-        <li class="shrink-0 grow md:grow-0">
+        <li class="shrink-0">
           <a
             href={item.href}
             aria-current={isActive(item.href) ? 'page' : undefined}
             title={item.label}
             class:list={[
-              'flex flex-col items-center gap-0.5 rounded-full px-2 py-1.5 text-[10px] font-medium leading-tight transition-colors duration-300 md:flex-row md:gap-1.5 md:px-3.5 md:py-2 md:text-xs',
+              'flex flex-col items-center gap-0.5 rounded-full px-3 py-1.5 text-[10px] font-medium leading-tight transition-colors duration-300',
               isActive(item.href)
                 ? 'bg-cream text-bosque-900'
                 : 'text-cream/80 hover:bg-white/10 hover:text-cream',
@@ -77,7 +69,7 @@ for (const item of DOCK_ITEMS) {
               stroke-width="1.6"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="size-4 shrink-0 md:size-3.5"
+              class="size-4 shrink-0"
               aria-hidden="true"
               set:html={ICONS[item.icon]}
             />

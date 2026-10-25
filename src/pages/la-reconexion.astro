@@ -2,18 +2,18 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import Section from '../components/Section.astro';
-import FeatureCard from '../components/FeatureCard.astro';
 import Disclaimer from '../components/Disclaimer.astro';
 import CtaBanner from '../components/CtaBanner.astro';
-import { SITE } from '../consts';
+import Button from '../components/Button.astro';
+import { BUSINESS, SITE } from '../consts';
 import { serviceNode } from '../lib/schema';
 
 const path = '/la-reconexion';
 const url = new URL(path, SITE.url).href;
 
-const title = 'La Reconexión: qué es y a quién está dirigida';
+const title = 'La Reconexión® | Proceso presencial en Buenos Aires (CABA)';
 const description =
-  'La Reconexión es un proceso de dos sesiones en días consecutivos que se realiza una sola vez en la vida. Qué implica, cómo se desarrolla y para quién tiene sentido.';
+  'La Reconexión® es el proceso de reconexión con el universo que profundiza la Sanación Reconectiva®. Se facilita exclusivamente en modalidad presencial en la Ciudad Autónoma de Buenos Aires (CABA). Dos sesiones, una sola vez en la vida.';
 
 const breadcrumbs = [
   { name: 'Inicio', item: '/' },
@@ -21,80 +21,140 @@ const breadcrumbs = [
 ];
 
 const schema = [
-  serviceNode({ name: 'La Reconexión', description, url, serviceType: 'La Reconexión' }),
+  serviceNode({
+    name: 'La Reconexión',
+    description,
+    url,
+    serviceType: 'La Reconexión',
+  }),
 ];
 
-const destinatarios = [
-  { t: 'Personas en un punto de inflexión', d: 'Cambios vitales, cierres de etapa o decisiones que se vienen postergando.' },
-  { t: 'Quienes ya conocen el trabajo', d: 'Personas que hicieron sesiones de Sanación Reconectiva y quieren dar un paso distinto.' },
-  { t: 'Quienes buscan una experiencia acotada', d: 'Un proceso con inicio y final definidos, sin continuidad obligatoria.' },
-];
+const whatsappHref = `https://wa.me/${BUSINESS.whatsapp}?text=${encodeURIComponent(
+  'Hola José, quisiera consultar por La Reconexión presencial',
+)}`;
 ---
 
-<BaseLayout title={title} description={description} canonicalPath={path} breadcrumbs={breadcrumbs} schema={schema} mainEntityId={`${url}#service`}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalPath={path}
+  breadcrumbs={breadcrumbs}
+  schema={schema}
+  mainEntityId={`${url}#service`}
+>
   <PageHeader
-    eyebrow="Proceso único"
-    title="La Reconexión"
-    lead="Dos sesiones en días consecutivos que se realizan una sola vez en la vida. No es una serie de sesiones ni un tratamiento continuado: tiene un principio y un final claros."
+    eyebrow="Proceso presencial en CABA"
+    title="La Reconexión®"
+    lead="La Reconexión® (The Reconnection®) es el proceso de reconexión con el universo que profundiza la Sanación Reconectiva®. En mi práctica profesional en la Ciudad Autónoma de Buenos Aires (CABA), La Reconexión® se facilita exclusivamente en modalidad presencial."
     breadcrumbs={breadcrumbs}
   />
 
   <Section width="prose">
     <div class="prose prose-stone max-w-none prose-headings:font-display prose-headings:font-normal prose-a:text-terracota-700">
-      <h2>Qué es</h2>
       <p>
-        Placeholder de contenido. Explicar el origen del trabajo y su encuadre, evitando afirmaciones
-        sobre líneas energéticas planetarias presentadas como hechos científicos. Conviene enunciarlas
-        como el marco conceptual propio de la práctica.
+        Estas sanaciones y frecuencias evolutivas pertenecen a la Nueva Energía y nos llegan a través de un espectro
+        de luz e información. Gracias a La Reconexión® somos capaces de interactuar con estos nuevos niveles de luz e
+        información, y gracias a ellos podemos reconectarnos. Esto es algo nuevo, diferente y real.
       </p>
 
-      <h2>Cómo se desarrolla</h2>
-      <ol>
-        <li><strong>Primera sesión.</strong> Placeholder de contenido.</li>
-        <li><strong>Segunda sesión.</strong> Se realiza al día siguiente o, como máximo, con 72 horas de diferencia.</li>
-      </ol>
       <p>
-        Cada encuentro dura aproximadamente una hora. La persona permanece vestida y acostada, sin
-        contacto físico.
+        Las líneas meridianas o líneas de la acupuntura estaban originalmente conectadas con las líneas de la red
+        (retículos) que rodean el planeta Tierra y se expanden hacia el universo, especialmente con los puntos de
+        confluencia en lugares reconocidos como vórtices energéticos, tales como Machu Picchu en Perú o Sedona en
+        Arizona, EE. UU.
       </p>
 
-      <h2>Por qué una sola vez</h2>
       <p>
-        Placeholder de contenido. Explicar por qué el proceso no se repite y por qué no se ofrecen
-        «refuerzos» ni paquetes de continuidad.
+        Hace miles de años, la humanidad se desconectó de estas líneas y perdió la plenitud de la relación directa e
+        inherente con el Universo. Esto produjo un distanciamiento a nivel evolutivo.
       </p>
 
-      <h2>Qué no incluye</h2>
       <p>
-        No incluye diagnóstico, no reemplaza atención médica ni psicológica y no está pensada para
-        resolver un cuadro clínico. Si ese es tu objetivo, es preferible no avanzar.
+        Es a través de nuestro cuerpo electromagnético e intangible que recibimos la energía, la luz y la información.
+        Es el puente de comunicación entre lo grande y lo pequeño, el macrocosmos y el microcosmos, el Universo y la
+        Humanidad.
+      </p>
+
+      <p>
+        Reconectarse con la frecuencia expansiva e interdimensional de luz e información de la energía reconectiva es
+        poder vivir en la nueva energía, evolucionar nuestro ADN, ser uno con el universo y con todo lo que existe. Es
+        volver a la armonía original con la que fuimos creados.
+      </p>
+
+      <p>
+        Nuestro cuerpo está rodeado de un campo electromagnético, comúnmente conocido como aura. Este campo posee un
+        sistema de puntos y líneas reconocidos como los meridianos y puntos de acupuntura en la medicina tradicional
+        china. Estas líneas se denominan líneas axiatonales: – Axial: línea, estructura, eje, arquitectura y geometría
+        del ADN. – Tonal: tono, vibración, luz, color, sonido, frecuencia y resonancia.
+      </p>
+
+      <p>
+        Con La Reconexión® se acelera tu proceso evolutivo, ya que te permite acceder a quien realmente eres,
+        despertando progresivamente el ADN y activando el potencial cerebral. Incrementa la conexión con la Tierra y
+        con el Universo, eleva tu vibración y te abre a la multidimensionalidad, lo que posibilita que las
+        sincronicidades aumenten en tu vida. Clarifica tu propósito de vida y te ayuda a materializarlo.
+      </p>
+
+      <h2>Cómo se realiza</h2>
+      <p>
+        La Reconexión® se realiza una sola vez en la vida y sus efectos se integran de forma progresiva a lo largo de
+        toda la existencia. Se lleva a cabo en exactamente dos sesiones presenciales en camilla. Entre la primera y la
+        segunda sesión debe transcurrir un intervalo de descanso e integración de al menos 24 horas (un ciclo de sueño
+        intermedio) y como máximo 72 horas.
+      </p>
+      <p>
+        El facilitador inicia el proceso liberando los meridianos principales del cuerpo de posibles bloqueos que
+        dificulten la circulación fluida de estas frecuencias. Luego, une sistemáticamente cada punto activado en cada
+        meridiano, devolviendo la coherencia integral a las funciones corporales y propiciando el equilibrio
+        electromagnético y el alineamiento armónico entre cuerpo, mente y espíritu.
+      </p>
+
+      <h2>¿Qué se puede esperar de La Reconexión?</h2>
+      <p>
+        Al sincronizarte con estas frecuencias, tus niveles de energía y vitalidad se elevan de forma natural,
+        facilitando la disolución de patrones repetitivos y abriendo paso a una mayor claridad, desarrollo personal y
+        evolución espiritual. Es traer al presente tus potenciales dormidos para desplegarlos plenamente en tu vida
+        diaria y profesional.
+      </p>
+      <p>
+        Las sesiones de La Reconexión® se realizan con la persona acostada boca arriba sobre la camilla, completamente
+        vestida y sin contacto físico entre el facilitador y el consultante.
+      </p>
+
+      <blockquote>
+        <p>
+          «Si eres afortunado, tu sanación ocurrirá de la forma deseada; si eres muy afortunado, tu sanación llegará de
+          la forma que jamás hayas soñado: una forma que el universo ha reservado especialmente para ti».
+        </p>
+        <footer>— Dr. Eric Pearl</footer>
+      </blockquote>
+
+      <h2>Consulta y Reserva de Turnos en CABA</h2>
+      <p>
+        Las sesiones de La Reconexión® son exclusivamente presenciales en Buenos Aires y se coordinan con reserva
+        anticipada. Horarios de atención: Lunes a viernes de 09:00 a 16:00 hs (días hábiles).
+      </p>
+
+      <div class="not-prose mt-6">
+        <Button href={whatsappHref} size="lg" external>
+          Consultar por La Reconexión en CABA
+        </Button>
+      </div>
+
+      <p class="mt-8 text-sm text-stone-600">
+        Facilitado por José A. Facilitador Certificado de La Reconexión® (Nivel III), formado oficialmente en septiembre
+        de 2012 por el Dr. Eric Pearl y The Reconnection. Práctica presencial en la Ciudad Autónoma de Buenos Aires
+        (CABA).
       </p>
     </div>
   </Section>
 
-  <Section tone="muted">
-    <div class="max-w-2xl">
-      <p class="text-xs font-semibold tracking-[0.18em] text-salvia-800 uppercase">Destinatarios</p>
-      <h2 class="mt-3 text-3xl md:text-4xl">Para quién tiene sentido</h2>
-    </div>
-
-    <div class="mt-12 grid gap-5 md:grid-cols-3">
-      {
-        destinatarios.map((item, index) => (
-          <FeatureCard title={item.t} marker={String(index + 1).padStart(2, '0')} tone="terracota">
-            {item.d}
-          </FeatureCard>
-        ))
-      }
-    </div>
-
-    <div class="mt-12">
-      <Disclaimer title="Condiciones y límites" />
-    </div>
+  <Section width="prose" tone="muted">
+    <Disclaimer />
   </Section>
 
   <CtaBanner
     title="¿Es el momento de hacer La Reconexión?"
-    text="Si no estás segura o seguro, es preferible esperar. Escribime y lo conversamos sin compromiso."
+    text="Las sesiones son exclusivamente presenciales en CABA y se coordinan con reserva anticipada. Escribime y lo conversamos."
   />
 </BaseLayout>

@@ -94,16 +94,16 @@ export type NavItem = {
   hint?: string;
 };
 
-/** Orden alineado al menú del sitio WordPress original. */
+/** Orden del menú principal. Mascotas va junto a Sanación Reconectiva (misma modalidad a distancia). */
 export const NAV_PRIMARY: NavItem[] = [
   { href: '/sobre-mi', label: 'Quién soy', hint: 'Trayectoria y formación' },
   { href: '/la-reconexion', label: 'La Reconexión', hint: 'Proceso presencial en CABA' },
   { href: '/sanacion-reconectiva', label: 'Sanación Reconectiva', hint: 'Sesiones a distancia' },
+  { href: '/mascotas', label: 'Mascotas', hint: 'Sesiones a distancia para animales' },
   { href: '/entrevistas', label: 'Entrevistas', hint: 'Dr. Eric Pearl' },
   { href: '/testimonios', label: 'Testimonios', hint: 'Experiencias y videos' },
   { href: '/faq', label: 'Preguntas', hint: 'Dudas frecuentes' },
   { href: '/contacto', label: 'Reserva', hint: 'Turnos y contacto' },
-  { href: '/mascotas', label: 'Mascotas', hint: 'Sesiones a distancia para animales' },
   { href: '/blog', label: 'Blog', hint: 'Artículos y recursos' },
 ];
 
